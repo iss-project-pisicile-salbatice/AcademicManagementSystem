@@ -1,4 +1,4 @@
-<mxfile host="app.diagrams.net" modified="2022-03-11T13:19:19.103Z" agent="5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/99.0.4844.51 Safari/537.36" etag="pqIFRxj3pLH0KMGn3f0F" version="16.6.8" type="github">
+<mxfile host="app.diagrams.net" modified="2022-03-11T14:32:51.038Z" agent="5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/99.0.4844.51 Safari/537.36" etag="I4GK2cztGMqPhx_K6ACc" version="16.6.8" type="github">
   <diagram name="Page-1" id="efa7a0a1-bf9b-a30e-e6df-94a7791c09e9">
     <mxGraphModel dx="1422" dy="800" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="826" pageHeight="1169" background="none" math="0" shadow="0">
       <root>
@@ -27,6 +27,9 @@
         <mxCell id="INz58BHV65iG1LYPoduM-141" value="&lt;p style=&quot;margin: 0px ; margin-top: 6px ; text-align: center&quot;&gt;&lt;b&gt;Grades&lt;/b&gt;&lt;/p&gt;&lt;hr&gt;&lt;p style=&quot;margin: 0px ; margin-left: 8px&quot;&gt;+ CourseId: Fk (ref CId from Teachers)&lt;br&gt;+ StudentId: Fk (ref SId from Students)&lt;/p&gt;&lt;p style=&quot;margin: 0px ; margin-left: 8px&quot;&gt;+ Grade: Int&lt;/p&gt;&lt;p style=&quot;margin: 0px ; margin-left: 8px&quot;&gt;&lt;br&gt;&lt;/p&gt;" style="align=left;overflow=fill;html=1;dropTarget=0;" vertex="1" parent="1">
           <mxGeometry x="670" y="510" width="240" height="85" as="geometry" />
         </mxCell>
+        <mxCell id="INz58BHV65iG1LYPoduM-155" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;" edge="1" parent="1" source="INz58BHV65iG1LYPoduM-143" target="INz58BHV65iG1LYPoduM-154">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
         <mxCell id="INz58BHV65iG1LYPoduM-143" value="&lt;p style=&quot;margin: 0px ; margin-top: 6px ; text-align: center&quot;&gt;&lt;b&gt;Curriculum&lt;/b&gt;&lt;/p&gt;&lt;hr&gt;&lt;p style=&quot;margin: 0px ; margin-left: 8px&quot;&gt;+ CourseId:Int, PK&lt;br&gt;+ CourseName: String&lt;/p&gt;&lt;p style=&quot;margin: 0px ; margin-left: 8px&quot;&gt;+ TeacherId: Int, FK&lt;/p&gt;&lt;p style=&quot;margin: 0px ; margin-left: 8px&quot;&gt;+ YSId: Int, FK&lt;/p&gt;&lt;p style=&quot;margin: 0px ; margin-left: 8px&quot;&gt;&lt;br&gt;&lt;/p&gt;" style="align=left;overflow=fill;html=1;dropTarget=0;" vertex="1" parent="1">
           <mxGeometry x="670" y="730" width="240" height="110" as="geometry" />
         </mxCell>
@@ -53,6 +56,12 @@
         </mxCell>
         <mxCell id="INz58BHV65iG1LYPoduM-153" value="1:n" style="text;html=1;strokeColor=none;fillColor=none;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=0;" vertex="1" parent="1">
           <mxGeometry x="383" y="850" width="60" height="30" as="geometry" />
+        </mxCell>
+        <mxCell id="INz58BHV65iG1LYPoduM-154" value="&lt;p style=&quot;margin: 0px ; margin-top: 6px ; text-align: center&quot;&gt;&lt;b&gt;ys&lt;/b&gt;&lt;/p&gt;&lt;hr&gt;&lt;p style=&quot;margin: 0px ; margin-left: 8px&quot;&gt;+ Year, Int&lt;br&gt;+ Spec:: String&lt;/p&gt;&lt;p style=&quot;margin: 0px ; margin-left: 8px&quot;&gt;&lt;span&gt;+ YSId: Int, FK&lt;/span&gt;&lt;br&gt;&lt;/p&gt;&lt;p style=&quot;margin: 0px ; margin-left: 8px&quot;&gt;&lt;br&gt;&lt;/p&gt;" style="align=left;overflow=fill;html=1;dropTarget=0;" vertex="1" parent="1">
+          <mxGeometry x="670" y="920" width="240" height="110" as="geometry" />
+        </mxCell>
+        <mxCell id="INz58BHV65iG1LYPoduM-156" value="Adauga tabel students+ an si specializare" style="text;html=1;strokeColor=none;fillColor=none;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=0;" vertex="1" parent="1">
+          <mxGeometry x="120" y="620" width="160" height="150" as="geometry" />
         </mxCell>
       </root>
     </mxGraphModel>
