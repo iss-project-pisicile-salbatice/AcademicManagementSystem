@@ -1,5 +1,7 @@
-package com.pisicilesalbatice.ams.user;
+package com.pisicilesalbatice.ams.Controller;
 
+import com.pisicilesalbatice.ams.Model.User;
+import com.pisicilesalbatice.ams.Service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
