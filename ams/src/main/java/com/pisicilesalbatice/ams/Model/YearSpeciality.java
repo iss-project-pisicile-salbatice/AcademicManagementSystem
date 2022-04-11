@@ -10,7 +10,7 @@ public class YearSpeciality {
     private int year;
     private String speciality;
     @ManyToOne
-    @JoinColumn(name = "gId",nullable = false)
+    @JoinColumn(name = "g_id",nullable = false)
     private GroupId groupId;
 
     public YearSpeciality(){

@@ -10,12 +10,12 @@ public class Grade {
 
     @ManyToOne
     @MapsId("sId")
-    @JoinColumn(name = "sId")
+    @JoinColumn(name = "s_id")
     private Student student;
 
     @ManyToOne
     @MapsId("courseId")
-    @JoinColumn(name = "courseId")
+    @JoinColumn(name = "course_id")
     private Curriculum course;
 
     private int grade;

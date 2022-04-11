@@ -6,9 +6,9 @@ import java.io.Serializable;
 
 @Embeddable
 public class GradeKey implements Serializable {
-    @Column(name = "sId")
-    private int studentId;
+    @Column(name = "s_id")
+    private int sId;
 
-    @Column(name = "courseId")
+    @Column(name = "course_id")
     private int courseId;
 }

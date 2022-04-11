@@ -14,7 +14,7 @@ public class Student {
     private int year;
     private String Contract;
     @ManyToOne
-    @JoinColumn(name = "gId",nullable = false)
+    @JoinColumn(name = "g_id",nullable = false)
     private GroupId groupId;
     @OneToMany(mappedBy = "student")
     Set<Grade> grades;

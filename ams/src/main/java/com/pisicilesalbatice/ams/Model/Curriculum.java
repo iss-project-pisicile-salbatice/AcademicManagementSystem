@@ -13,7 +13,7 @@ public class Curriculum {
     private int courseId;
     private String courseName;
     @ManyToOne
-    @JoinColumn(name = "tId",nullable = false)
+    @JoinColumn(name = "t_id",nullable = false)
     private Teacher teacher;
     private int ysId;
     @OneToMany(mappedBy = "course")

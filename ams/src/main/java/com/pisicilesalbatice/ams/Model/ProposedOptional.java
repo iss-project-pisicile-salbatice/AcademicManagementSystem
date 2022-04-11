@@ -11,7 +11,7 @@ public class ProposedOptional {
     private String oName;
     private double rating;
     @ManyToOne
-    @JoinColumn(name = "tId",nullable = false)
+    @JoinColumn(name = "t_id",nullable = false)
     private Teacher teacher;
     public ProposedOptional(){}
 
