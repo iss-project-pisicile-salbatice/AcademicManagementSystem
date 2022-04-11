@@ -4,16 +4,16 @@ import javax.persistence.*;
 import java.util.Set;
 
 @Entity
-@Table(name = "Teachers")
+@Table(name = "teacher")
 public class Teacher{
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy=GenerationType.IDENTITY)
     private int tId;
     private String degree;
     @OneToMany(mappedBy = "teacher")
     private Set<ProposedOptional> optionals;
     @OneToMany(mappedBy = "teacher")
-    private Set<Curriculum> courses;
+    private Set<Course> courses;
 
 
     public Teacher(){

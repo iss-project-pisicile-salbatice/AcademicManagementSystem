@@ -6,18 +6,22 @@ import javax.persistence.*;
 @Table(name="proposed_optional")
 public class ProposedOptional {
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy=GenerationType.IDENTITY)
     private int optionalId;
-    private String oName;
+
+    private String name;
+
     private double rating;
+
     @ManyToOne
     @JoinColumn(name = "t_id",nullable = false)
     private Teacher teacher;
+
     public ProposedOptional(){}
 
-    public ProposedOptional(int optionalId, String oName, double rating) {
+    public ProposedOptional(int optionalId, String name, double rating) {
         this.optionalId = optionalId;
-        this.oName = oName;
+        this.name = name;
         this.rating = rating;
     }
 
@@ -30,11 +34,11 @@ public class ProposedOptional {
     }
 
     public String getoName() {
-        return oName;
+        return name;
     }
 
     public void setoName(String oName) {
-        this.oName = oName;
+        this.name = oName;
     }
 
     public double getRating() {
@@ -49,7 +53,7 @@ public class ProposedOptional {
     public String toString() {
         return "ProposedOptional{" +
                 "optionalId=" + optionalId +
-                ", oName='" + oName + '\'' +
+                ", oName='" + name + '\'' +
                 ", rating=" + rating +
                 '}';
     }

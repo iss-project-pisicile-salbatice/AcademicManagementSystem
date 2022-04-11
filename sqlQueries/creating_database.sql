@@ -11,4 +11,6 @@ create table Users (
         primary key (u_id)
 )
 
-drop table Users
+drop table Users;
+
+drop database amsDB;

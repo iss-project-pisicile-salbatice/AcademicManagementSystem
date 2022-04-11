@@ -3,7 +3,7 @@ package com.pisicilesalbatice.ams.Model;
 import javax.persistence.*;
 
 @Entity
-@Table(name="Users")
+@Table(name="my_user")
 public class User {
     @Id
     @GeneratedValue(strategy=GenerationType.IDENTITY)
