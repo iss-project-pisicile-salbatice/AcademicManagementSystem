@@ -1,4 +1,4 @@
-package com.pisicilesalbatice.ams.user;
+package com.pisicilesalbatice.ams.Model;
 
 import javax.persistence.*;
 
@@ -93,4 +93,5 @@ public class User {
                 ", about='" + about + '\'' +
                 '}';
     }
+
 }
