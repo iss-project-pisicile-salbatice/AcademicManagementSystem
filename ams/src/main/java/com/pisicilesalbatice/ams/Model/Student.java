@@ -1,5 +1,7 @@
 package com.pisicilesalbatice.ams.Model;
 
+import com.fasterxml.jackson.annotation.JsonManagedReference;
+
 import javax.persistence.*;
 import java.sql.Date;
 import java.util.Set;
@@ -7,6 +9,7 @@ import java.util.Set;
 @Entity
 @Table(name = "student")
 public class Student {
+    @JsonManagedReference
     @OneToMany(mappedBy = "student")
     Set<Grade> grades;
 
@@ -29,12 +32,10 @@ public class Student {
     public Student() {
     }
 
-    public Student(int sId, Date enrollmentDate, int year, String contract) {
-        this.sId = sId;
+    public Student(Date enrollmentDate,  String contract) {
         this.enrollmentDate = enrollmentDate;
         Contract = contract;
     }
-
 
     public int getsId() {
         return sId;

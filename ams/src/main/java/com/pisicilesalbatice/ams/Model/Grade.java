@@ -1,13 +1,16 @@
 package com.pisicilesalbatice.ams.Model;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
+
 import javax.persistence.*;
 
 @Entity
 @Table(name = "grade")
 public class Grade {
     @EmbeddedId
-    GradeKey id;
+    private GradeKey id;
 
+    @JsonBackReference
     @ManyToOne
     @MapsId("sId")
     @JoinColumn(name = "s_id")
