@@ -1,6 +1,7 @@
 package com.pisicilesalbatice.ams.Service;
 
 import com.pisicilesalbatice.ams.Model.Course;
+import com.pisicilesalbatice.ams.Model.DTO.BasicDiscipline;
 import com.pisicilesalbatice.ams.Model.Enrollment;
 import com.pisicilesalbatice.ams.Model.Student;
 import com.pisicilesalbatice.ams.Repository.StudentRepository;
@@ -52,31 +53,16 @@ public class StudentService {
                 });
     }
 
-    public Set<Enrollment> findGradesById(int id) {
-        var optional = studentRepository.findById(id);
+    public Set<Enrollment> getStudentEnrollments(int studentID) {
+        var optional = studentRepository.findById(studentID);
         if (optional.isPresent()) {
             return optional.get().getEnrollments();
         } else {
-            throw new RuntimeException(String.valueOf(id));
+            throw new RuntimeException("No student with id " + studentID);
         }
     }
 
-    public Set<Course> getStudentCourses(int sId) {
-        var optional = studentRepository.findById(sId);
-        if (optional.isPresent()) {
-            Set<Enrollment> enrollments = optional.get().getEnrollments();
-            return enrollments.stream().map(Enrollment::getCourse).collect(Collectors.toSet());
-        } else {
-            throw new RuntimeException("No student with id " + sId);
-        }
+    public Set<Course> getStudentCourses(int studentID) {
+        return this.getStudentEnrollments(studentID).stream().map(Enrollment::getCourse).collect(Collectors.toSet());
     }
-
-//    public Optional<Set<Grade>> findGradesById(int id) {
-//        return Optional.ofNullable(studentRepository.findById(id).get().getGrades());
-////        return studentRepository.findById(id).get().getGrades();
-////
-////        return studentRepository.findById(id)
-////                .map(Student::getGrades)
-////                .orElseThrow(() -> new RuntimeException(String.valueOf(id)));
-//    }
 }

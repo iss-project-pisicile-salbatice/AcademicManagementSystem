@@ -1,7 +1,7 @@
 package com.pisicilesalbatice.ams.Controller;
 
-import com.pisicilesalbatice.ams.Model.Course;
-import com.pisicilesalbatice.ams.Model.Enrollment;
+import com.pisicilesalbatice.ams.Model.DTO.BasicDiscipline;
+import com.pisicilesalbatice.ams.Model.DTO.BasicGrade;
 import com.pisicilesalbatice.ams.Model.Student;
 import com.pisicilesalbatice.ams.Model.YearSpeciality;
 import com.pisicilesalbatice.ams.Service.EnrollmentService;
@@ -11,7 +11,9 @@ import org.springframework.web.bind.annotation.*;
 
 import java.sql.Date;
 import java.util.List;
+import java.util.Map;
 import java.util.Set;
+import java.util.stream.Collectors;
 
 @RestController
 public class StudentController {
@@ -28,8 +30,6 @@ public class StudentController {
     public List<Student> getStudents() {
         return studentService.getStudents();
     }
-
-    ;
 
     @PostMapping("/students")
     Student newStudent(@RequestParam("contract") String contract,
@@ -55,8 +55,10 @@ public class StudentController {
     }
 
     @GetMapping("/students/grades/{id}")
-    public Set<Enrollment> getGrades(@PathVariable Integer id) {
-        return studentService.findGradesById(id);
+    public Map<String, List<BasicGrade>> getGrades(@PathVariable Integer id) {
+        var gradeList = studentService.getStudentEnrollments(id).stream().map(BasicGrade::new).collect(Collectors.toSet());
+
+        return gradeList.stream().collect(Collectors.groupingBy(BasicDiscipline::getYearSpeciality));
     }
 
     @GetMapping("/students/enroll")
@@ -75,7 +77,7 @@ public class StudentController {
     }
 
     @GetMapping("/students/courses/{sId}")
-    public Set<Course> getStudentCourses(@PathVariable Integer sId){
-        return studentService.getStudentCourses(sId);
+    public Set<BasicDiscipline> getStudentCourses(@PathVariable Integer sId){
+        return studentService.getStudentCourses(sId).stream().map(BasicDiscipline::new).collect(Collectors.toSet());
     }
 }
