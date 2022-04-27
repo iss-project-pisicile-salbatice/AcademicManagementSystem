@@ -1,7 +1,7 @@
 package com.pisicilesalbatice.ams.Service;
 
 import com.pisicilesalbatice.ams.Model.Student;
-import com.pisicilesalbatice.ams.Model.StudentGroup;
+import com.pisicilesalbatice.ams.Model.Group;
 import com.pisicilesalbatice.ams.Model.YearSpeciality;
 import com.pisicilesalbatice.ams.Repository.StudentGroupRepository;
 import com.pisicilesalbatice.ams.Repository.StudentRepository;
@@ -45,15 +45,15 @@ public class EnrollmentService
             throw new RuntimeException("Student with id: " + studentID + " is already enrolled in 2 years!");
         }
         // Check if the student is enrolled in the current speciality
-        if(student.getGroups().stream().map(StudentGroup::getyId).anyMatch(group_year -> group_year.equals(year))) {
+        if(student.getGroups().stream().map(Group::getyId).anyMatch(group_year -> group_year.equals(year))) {
             throw new RuntimeException("Student with id: " + studentID + " is already enrolled in the selected speciality!");
         }
 
         // Get the groups of the selected year
-        Set<StudentGroup> groups = year.getStudentGroup();
+        Set<Group> groups = year.getStudentGroup();
 
         // Check if there are any groups with less than the maximum capacity
-        Optional<StudentGroup> studentGroup = groups.stream().filter(group -> group.getStudents().size() < MAX_GROUP_SIZE).findFirst();
+        Optional<Group> studentGroup = groups.stream().filter(group -> group.getStudents().size() < MAX_GROUP_SIZE).findFirst();
         if(studentGroup.isPresent()) {
             // Add the current student to the found group
             studentGroup.get().getStudents().add(student);
@@ -63,7 +63,7 @@ public class EnrollmentService
             int lastGroupName = groups.stream()
                     .mapToInt(group -> Integer.parseInt(group.getGroupName()))
                     .max().orElse(year.getSpecialityHash() * 100 + year.getYear() * 10);
-            StudentGroup newGroup = new StudentGroup(String.valueOf(lastGroupName + 1), year);
+            Group newGroup = new Group(String.valueOf(lastGroupName + 1), year);
             this.studentGroupRepository.save(newGroup);
             student.getGroups().add(newGroup);
         }

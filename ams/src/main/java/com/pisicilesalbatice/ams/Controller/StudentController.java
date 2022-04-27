@@ -35,8 +35,10 @@ public class StudentController
     };
 
     @PostMapping("/students")
-    Student newStudent(@RequestBody Student student) {
-        return studentService.addStudent(student);
+    Student newStudent(@RequestParam("contract") String contract,
+                       @RequestParam("enrollmentDate") String enrollmentDate) {
+        Date enrollDate = Date.valueOf(enrollmentDate);
+        return studentService.addStudent(contract,enrollDate);
     }
 
     // Single item

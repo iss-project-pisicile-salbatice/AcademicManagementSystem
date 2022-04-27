@@ -6,8 +6,8 @@ import javax.persistence.*;
 import java.util.Set;
 
 @Entity
-@Table(name = "student_group")
-public class StudentGroup {
+@Table(name = "groups")
+public class Group {
     @Id
     @GeneratedValue(strategy=GenerationType.IDENTITY)
     private int gId;
@@ -21,16 +21,16 @@ public class StudentGroup {
     @ManyToMany(mappedBy = "groups")
     private Set<Student> students;
 
-    public StudentGroup() {
+    public Group() {
     }
 
-    public StudentGroup(String groupName, YearSpeciality yId)
+    public Group(String groupName, YearSpeciality yId)
     {
         this.groupName = groupName;
         this.yId = yId;
     }
 
-    public StudentGroup(int gId, String groupName) {
+    public Group(int gId, String groupName) {
         this.gId = gId;
         this.groupName = groupName;
     }

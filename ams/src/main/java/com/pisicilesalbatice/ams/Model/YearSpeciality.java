@@ -17,7 +17,7 @@ public class YearSpeciality {
     private String speciality;
 
     @OneToMany(mappedBy = "yId")
-    private Set<StudentGroup> studentGroup;
+    private Set<Group> group;
 
     public YearSpeciality(){
     }
@@ -49,9 +49,9 @@ public class YearSpeciality {
     }
 
     @JsonIgnore
-    public Set<StudentGroup> getStudentGroup()
+    public Set<Group> getStudentGroup()
     {
-        return studentGroup;
+        return group;
     }
 
     @JsonIgnore

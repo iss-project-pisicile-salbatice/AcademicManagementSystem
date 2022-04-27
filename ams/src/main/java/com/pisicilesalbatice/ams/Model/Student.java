@@ -5,7 +5,6 @@ import com.fasterxml.jackson.annotation.JsonManagedReference;
 
 import javax.persistence.*;
 import java.sql.Date;
-import java.util.HashSet;
 import java.util.Set;
 
 @Entity
@@ -21,21 +20,21 @@ public class Student {
 
     private Date enrollmentDate;
 
-    private String Contract; //???
+    private String contract; //???
 
     @ManyToMany
     @JoinTable(
-            name = "groups",
+            name = "student_group",
             joinColumns = @JoinColumn(name = "s_id"),
             inverseJoinColumns = @JoinColumn(name = "g_id"))
-    private Set<StudentGroup> groups;
+    private Set<Group> groups;
 
     public Student() {
     }
 
     public Student(Date enrollmentDate,  String contract) {
         this.enrollmentDate = enrollmentDate;
-        Contract = contract;
+        this.contract = contract;
     }
 
     public int getsId() {
@@ -56,11 +55,11 @@ public class Student {
 
 
     public String getContract() {
-        return Contract;
+        return contract;
     }
 
     public void setContract(String contract) {
-        Contract = contract;
+        this.contract = contract;
     }
 
     public Set<Grade> getGrades() {
@@ -72,7 +71,7 @@ public class Student {
     }
 
     @JsonIgnore
-    public Set<StudentGroup> getGroups()
+    public Set<Group> getGroups()
     {
         return groups;
     }

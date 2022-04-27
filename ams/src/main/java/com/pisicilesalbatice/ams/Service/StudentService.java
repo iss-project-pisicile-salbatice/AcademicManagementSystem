@@ -6,6 +6,7 @@ import com.pisicilesalbatice.ams.Repository.StudentRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.sql.Date;
 import java.util.List;
 import java.util.Optional;
 import java.util.Set;
@@ -25,7 +26,8 @@ public class StudentService
         return studentRepository.findAll();
     }
 
-    public Student addStudent(Student student){
+    public Student addStudent(String contract, Date date){
+        Student student = new Student(date,contract);
         return studentRepository.save(student);
     }
 
