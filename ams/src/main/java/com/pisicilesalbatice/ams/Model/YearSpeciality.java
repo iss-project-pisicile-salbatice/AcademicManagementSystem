@@ -58,8 +58,8 @@ public class YearSpeciality {
     public int getSpecialityHash() {
         return switch (speciality)
                 {
-                    case "Computer Science" -> 0;
-                    case "Computer Engineering" -> 1;
+                    case "Computer Science" -> 1;
+                    case "Computer Engineering" -> 2;
                     default -> 9;
                 };
     }

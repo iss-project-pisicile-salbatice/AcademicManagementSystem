@@ -11,10 +11,10 @@ import java.util.Set;
 public class Student {
     @JsonManagedReference
     @OneToMany(mappedBy = "student")
-    Set<Grade> grades;
+    private Set<Grade> grades;
 
     @Id
-    @GeneratedValue(strategy=GenerationType.IDENTITY)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int sId;
 
     private Date enrollmentDate;
@@ -32,7 +32,13 @@ public class Student {
     public Student() {
     }
 
-    public Student(Date enrollmentDate,  String contract) {
+    public Student(Date enrollmentDate, String contract) {
+        this.enrollmentDate = enrollmentDate;
+        Contract = contract;
+    }
+
+    public Student(int sId, Date enrollmentDate, String contract) {
+        this.sId = sId;
         this.enrollmentDate = enrollmentDate;
         Contract = contract;
     }
@@ -68,5 +74,9 @@ public class Student {
 
     public void setGrades(Set<Grade> grades) {
         this.grades = grades;
+    }
+
+    public Set<StudentGroup> getGroups() {
+        return groups;
     }
 }

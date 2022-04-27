@@ -76,7 +76,7 @@ public class StudentController
         System.out.println(yearSpecialityID.toString() + studentID.toString() + enrollmentDate);
 
         Date enrollDate = Date.valueOf(enrollmentDate);
-        //enrollmentService.enrollStudent(studentID, yearSpecialityID, enrollDate);
+        enrollmentService.enrollStudent(studentID, yearSpecialityID, enrollDate);
     }
 
 //    @PostMapping("/students/enroll/{id}/{date}")

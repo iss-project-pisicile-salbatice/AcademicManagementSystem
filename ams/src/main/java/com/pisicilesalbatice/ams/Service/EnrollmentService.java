@@ -46,15 +46,19 @@ public class EnrollmentService
 
         var studentGroup = groups.stream().filter(group -> group.getStudents().size() < MAX_GROUP_SIZE).findFirst();
         if(studentGroup.isPresent()) {
-            studentGroup.get().getStudents().add(student);
+            student.getGroups().add(studentGroup.get());
+            //studentGroup.get().getStudents().add(student);
         } else {
             int lastGroupName = groups.stream()
                     .mapToInt(group -> Integer.parseInt(group.getGroupName()))
                     .max().orElse(year.getSpecialityHash() * 100 + year.getYear() * 10);
             var newGroup = new StudentGroup(String.valueOf(lastGroupName + 1), year);
             this.studentGroupRepository.save(newGroup);
+            student.getGroups().add(newGroup);
+            //newGroup.getStudents().add(student);
         }
 
         student.setEnrollmentDate(enrollDate);
+        this.studentRepository.save(student);
     }
 }
