@@ -72,20 +72,7 @@ public class StudentController
                              @RequestParam("studentID") Integer studentID,
                              @RequestParam("enrollmentDate") String enrollmentDate)
     {
-        System.out.println("YOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOO");
-        System.out.println(yearSpecialityID.toString() + studentID.toString() + enrollmentDate);
-
         Date enrollDate = Date.valueOf(enrollmentDate);
-        //enrollmentService.enrollStudent(studentID, yearSpecialityID, enrollDate);
+        enrollmentService.enrollStudent(studentID, yearSpecialityID, enrollDate);
     }
-
-//    @PostMapping("/students/enroll/{id}/{date}")
-//    void enrollToYear(@RequestBody Integer yearSpecialityID,
-//                      @PathVariable(value = "id") Integer studentID,
-//                      @PathVariable(value = "date") @DateTimeFormat(pattern = "yyyy-MM-dd") String enrollmentDate) {
-//
-//        // Convert string to date
-//        Date enrollDate = Date.valueOf(enrollmentDate);
-//        enrollmentService.enrollStudent(studentID, yearSpecialityID, enrollDate);
-//    }
 }

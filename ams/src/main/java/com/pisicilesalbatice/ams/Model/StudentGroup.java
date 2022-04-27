@@ -1,5 +1,7 @@
 package com.pisicilesalbatice.ams.Model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import javax.persistence.*;
 import java.util.Set;
 
@@ -55,6 +57,12 @@ public class StudentGroup {
 
     public void setStudents(Set<Student> students) {
         this.students = students;
+    }
+
+    @JsonIgnore
+    public YearSpeciality getyId()
+    {
+        return yId;
     }
 
     @Override

@@ -1,9 +1,11 @@
 package com.pisicilesalbatice.ams.Model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 
 import javax.persistence.*;
 import java.sql.Date;
+import java.util.HashSet;
 import java.util.Set;
 
 @Entity
@@ -27,7 +29,6 @@ public class Student {
             joinColumns = @JoinColumn(name = "s_id"),
             inverseJoinColumns = @JoinColumn(name = "g_id"))
     private Set<StudentGroup> groups;
-
 
     public Student() {
     }
@@ -68,5 +69,11 @@ public class Student {
 
     public void setGrades(Set<Grade> grades) {
         this.grades = grades;
+    }
+
+    @JsonIgnore
+    public Set<StudentGroup> getGroups()
+    {
+        return groups;
     }
 }
