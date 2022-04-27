@@ -22,6 +22,12 @@ public class StudentGroup {
     public StudentGroup() {
     }
 
+    public StudentGroup(String groupName, YearSpeciality yId)
+    {
+        this.groupName = groupName;
+        this.yId = yId;
+    }
+
     public StudentGroup(int gId, String groupName) {
         this.gId = gId;
         this.groupName = groupName;

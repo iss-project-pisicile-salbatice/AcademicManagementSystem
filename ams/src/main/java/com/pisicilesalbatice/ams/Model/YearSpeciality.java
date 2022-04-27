@@ -1,5 +1,7 @@
 package com.pisicilesalbatice.ams.Model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import javax.persistence.*;
 import java.util.Set;
 
@@ -25,6 +27,11 @@ public class YearSpeciality {
         this.speciality = speciality;
     }
 
+    public int getyId()
+    {
+        return yId;
+    }
+
     public int getYear() {
         return year;
     }
@@ -41,4 +48,19 @@ public class YearSpeciality {
         this.speciality = speciality;
     }
 
+    @JsonIgnore
+    public Set<StudentGroup> getStudentGroup()
+    {
+        return studentGroup;
+    }
+
+    @JsonIgnore
+    public int getSpecialityHash() {
+        return switch (speciality)
+                {
+                    case "Computer Science" -> 0;
+                    case "Computer Engineering" -> 1;
+                    default -> 9;
+                };
+    }
 }
