@@ -1,9 +1,11 @@
 package com.pisicilesalbatice.ams.Model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 
 import javax.persistence.*;
 import java.sql.Date;
+import java.util.HashSet;
 import java.util.Set;
 
 @Entity
@@ -11,10 +13,10 @@ import java.util.Set;
 public class Student {
     @JsonManagedReference
     @OneToMany(mappedBy = "student")
-    private Set<Grade> grades;
+    Set<Grade> grades;
 
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @GeneratedValue(strategy=GenerationType.IDENTITY)
     private int sId;
 
     private Date enrollmentDate;
@@ -28,17 +30,10 @@ public class Student {
             inverseJoinColumns = @JoinColumn(name = "g_id"))
     private Set<StudentGroup> groups;
 
-
     public Student() {
     }
 
-    public Student(Date enrollmentDate, String contract) {
-        this.enrollmentDate = enrollmentDate;
-        Contract = contract;
-    }
-
-    public Student(int sId, Date enrollmentDate, String contract) {
-        this.sId = sId;
+    public Student(Date enrollmentDate,  String contract) {
         this.enrollmentDate = enrollmentDate;
         Contract = contract;
     }
@@ -76,7 +71,9 @@ public class Student {
         this.grades = grades;
     }
 
-    public Set<StudentGroup> getGroups() {
+    @JsonIgnore
+    public Set<StudentGroup> getGroups()
+    {
         return groups;
     }
 }
