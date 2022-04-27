@@ -19,6 +19,9 @@ public class YearSpeciality {
     @OneToMany(mappedBy = "yId")
     private Set<Group> group;
 
+    @OneToMany(mappedBy = "year")
+    private Set<Course> courses;
+
     public YearSpeciality(){
     }
 

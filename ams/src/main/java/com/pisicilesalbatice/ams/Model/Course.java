@@ -4,32 +4,32 @@ import javax.persistence.*;
 import java.util.Set;
 
 @Entity
-@Table(name="course")
+@Table(name = "course")
 public class Course {
-
     @Id
-    @GeneratedValue(strategy=GenerationType.IDENTITY)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int courseId;
-
     private String courseName;
 
     @ManyToOne
-    @JoinColumn(name = "t_id",nullable = false)
+    @JoinColumn(name = "t_id", nullable = false)
     private Teacher teacher;
 
-    private int yId;
+    @ManyToOne
+    @JoinColumn(name = "y_id")
+    private YearSpeciality year;
 
     @OneToMany(mappedBy = "course")
-    Set<Grade>grades;
+    private Set<Enrollment> enrollments;
 
-    public Course(){
+    public Course() {
     }
 
-    public Course(int courseId, String courseName, Teacher teacherId, int yId) {
+    public Course(int courseId, String courseName, Teacher teacherId, YearSpeciality year) {
         this.courseId = courseId;
         this.courseName = courseName;
         this.teacher = teacherId;
-        this.yId = yId;
+        this.year = year;
     }
 
     public int getCourseId() {
@@ -56,12 +56,12 @@ public class Course {
         this.teacher = teacherId;
     }
 
-    public int getYId() {
-        return yId;
+    public YearSpeciality getYId() {
+        return year;
     }
 
-    public void setYId(int ysId) {
-        this.yId = ysId;
+    public void setYId(YearSpeciality year) {
+        this.year = year;
     }
 
     @Override
@@ -70,10 +70,9 @@ public class Course {
                 "courseId=" + courseId +
                 ", courseName='" + courseName + '\'' +
                 ", teacherId=" + teacher +
-                ", ysId=" + yId +
+                ", year" + year +
                 '}';
     }
-
 
 
 //    @JoinColumn(name = "Tid")

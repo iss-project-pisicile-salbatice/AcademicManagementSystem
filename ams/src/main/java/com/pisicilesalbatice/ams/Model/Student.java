@@ -10,10 +10,6 @@ import java.util.Set;
 @Entity
 @Table(name = "student")
 public class Student {
-    @JsonManagedReference
-    @OneToMany(mappedBy = "student")
-    Set<Grade> grades;
-
     @Id
     @GeneratedValue(strategy=GenerationType.IDENTITY)
     private int sId;
@@ -21,6 +17,10 @@ public class Student {
     private Date enrollmentDate;
 
     private String contract; //???
+
+    @JsonManagedReference
+    @OneToMany(mappedBy = "student")
+    Set<Enrollment> enrollments;
 
     @ManyToMany
     @JoinTable(
@@ -62,12 +62,12 @@ public class Student {
         this.contract = contract;
     }
 
-    public Set<Grade> getGrades() {
-        return grades;
+    public Set<Enrollment> getEnrollments() {
+        return enrollments;
     }
 
-    public void setGrades(Set<Grade> grades) {
-        this.grades = grades;
+    public void setEnrollments(Set<Enrollment> enrollments) {
+        this.enrollments = enrollments;
     }
 
     @JsonIgnore

@@ -6,7 +6,7 @@ import java.io.Serializable;
 import java.util.Objects;
 
 @Embeddable
-public class GradeKey implements Serializable {
+public class EnrollmentKey implements Serializable {
     @Column(name = "s_id")
     private int sId;
 
@@ -18,8 +18,8 @@ public class GradeKey implements Serializable {
     {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
-        GradeKey gradeKey = (GradeKey) o;
-        return sId == gradeKey.sId && courseId == gradeKey.courseId;
+        EnrollmentKey enrollmentKey = (EnrollmentKey) o;
+        return sId == enrollmentKey.sId && courseId == enrollmentKey.courseId;
     }
 
     @Override
