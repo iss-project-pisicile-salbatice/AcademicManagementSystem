@@ -68,17 +68,15 @@ public class StudentController
     @RequestMapping(
             value = "/students/enroll",
             method = RequestMethod.POST)
-    public void enrollToYear(@RequestBody Map<String, Object> dataHashMap)
+    public void enrollToYear(@RequestParam("yearSpecialityID") Integer yearSpecialityID,
+                             @RequestParam("studentID") Integer studentID,
+                             @RequestParam("enrollmentDate") String enrollmentDate)
     {
         System.out.println("YOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOO");
-        System.out.println(dataHashMap);
-
-        Integer yearSpecialityID = (Integer) JsonConverter.jsonToObject((String) dataHashMap.get("yearSpecialityID"), Integer.class);
-        Integer studentID = (Integer) JsonConverter.jsonToObject((String) dataHashMap.get("studentID"), Integer.class);
-        String enrollmentDate = (String) JsonConverter.jsonToObject((String) dataHashMap.get("enrollmentDate"), String.class);
+        System.out.println(yearSpecialityID.toString() + studentID.toString() + enrollmentDate);
 
         Date enrollDate = Date.valueOf(enrollmentDate);
-        enrollmentService.enrollStudent(studentID, yearSpecialityID, enrollDate);
+        //enrollmentService.enrollStudent(studentID, yearSpecialityID, enrollDate);
     }
 
 //    @PostMapping("/students/enroll/{id}/{date}")
