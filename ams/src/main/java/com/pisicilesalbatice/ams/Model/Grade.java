@@ -1,13 +1,16 @@
 package com.pisicilesalbatice.ams.Model;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
+
 import javax.persistence.*;
 
 @Entity
-@Table(name = "Grades")
+@Table(name = "grade")
 public class Grade {
     @EmbeddedId
-    GradeKey id;
+    private GradeKey id;
 
+    @JsonBackReference
     @ManyToOne
     @MapsId("sId")
     @JoinColumn(name = "s_id")
@@ -16,14 +19,14 @@ public class Grade {
     @ManyToOne
     @MapsId("courseId")
     @JoinColumn(name = "course_id")
-    private Curriculum course;
+    private Course course;
 
     private int grade;
 
     public Grade(){
     }
 
-    public Grade(GradeKey id, Student student, Curriculum course, int grade) {
+    public Grade(GradeKey id, Student student, Course course, int grade) {
         this.id = id;
         this.student = student;
         this.course = course;
@@ -47,11 +50,11 @@ public class Grade {
         this.student = student;
     }
 
-    public Curriculum getCourse() {
+    public Course getCourse() {
         return course;
     }
 
-    public void setCourse(Curriculum course) {
+    public void setCourse(Course course) {
         this.course = course;
     }
 

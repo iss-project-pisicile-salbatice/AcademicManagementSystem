@@ -22,8 +22,6 @@ public class UserController {
 
     @GetMapping
     public List<User> getUsers() {
-        userService.addUser(new User("userName1", "password1", 1, "Pop Andrei", "A student"));
-        userService.addUser(new User("userName1", "password2", 1, "Popan Andreea", "Another student"));
         return userService.getUsers();
     }
 }

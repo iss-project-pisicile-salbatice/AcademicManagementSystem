@@ -1,27 +1,29 @@
 package com.pisicilesalbatice.ams.Model;
 
 import javax.persistence.*;
+import java.util.Set;
 
 @Entity
-@Table(name="ys")
+@Table(name="year_speciality")
 public class YearSpeciality {
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy=GenerationType.IDENTITY)
+    private int yId;
+
     private int year;
+
     private String speciality;
-    @ManyToOne
-    @JoinColumn(name = "g_id",nullable = false)
-    private GroupId groupId;
+
+    @OneToMany(mappedBy = "yId")
+    private Set<StudentGroup> studentGroup;
 
     public YearSpeciality(){
     }
 
-    public YearSpeciality(int year, String speciality, GroupId gId) {
+    public YearSpeciality(int year, String speciality) {
         this.year = year;
         this.speciality = speciality;
-        this.groupId = gId;
     }
-
 
     public int getYear() {
         return year;
@@ -39,12 +41,4 @@ public class YearSpeciality {
         this.speciality = speciality;
     }
 
-
-    public GroupId getGroupId() {
-        return groupId;
-    }
-
-    public void setGroupId(GroupId groupId) {
-        this.groupId = groupId;
-    }
 }

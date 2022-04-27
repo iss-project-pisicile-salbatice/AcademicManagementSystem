@@ -1,32 +1,35 @@
 package com.pisicilesalbatice.ams.Model;
 
 import javax.persistence.*;
-import java.util.HashSet;
 import java.util.Set;
 
 @Entity
-@Table(name="Curriculum")
-public class Curriculum {
+@Table(name="course")
+public class Course {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy=GenerationType.IDENTITY)
     private int courseId;
+
     private String courseName;
+
     @ManyToOne
     @JoinColumn(name = "t_id",nullable = false)
     private Teacher teacher;
-    private int ysId;
+
+    private int yId;
+
     @OneToMany(mappedBy = "course")
     Set<Grade>grades;
 
-    public Curriculum(){
+    public Course(){
     }
 
-    public Curriculum(int courseId, String courseName, Teacher teacherId, int ysId) {
+    public Course(int courseId, String courseName, Teacher teacherId, int yId) {
         this.courseId = courseId;
         this.courseName = courseName;
         this.teacher = teacherId;
-        this.ysId = ysId;
+        this.yId = yId;
     }
 
     public int getCourseId() {
@@ -53,12 +56,12 @@ public class Curriculum {
         this.teacher = teacherId;
     }
 
-    public int getYsId() {
-        return ysId;
+    public int getYId() {
+        return yId;
     }
 
-    public void setYsId(int ysId) {
-        this.ysId = ysId;
+    public void setYId(int ysId) {
+        this.yId = ysId;
     }
 
     @Override
@@ -67,7 +70,7 @@ public class Curriculum {
                 "courseId=" + courseId +
                 ", courseName='" + courseName + '\'' +
                 ", teacherId=" + teacher +
-                ", ysId=" + ysId +
+                ", ysId=" + yId +
                 '}';
     }
 
