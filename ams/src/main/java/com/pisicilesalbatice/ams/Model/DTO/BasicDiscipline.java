@@ -3,7 +3,6 @@ package com.pisicilesalbatice.ams.Model.DTO;
 
 import com.pisicilesalbatice.ams.Model.Course;
 
-
 public class BasicDiscipline
 {
     private final Course course;
@@ -21,7 +20,7 @@ public class BasicDiscipline
     private void generateFields()
     {
         courseName = course.getCourseName();
-        teacherName = "Vancea " + course.getTeacherId().getDegree();
+        teacherName = "Prof. " + course.getTeacherId().getDegree();
         yearSpeciality = String.valueOf(course.getYId().getYear()) + " " + course.getYId().getSpeciality();
     }
 

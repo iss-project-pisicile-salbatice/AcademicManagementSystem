@@ -13,6 +13,10 @@ public class ProposedOptional {
     private String name;
 
     @ManyToOne
+    @JoinColumn(name = "ys_id")
+    private YearSpeciality yearSpeciality;
+
+    @ManyToOne
     @JoinColumn(name = "t_id",nullable = false)
     private Teacher teacher;
 
@@ -34,17 +38,24 @@ public class ProposedOptional {
         this.optionalId = optionalId;
     }
 
-    public String getoName() {
+    public String getName()
+    {
         return name;
-    }
-
-    public void setoName(String oName) {
-        this.name = oName;
     }
 
     public Set<OptionalRating> getOptionalRatings()
     {
         return optionalRatings;
+    }
+
+    public YearSpeciality getYearSpeciality()
+    {
+        return yearSpeciality;
+    }
+
+    public Teacher getTeacher()
+    {
+        return teacher;
     }
 
     public void setOptionalRatings(Set<OptionalRating> optionalRatings)

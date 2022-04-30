@@ -80,6 +80,7 @@ public class EnrollmentService
 
         // Save the enrollment date and update the student in the repository
         student.setEnrollmentDate(enrollDate);
+        // this.addMandatoryCourses(studentID, yearSpecialityID);
         this.studentRepository.save(student);
     }
 

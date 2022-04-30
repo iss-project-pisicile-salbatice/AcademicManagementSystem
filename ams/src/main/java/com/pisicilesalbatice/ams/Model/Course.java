@@ -4,6 +4,7 @@ import javax.persistence.*;
 import java.util.Set;
 
 @Entity
+@Inheritance(strategy = InheritanceType.JOINED)
 @Table(name = "course")
 public class Course {
     @Id
@@ -12,7 +13,7 @@ public class Course {
     private String courseName;
 
     @Column(columnDefinition = "boolean default false")
-    private boolean isOptional = false;
+    protected boolean isOptional = false;
 
     @ManyToOne
     @JoinColumn(name = "t_id", nullable = false)
@@ -28,8 +29,7 @@ public class Course {
     public Course() {
     }
 
-    public Course(int courseId, String courseName, Teacher teacherId, YearSpeciality year) {
-        this.courseId = courseId;
+    public Course(String courseName, Teacher teacherId, YearSpeciality year) {
         this.courseName = courseName;
         this.teacher = teacherId;
         this.year = year;

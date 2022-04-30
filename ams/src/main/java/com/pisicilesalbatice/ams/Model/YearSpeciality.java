@@ -22,6 +22,9 @@ public class YearSpeciality {
     @OneToMany(mappedBy = "year")
     private Set<Course> courses;
 
+    @OneToMany(mappedBy = "yearSpeciality")
+    private Set<ProposedOptional> proposedOptionals;
+
     public YearSpeciality(){
     }
 
@@ -61,6 +64,18 @@ public class YearSpeciality {
     public Set<Course> getCourses()
     {
         return courses;
+    }
+
+    @JsonIgnore
+    public Set<ProposedOptional> getProposedOptionals()
+    {
+        return proposedOptionals;
+    }
+
+    @JsonIgnore
+    public void setProposedOptionals(Set<ProposedOptional> proposedOptionals)
+    {
+        this.proposedOptionals = proposedOptionals;
     }
 
     @JsonIgnore

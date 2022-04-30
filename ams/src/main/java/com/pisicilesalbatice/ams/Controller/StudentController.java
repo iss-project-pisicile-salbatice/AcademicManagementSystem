@@ -2,9 +2,11 @@ package com.pisicilesalbatice.ams.Controller;
 
 import com.pisicilesalbatice.ams.Model.DTO.BasicDiscipline;
 import com.pisicilesalbatice.ams.Model.DTO.BasicGrade;
+import com.pisicilesalbatice.ams.Model.DTO.BasicProposedOptional;
 import com.pisicilesalbatice.ams.Model.Student;
 import com.pisicilesalbatice.ams.Model.YearSpeciality;
 import com.pisicilesalbatice.ams.Service.EnrollmentService;
+import com.pisicilesalbatice.ams.Service.OptionalService;
 import com.pisicilesalbatice.ams.Service.StudentService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
@@ -19,11 +21,14 @@ import java.util.stream.Collectors;
 public class StudentController {
     private final StudentService studentService;
     private final EnrollmentService enrollmentService;
+    private final OptionalService optionalService;
 
     @Autowired
-    public StudentController(StudentService studentService, EnrollmentService enrollmentService) {
+    public StudentController(StudentService studentService, EnrollmentService enrollmentService, OptionalService optionalService)
+    {
         this.studentService = studentService;
         this.enrollmentService = enrollmentService;
+        this.optionalService = optionalService;
     }
 
     @GetMapping("/students")
@@ -79,5 +84,10 @@ public class StudentController {
     @GetMapping("/students/courses/{sId}")
     public Set<BasicDiscipline> getStudentCourses(@PathVariable Integer sId){
         return studentService.getStudentCourses(sId).stream().map(BasicDiscipline::new).collect(Collectors.toSet());
+    }
+
+    @GetMapping("/students/proposed_optionals/{year_id}")
+    public List<BasicProposedOptional> getProposedOptionals(@PathVariable Integer year_id){
+        return optionalService.getProposedOptionals(year_id).stream().map(BasicProposedOptional::new).collect(Collectors.toList());
     }
 }
