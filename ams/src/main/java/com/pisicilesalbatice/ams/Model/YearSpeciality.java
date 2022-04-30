@@ -58,6 +58,12 @@ public class YearSpeciality {
     }
 
     @JsonIgnore
+    public Set<Course> getCourses()
+    {
+        return courses;
+    }
+
+    @JsonIgnore
     public int getSpecialityHash() {
         return switch (speciality)
                 {

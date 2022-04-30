@@ -34,8 +34,18 @@ public class Enrollment {
     }
 
     public Enrollment(EnrollmentKey id, Student student, Course course) {
+        this.id = id;
         this.student = student;
         this.course = course;
+        this.grade = null;
+    }
+
+    public Enrollment(Student student, Course course)
+    {
+        this.id = new EnrollmentKey(student.getsId(), course.getCourseId());
+        this.student = student;
+        this.course = course;
+        this.grade = null;
     }
 
     public EnrollmentKey getId() {

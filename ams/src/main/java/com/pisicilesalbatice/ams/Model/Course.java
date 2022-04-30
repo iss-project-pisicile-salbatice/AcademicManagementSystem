@@ -11,6 +11,9 @@ public class Course {
     private int courseId;
     private String courseName;
 
+    @Column(columnDefinition = "boolean default false")
+    private boolean isOptional = false;
+
     @ManyToOne
     @JoinColumn(name = "t_id", nullable = false)
     private Teacher teacher;
@@ -64,6 +67,16 @@ public class Course {
         this.year = year;
     }
 
+    public boolean isOptional()
+    {
+        return isOptional;
+    }
+
+    public void setOptional(boolean optional)
+    {
+        isOptional = optional;
+    }
+
     @Override
     public String toString() {
         return "Curriculum{" +
@@ -73,8 +86,4 @@ public class Course {
                 ", year" + year +
                 '}';
     }
-
-
-//    @JoinColumn(name = "Tid")
-
 }

@@ -1,6 +1,7 @@
 package com.pisicilesalbatice.ams.Model;
 
 import javax.persistence.*;
+import java.util.Set;
 
 @Entity
 @Table(name="proposed_optional")
@@ -11,18 +12,18 @@ public class ProposedOptional {
 
     private String name;
 
-    private double rating;
-
     @ManyToOne
     @JoinColumn(name = "t_id",nullable = false)
     private Teacher teacher;
 
+    @OneToMany(mappedBy = "proposedOptional")
+    private Set<OptionalRating> optionalRatings;
+
     public ProposedOptional(){}
 
-    public ProposedOptional(int optionalId, String name, double rating) {
+    public ProposedOptional(int optionalId, String name) {
         this.optionalId = optionalId;
         this.name = name;
-        this.rating = rating;
     }
 
     public int getOptionalId() {
@@ -41,12 +42,14 @@ public class ProposedOptional {
         this.name = oName;
     }
 
-    public double getRating() {
-        return rating;
+    public Set<OptionalRating> getOptionalRatings()
+    {
+        return optionalRatings;
     }
 
-    public void setRating(double rating) {
-        this.rating = rating;
+    public void setOptionalRatings(Set<OptionalRating> optionalRatings)
+    {
+        this.optionalRatings = optionalRatings;
     }
 
     @Override
@@ -54,9 +57,6 @@ public class ProposedOptional {
         return "ProposedOptional{" +
                 "optionalId=" + optionalId +
                 ", oName='" + name + '\'' +
-                ", rating=" + rating +
                 '}';
     }
-
-
 }

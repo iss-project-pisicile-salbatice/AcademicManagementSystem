@@ -6,22 +6,21 @@ import java.io.Serializable;
 import java.util.Objects;
 
 @Embeddable
-public class EnrollmentKey implements Serializable {
+public class OptionalRatingKey implements Serializable
+{
     @Column(name = "s_id")
     private int sId;
 
-    @Column(name = "course_id")
-    private int courseId;
+    @Column(name = "optional_id")
+    private int optionalId;
 
-    public EnrollmentKey()
-    {
+    public OptionalRatingKey()
+    {}
 
-    }
-
-    public EnrollmentKey(int sId, int courseId)
+    public OptionalRatingKey(int sId, int optionalId)
     {
         this.sId = sId;
-        this.courseId = courseId;
+        this.optionalId = optionalId;
     }
 
     @Override
@@ -29,22 +28,22 @@ public class EnrollmentKey implements Serializable {
     {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
-        EnrollmentKey enrollmentKey = (EnrollmentKey) o;
-        return sId == enrollmentKey.sId && courseId == enrollmentKey.courseId;
+        OptionalRatingKey that = (OptionalRatingKey) o;
+        return sId == that.sId && optionalId == that.optionalId;
     }
 
     @Override
     public int hashCode()
     {
-        return Objects.hash(sId, courseId);
+        return Objects.hash(sId, optionalId);
     }
 
     @Override
     public String toString()
     {
-        return "GradeKey{" +
+        return "OptionalRatingKey{" +
                 "sId=" + sId +
-                ", courseId=" + courseId +
+                ", optionalId=" + optionalId +
                 '}';
     }
 }

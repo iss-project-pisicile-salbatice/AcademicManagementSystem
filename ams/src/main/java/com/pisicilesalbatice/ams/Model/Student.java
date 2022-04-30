@@ -22,6 +22,9 @@ public class Student {
     @OneToMany(mappedBy = "student")
     Set<Enrollment> enrollments;
 
+    @OneToMany(mappedBy = "student")
+    Set<OptionalRating> optionalRatings;
+
     @ManyToMany
     @JoinTable(
             name = "student_group",
@@ -68,6 +71,16 @@ public class Student {
 
     public void setEnrollments(Set<Enrollment> enrollments) {
         this.enrollments = enrollments;
+    }
+
+    public Set<OptionalRating> getOptionalRatings()
+    {
+        return optionalRatings;
+    }
+
+    public void setOptionalRatings(Set<OptionalRating> optionalRatings)
+    {
+        this.optionalRatings = optionalRatings;
     }
 
     @JsonIgnore
