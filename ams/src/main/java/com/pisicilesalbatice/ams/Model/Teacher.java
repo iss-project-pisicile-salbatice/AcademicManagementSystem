@@ -5,9 +5,10 @@ import java.util.Set;
 
 @Entity
 @Table(name = "teacher")
-public class Teacher{
+public class Teacher
+{
     @Id
-    @GeneratedValue(strategy=GenerationType.IDENTITY)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int tId;
     private String degree;
     @OneToMany(mappedBy = "teacher")
@@ -16,37 +17,62 @@ public class Teacher{
     private Set<Course> courses;
 
 
-    public Teacher(){
+    public Teacher()
+    {
     }
 
-    public Teacher(int tId, String degree) {
+    public Teacher(int tId, String degree)
+    {
         this.tId = tId;
         this.degree = degree;
     }
 
-    public int gettId() {
+    public int gettId()
+    {
         return tId;
     }
 
-    public void settId(int tId) {
+    public void settId(int tId)
+    {
         this.tId = tId;
     }
 
-    public String getDegree() {
+    public String getDegree()
+    {
         return degree;
     }
 
-    public void setDegree(String degree) {
+    public void setDegree(String degree)
+    {
         this.degree = degree;
     }
 
+    public Set<ProposedOptional> getOptionals()
+    {
+        return optionals;
+    }
+
+    public void setOptionals(Set<ProposedOptional> optionals)
+    {
+        this.optionals = optionals;
+    }
+
+    public Set<Course> getCourses()
+    {
+        return courses;
+    }
+
+    public void setCourses(Set<Course> courses)
+    {
+        this.courses = courses;
+    }
+
     @Override
-    public String toString() {
+    public String toString()
+    {
         return "Teacher{" +
                 "tId=" + tId +
                 ", degree='" + degree + '\'' +
                 '}';
     }
-
-
 }

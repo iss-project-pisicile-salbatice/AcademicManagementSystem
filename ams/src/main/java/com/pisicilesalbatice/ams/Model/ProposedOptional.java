@@ -25,9 +25,11 @@ public class ProposedOptional {
 
     public ProposedOptional(){}
 
-    public ProposedOptional(int optionalId, String name) {
-        this.optionalId = optionalId;
+    public ProposedOptional(String name, YearSpeciality yearSpeciality, Teacher teacher)
+    {
         this.name = name;
+        this.yearSpeciality = yearSpeciality;
+        this.teacher = teacher;
     }
 
     public int getOptionalId() {
