@@ -6,7 +6,7 @@ import { Link } from "react-router";
 const LoginForm = () => {
   return (
     <div id="login-form-wrap">
-      <h2>Sign In</h2>
+      <h2 align="center">Sign In</h2>
       <form id="login-form">
         <p>
           <input
