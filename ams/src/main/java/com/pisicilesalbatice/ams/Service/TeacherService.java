@@ -1,16 +1,16 @@
 package com.pisicilesalbatice.ams.Service;
 
-import com.pisicilesalbatice.ams.Model.Course;
+import com.pisicilesalbatice.ams.Model.*;
 import com.pisicilesalbatice.ams.Model.DTO.BasicDiscipline;
 import com.pisicilesalbatice.ams.Model.DTO.BasicProposedOptional;
-import com.pisicilesalbatice.ams.Model.ProposedOptional;
-import com.pisicilesalbatice.ams.Model.Teacher;
-import com.pisicilesalbatice.ams.Model.YearSpeciality;
 import com.pisicilesalbatice.ams.Repository.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
+import java.util.stream.Stream;
 
 @Service
 public class TeacherService
@@ -67,5 +67,18 @@ public class TeacherService
         this.proposedOptionalRepository.save(newOptional);
         teacher.getOptionals().add(newOptional);
         teacherRepository.save(teacher);
+    }
+
+    public List<Enrollment> getCourseGrades(Integer teacherID) {
+        // todo: validate the teacher id
+        Teacher teacher = teacherRepository.findById(teacherID).get();
+
+        List<Enrollment> allGrades = new ArrayList<>();
+        for (Course course : teacher.getCourses())
+        {
+            allGrades = Stream.concat(allGrades.stream(), course.getEnrollments().stream()).collect(Collectors.toList());
+        }
+
+        return allGrades;
     }
 }

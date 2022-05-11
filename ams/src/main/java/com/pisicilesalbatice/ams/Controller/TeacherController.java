@@ -1,8 +1,9 @@
 package com.pisicilesalbatice.ams.Controller;
 
 import com.pisicilesalbatice.ams.Model.DTO.BasicDiscipline;
+import com.pisicilesalbatice.ams.Model.DTO.BasicGrade;
+import com.pisicilesalbatice.ams.Model.DTO.BasicGrading;
 import com.pisicilesalbatice.ams.Model.DTO.BasicProposedOptional;
-import com.pisicilesalbatice.ams.Model.Teacher;
 import com.pisicilesalbatice.ams.Service.TeacherService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
@@ -36,5 +37,10 @@ public class TeacherController
                          @RequestParam("yearSpecialityID") Integer yearSpecialityID,
                          @RequestParam("optionalName") String optionalName) {
         this.teacherService.proposeOptional(teacherID, yearSpecialityID, optionalName);
+    }
+
+    @GetMapping("teachers/grades/{teacher_id}")
+    List<BasicGrading> getGrades(@PathVariable Integer teacher_id) {
+        return this.teacherService.getCourseGrades(teacher_id).stream().map(BasicGrading::new).collect(Collectors.toList());
     }
 }

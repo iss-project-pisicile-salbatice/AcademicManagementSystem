@@ -5,7 +5,9 @@ import com.pisicilesalbatice.ams.Repository.EnrollmentRepository;
 import com.pisicilesalbatice.ams.Repository.StudentGroupRepository;
 import com.pisicilesalbatice.ams.Repository.StudentRepository;
 import com.pisicilesalbatice.ams.Repository.YearSpecialityRepository;
+import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
+import org.springframework.web.server.ResponseStatusException;
 
 import java.sql.Date;
 import java.util.List;
@@ -37,11 +39,11 @@ public class EnrollmentService
     private void validateStudentEnrollment(Student student, YearSpeciality yearSpeciality) {
         // Check if the students is enrolled in less than 2 groups
         if(student.getGroups().size() >= 2) {
-            throw new RuntimeException("Student with id: " + student.getsId() + " is already enrolled in 2 years!");
+            throw new ResponseStatusException(HttpStatus.CONFLICT, "Student with id: " + student.getsId() + " is already enrolled in 2 years!");
         }
         // Check if the student is enrolled in the current speciality
         if(student.getGroups().stream().map(Group::getyId).anyMatch(group_year -> group_year.equals(yearSpeciality))) {
-            throw new RuntimeException("Student with id: " + student.getsId() + " is already enrolled in the selected speciality!");
+            throw new ResponseStatusException(HttpStatus.CONFLICT, "Student with id: " + student.getsId() + " is already enrolled in the selected speciality (id = " + yearSpeciality.getyId() +  ")!");
         }
     }
 
@@ -80,7 +82,7 @@ public class EnrollmentService
 
         // Save the enrollment date and update the student in the repository
         student.setEnrollmentDate(enrollDate);
-        // this.addMandatoryCourses(studentID, yearSpecialityID);
+        this.addMandatoryCourses(studentID, yearSpecialityID);
         this.studentRepository.save(student);
     }
 

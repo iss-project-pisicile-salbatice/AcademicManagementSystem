@@ -77,6 +77,11 @@ public class Course {
         isOptional = optional;
     }
 
+    public Set<Enrollment> getEnrollments()
+    {
+        return enrollments;
+    }
+
     @Override
     public String toString() {
         return "Curriculum{" +
