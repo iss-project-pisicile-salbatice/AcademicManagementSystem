@@ -12,7 +12,7 @@ public class Course {
     private int courseId;
     private String courseName;
 
-    @Column(columnDefinition = "boolean default false")
+    @Column(columnDefinition = "bit default 0")
     protected boolean isOptional = false;
 
     @ManyToOne
