@@ -23,31 +23,30 @@ public class TeacherController
         this.teacherService = teacherService;
     }
 
-    @GetMapping("teachers/courses/{teacher_id}")
+    @GetMapping("/teachers/courses/{teacher_id}")
     List<BasicDiscipline> getCourses(@PathVariable Integer teacher_id) {
         return this.teacherService.getCourses(teacher_id).stream().map(BasicDiscipline::new).collect(Collectors.toList());
     }
 
-    @GetMapping("teachers/proposed_optionals/{teacher_id}")
+    @GetMapping("/teachers/proposed_optionals/{teacher_id}")
     List<BasicProposedOptional> getProposedOptionals(@PathVariable Integer teacher_id) {
         return this.teacherService.getProposedOptionals(teacher_id).stream().map(BasicProposedOptional::new).collect(Collectors.toList());
     }
 
-    @PostMapping("teachers/proposed_optionals")
+    @PostMapping("/teachers/proposed_optionals")
     void proposeOptional(@RequestParam("teacherID") Integer teacherID,
                          @RequestParam("yearSpecialityID") Integer yearSpecialityID,
                          @RequestParam("optionalName") String optionalName) {
         this.teacherService.proposeOptional(teacherID, yearSpecialityID, optionalName);
     }
 
-    @GetMapping("teachers/grades/{teacher_id}")
+    @GetMapping("/teachers/grades/{teacher_id}")
     Map<String, List<BasicGrading>> getGrades(@PathVariable Integer teacher_id) {
         var gradesList = this.teacherService.getCourseGrades(teacher_id).stream().map(BasicGrading::new).collect(Collectors.toList());
         return gradesList.stream().collect(Collectors.groupingBy(BasicGrading::getYearSpeciality));
     }
 
-    // todo: add some security here (so that teachers can't grade other teacher's students)
-    @PostMapping("teachers/grade_student")
+    @PostMapping("/teachers/grade_student")
     void gradeStudent(@RequestParam("teacherID") Integer teacherID,
                       @RequestParam("studentID") Integer studentID,
                       @RequestParam("courseID") Integer courseID,
