@@ -1,7 +1,6 @@
 package com.pisicilesalbatice.ams.Service;
 
-import com.pisicilesalbatice.ams.Model.Grade;
-import com.pisicilesalbatice.ams.Model.Student;
+import com.pisicilesalbatice.ams.Model.Enrollment;
 import com.pisicilesalbatice.ams.Repository.GradeRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -19,11 +18,11 @@ public class GradeService
         this.gradeRepository = repository;
     }
 
-    public List<Grade> getGrades() {
+    public List<Enrollment> getGrades() {
         return gradeRepository.findAll();
     }
 
-    public void addGrade(Grade grade){
-        gradeRepository.save(grade);
+    public void addGrade(Enrollment enrollment){
+        gradeRepository.save(enrollment);
     }
 }

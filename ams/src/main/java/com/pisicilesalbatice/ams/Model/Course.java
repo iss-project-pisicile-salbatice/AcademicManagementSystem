@@ -4,32 +4,35 @@ import javax.persistence.*;
 import java.util.Set;
 
 @Entity
-@Table(name="course")
+@Inheritance(strategy = InheritanceType.JOINED)
+@Table(name = "course")
 public class Course {
-
     @Id
-    @GeneratedValue(strategy=GenerationType.IDENTITY)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int courseId;
-
     private String courseName;
 
+    @Column(columnDefinition = "boolean default false")
+    protected boolean isOptional = false;
+
     @ManyToOne
-    @JoinColumn(name = "t_id",nullable = false)
+    @JoinColumn(name = "t_id", nullable = false)
     private Teacher teacher;
 
-    private int yId;
+    @ManyToOne
+    @JoinColumn(name = "y_id")
+    private YearSpeciality year;
 
     @OneToMany(mappedBy = "course")
-    Set<Grade>grades;
+    private Set<Enrollment> enrollments;
 
-    public Course(){
+    public Course() {
     }
 
-    public Course(int courseId, String courseName, Teacher teacherId, int yId) {
-        this.courseId = courseId;
+    public Course(String courseName, Teacher teacherId, YearSpeciality year) {
         this.courseName = courseName;
         this.teacher = teacherId;
-        this.yId = yId;
+        this.year = year;
     }
 
     public int getCourseId() {
@@ -56,12 +59,22 @@ public class Course {
         this.teacher = teacherId;
     }
 
-    public int getYId() {
-        return yId;
+    public YearSpeciality getYId() {
+        return year;
     }
 
-    public void setYId(int ysId) {
-        this.yId = ysId;
+    public void setYId(YearSpeciality year) {
+        this.year = year;
+    }
+
+    public boolean isOptional()
+    {
+        return isOptional;
+    }
+
+    public void setOptional(boolean optional)
+    {
+        isOptional = optional;
     }
 
     @Override
@@ -70,12 +83,7 @@ public class Course {
                 "courseId=" + courseId +
                 ", courseName='" + courseName + '\'' +
                 ", teacherId=" + teacher +
-                ", ysId=" + yId +
+                ", year" + year +
                 '}';
     }
-
-
-
-//    @JoinColumn(name = "Tid")
-
 }

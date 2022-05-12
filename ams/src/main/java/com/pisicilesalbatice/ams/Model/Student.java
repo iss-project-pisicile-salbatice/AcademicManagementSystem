@@ -1,5 +1,6 @@
 package com.pisicilesalbatice.ams.Model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 
 import javax.persistence.*;
@@ -9,32 +10,34 @@ import java.util.Set;
 @Entity
 @Table(name = "student")
 public class Student {
-    @JsonManagedReference
-    @OneToMany(mappedBy = "student")
-    Set<Grade> grades;
-
     @Id
     @GeneratedValue(strategy=GenerationType.IDENTITY)
     private int sId;
 
     private Date enrollmentDate;
 
-    private String Contract; //???
+    private String contract; //???
+
+    @JsonManagedReference
+    @OneToMany(mappedBy = "student")
+    Set<Enrollment> enrollments;
+
+    @OneToMany(mappedBy = "student")
+    Set<OptionalRating> optionalRatings;
 
     @ManyToMany
     @JoinTable(
-            name = "groups",
+            name = "student_group",
             joinColumns = @JoinColumn(name = "s_id"),
             inverseJoinColumns = @JoinColumn(name = "g_id"))
-    private Set<StudentGroup> groups;
-
+    private Set<Group> groups;
 
     public Student() {
     }
 
     public Student(Date enrollmentDate,  String contract) {
         this.enrollmentDate = enrollmentDate;
-        Contract = contract;
+        this.contract = contract;
     }
 
     public int getsId() {
@@ -55,18 +58,34 @@ public class Student {
 
 
     public String getContract() {
-        return Contract;
+        return contract;
     }
 
     public void setContract(String contract) {
-        Contract = contract;
+        this.contract = contract;
     }
 
-    public Set<Grade> getGrades() {
-        return grades;
+    public Set<Enrollment> getEnrollments() {
+        return enrollments;
     }
 
-    public void setGrades(Set<Grade> grades) {
-        this.grades = grades;
+    public void setEnrollments(Set<Enrollment> enrollments) {
+        this.enrollments = enrollments;
+    }
+
+    public Set<OptionalRating> getOptionalRatings()
+    {
+        return optionalRatings;
+    }
+
+    public void setOptionalRatings(Set<OptionalRating> optionalRatings)
+    {
+        this.optionalRatings = optionalRatings;
+    }
+
+    @JsonIgnore
+    public Set<Group> getGroups()
+    {
+        return groups;
     }
 }

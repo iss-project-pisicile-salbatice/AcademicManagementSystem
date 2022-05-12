@@ -1,6 +1,7 @@
 package com.pisicilesalbatice.ams.Model;
 
 import javax.persistence.*;
+import java.util.Set;
 
 @Entity
 @Table(name="proposed_optional")
@@ -11,18 +12,22 @@ public class ProposedOptional {
 
     private String name;
 
-    private double rating;
+    @ManyToOne
+    @JoinColumn(name = "ys_id")
+    private YearSpeciality yearSpeciality;
 
     @ManyToOne
     @JoinColumn(name = "t_id",nullable = false)
     private Teacher teacher;
 
+    @OneToMany(mappedBy = "proposedOptional")
+    private Set<OptionalRating> optionalRatings;
+
     public ProposedOptional(){}
 
-    public ProposedOptional(int optionalId, String name, double rating) {
+    public ProposedOptional(int optionalId, String name) {
         this.optionalId = optionalId;
         this.name = name;
-        this.rating = rating;
     }
 
     public int getOptionalId() {
@@ -33,20 +38,29 @@ public class ProposedOptional {
         this.optionalId = optionalId;
     }
 
-    public String getoName() {
+    public String getName()
+    {
         return name;
     }
 
-    public void setoName(String oName) {
-        this.name = oName;
+    public Set<OptionalRating> getOptionalRatings()
+    {
+        return optionalRatings;
     }
 
-    public double getRating() {
-        return rating;
+    public YearSpeciality getYearSpeciality()
+    {
+        return yearSpeciality;
     }
 
-    public void setRating(double rating) {
-        this.rating = rating;
+    public Teacher getTeacher()
+    {
+        return teacher;
+    }
+
+    public void setOptionalRatings(Set<OptionalRating> optionalRatings)
+    {
+        this.optionalRatings = optionalRatings;
     }
 
     @Override
@@ -54,9 +68,6 @@ public class ProposedOptional {
         return "ProposedOptional{" +
                 "optionalId=" + optionalId +
                 ", oName='" + name + '\'' +
-                ", rating=" + rating +
                 '}';
     }
-
-
 }
