@@ -1,8 +1,7 @@
 package com.pisicilesalbatice.ams.Controller;
 
-import com.pisicilesalbatice.ams.Model.DTO.BasicDiscipline;
-import com.pisicilesalbatice.ams.Model.DTO.BasicGrade;
-import com.pisicilesalbatice.ams.Model.DTO.BasicProposedOptional;
+import com.pisicilesalbatice.ams.Model.DTO.*;
+import com.pisicilesalbatice.ams.Model.Pair;
 import com.pisicilesalbatice.ams.Model.Student;
 import com.pisicilesalbatice.ams.Model.YearSpeciality;
 import com.pisicilesalbatice.ams.Service.EnrollmentService;
@@ -89,5 +88,14 @@ public class StudentController {
     @GetMapping("/students/proposed_optionals/{year_id}")
     public List<BasicProposedOptional> getProposedOptionals(@PathVariable Integer year_id){
         return optionalService.getProposedOptionals(year_id).stream().map(BasicProposedOptional::new).collect(Collectors.toList());
+    }
+
+    @PostMapping("/students/rate_optionals")
+    public void sendOptionalRatings(@RequestBody OptionalRatingsDTO ratings) {
+        this.optionalService.setOptionalRatings(
+                ratings.getStudentID(),
+                ratings.getYearSpecialityID(),
+                ratings.getRatings().stream().map(dto -> new Pair<>(dto.getProposedOptionalID(), dto.getPosition())).collect(Collectors.toList())
+                );
     }
 }

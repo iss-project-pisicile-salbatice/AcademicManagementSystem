@@ -7,6 +7,7 @@ public class BasicProposedOptional
 {
     private final ProposedOptional proposedOptional;
 
+    private Integer optionalID;
     private String courseName;
     private String teacherName;
     private String yearSpeciality;
@@ -19,9 +20,15 @@ public class BasicProposedOptional
 
     private void generateFields()
     {
+        optionalID = proposedOptional.getOptionalId();
         courseName = proposedOptional.getName();
         teacherName = "Prof. " + proposedOptional.getTeacher().getDegree();
         yearSpeciality = String.valueOf(proposedOptional.getYearSpeciality().getYear()) + " " + proposedOptional.getYearSpeciality().getSpeciality();
+    }
+
+    public Integer getOptionalID()
+    {
+        return optionalID;
     }
 
     public String getCourseName()

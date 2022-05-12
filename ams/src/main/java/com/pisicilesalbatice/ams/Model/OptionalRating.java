@@ -30,6 +30,7 @@ public class OptionalRating
 
     public OptionalRating(Student student, ProposedOptional proposedOptional, Integer rating)
     {
+        this.id = new OptionalRatingKey(student.getsId(), proposedOptional.getOptionalId());
         this.student = student;
         this.proposedOptional = proposedOptional;
         this.rating = rating;
