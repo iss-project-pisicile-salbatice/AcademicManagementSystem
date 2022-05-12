@@ -1,11 +1,11 @@
 package com.pisicilesalbatice.ams.Service;
 
 import com.pisicilesalbatice.ams.Model.*;
-import com.pisicilesalbatice.ams.Model.DTO.BasicDiscipline;
-import com.pisicilesalbatice.ams.Model.DTO.BasicProposedOptional;
 import com.pisicilesalbatice.ams.Repository.*;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
+import org.springframework.web.server.ResponseStatusException;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -20,12 +20,16 @@ public class TeacherService
     private final EnrollmentRepository enrollmentRepository;
     private final YearSpecialityRepository yearSpecialityRepository;
 
-    public TeacherService(TeacherRepository teacherRepository, ProposedOptionalRepository proposedOptionalRepository, EnrollmentRepository enrollmentRepository, YearSpecialityRepository yearSpecialityRepository)
+    @Autowired
+    private final GradeService gradeService;
+
+    public TeacherService(TeacherRepository teacherRepository, ProposedOptionalRepository proposedOptionalRepository, EnrollmentRepository enrollmentRepository, YearSpecialityRepository yearSpecialityRepository, GradeService gradeService)
     {
         this.teacherRepository = teacherRepository;
         this.proposedOptionalRepository = proposedOptionalRepository;
         this.enrollmentRepository = enrollmentRepository;
         this.yearSpecialityRepository = yearSpecialityRepository;
+        this.gradeService = gradeService;
     }
 
     public List<ProposedOptional> getProposedOptionals(Integer teacher_id)
@@ -80,5 +84,20 @@ public class TeacherService
         }
 
         return allGrades;
+    }
+
+    public void gradeStudent(Integer teacherID, Integer studentID, Integer courseID, Integer gradeValue)
+    {
+        // todo: validate the ids
+        // Get the teacher
+        Teacher teacher = teacherRepository.findById(teacherID).get();
+        // Check if this is course is taught by the current teacher
+        if(teacher.getCourses().stream().noneMatch(course -> course.getCourseId() == courseID))
+        {
+            throw new ResponseStatusException(HttpStatus.FORBIDDEN, "Teacher with id " + teacherID + " cannot grade course with id " + courseID);
+        }
+
+        // Grade the student
+        this.gradeService.gradeStudent(studentID, courseID, gradeValue);
     }
 }

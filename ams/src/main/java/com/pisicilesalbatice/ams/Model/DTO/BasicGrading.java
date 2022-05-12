@@ -9,6 +9,9 @@ public class BasicGrading
     private String yearSpeciality;
     private Integer grade;
 
+    private Integer studentID;
+    private Integer courseID;
+
     private Enrollment enrollment;
 
     public BasicGrading(Enrollment enrollment)
@@ -23,6 +26,8 @@ public class BasicGrading
         courseName = enrollment.getCourse().getCourseName();
         yearSpeciality = String.valueOf(enrollment.getCourse().getYId().getYear()) + " " + enrollment.getCourse().getYId().getSpeciality();
         grade = enrollment.getGrade();
+        studentID = enrollment.getStudent().getsId();
+        courseID = enrollment.getCourse().getCourseId();
     }
 
     public String getStudentName()
@@ -43,5 +48,15 @@ public class BasicGrading
     public Integer getGrade()
     {
         return grade;
+    }
+
+    public Integer getStudentID()
+    {
+        return studentID;
+    }
+
+    public Integer getCourseID()
+    {
+        return courseID;
     }
 }

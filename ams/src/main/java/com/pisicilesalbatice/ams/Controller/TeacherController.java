@@ -9,6 +9,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.Map;
 import java.util.stream.Collectors;
 
 @RestController
@@ -40,7 +41,18 @@ public class TeacherController
     }
 
     @GetMapping("teachers/grades/{teacher_id}")
-    List<BasicGrading> getGrades(@PathVariable Integer teacher_id) {
-        return this.teacherService.getCourseGrades(teacher_id).stream().map(BasicGrading::new).collect(Collectors.toList());
+    Map<String, List<BasicGrading>> getGrades(@PathVariable Integer teacher_id) {
+        var gradesList = this.teacherService.getCourseGrades(teacher_id).stream().map(BasicGrading::new).collect(Collectors.toList());
+        return gradesList.stream().collect(Collectors.groupingBy(BasicGrading::getYearSpeciality));
+    }
+
+    // todo: add some security here (so that teachers can't grade other teacher's students)
+    @PostMapping("teachers/grade_student")
+    void gradeStudent(@RequestParam("teacherID") Integer teacherID,
+                      @RequestParam("studentID") Integer studentID,
+                      @RequestParam("courseID") Integer courseID,
+                      @RequestParam("gradeValue") Integer gradeValue)
+    {
+        this.teacherService.gradeStudent(teacherID, studentID, courseID, gradeValue);
     }
 }
