@@ -10,7 +10,7 @@ public class ProposedOptional {
     @GeneratedValue(strategy=GenerationType.IDENTITY)
     private int optionalId;
 
-    private String name;
+    private String optionalName;
 
     @ManyToOne
     @JoinColumn(name = "ys_id")
@@ -25,9 +25,9 @@ public class ProposedOptional {
 
     public ProposedOptional(){}
 
-    public ProposedOptional(int optionalId, String name) {
+    public ProposedOptional(int optionalId, String optionalName) {
         this.optionalId = optionalId;
-        this.name = name;
+        this.optionalName = optionalName;
     }
 
     public int getOptionalId() {
@@ -38,9 +38,9 @@ public class ProposedOptional {
         this.optionalId = optionalId;
     }
 
-    public String getName()
+    public String getOptionalName()
     {
-        return name;
+        return optionalName;
     }
 
     public Set<OptionalRating> getOptionalRatings()
@@ -67,7 +67,7 @@ public class ProposedOptional {
     public String toString() {
         return "ProposedOptional{" +
                 "optionalId=" + optionalId +
-                ", oName='" + name + '\'' +
+                ", oName='" + optionalName + '\'' +
                 '}';
     }
 }

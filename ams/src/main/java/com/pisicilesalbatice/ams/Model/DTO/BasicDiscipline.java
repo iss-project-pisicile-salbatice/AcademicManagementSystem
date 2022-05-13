@@ -20,8 +20,8 @@ public class BasicDiscipline
     private void generateFields()
     {
         courseName = course.getCourseName();
-        teacherName = "Prof. " + course.getTeacherId().getDegree();
-        yearSpeciality = String.valueOf(course.getYId().getYear()) + " " + course.getYId().getSpeciality();
+        teacherName = "Prof. " + course.getTeacher().getDegree();
+        yearSpeciality = String.valueOf(course.getYear().getYear()) + " " + course.getYear().getSpeciality();
     }
 
     public String getCourseName()

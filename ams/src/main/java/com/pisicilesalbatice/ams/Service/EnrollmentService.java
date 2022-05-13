@@ -86,8 +86,8 @@ public class EnrollmentService
 
     public void addMandatoryCourses(Integer studentID, Integer yearSpecialityID) {
         // todo: error handling for missing year id or student id
-        Student student = this.studentRepository.findById(studentID).get();
-        YearSpeciality year = this.yearSpecialityRepository.findById(yearSpecialityID).get();
+        Student student = this.studentRepository.getById(studentID);
+        YearSpeciality year = this.yearSpecialityRepository.getById(yearSpecialityID);
 
         // Get all the courses for the year speciality
         Set<Course> courses = year.getCourses();

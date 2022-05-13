@@ -1,6 +1,5 @@
 package com.pisicilesalbatice.ams.Model.DTO;
 
-import com.pisicilesalbatice.ams.Model.Course;
 import com.pisicilesalbatice.ams.Model.ProposedOptional;
 
 public class BasicProposedOptional
@@ -19,7 +18,7 @@ public class BasicProposedOptional
 
     private void generateFields()
     {
-        courseName = proposedOptional.getName();
+        courseName = proposedOptional.getOptionalName();
         teacherName = "Prof. " + proposedOptional.getTeacher().getDegree();
         yearSpeciality = String.valueOf(proposedOptional.getYearSpeciality().getYear()) + " " + proposedOptional.getYearSpeciality().getSpeciality();
     }

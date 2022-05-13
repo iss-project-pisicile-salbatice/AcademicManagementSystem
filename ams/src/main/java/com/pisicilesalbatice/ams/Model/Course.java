@@ -1,20 +1,22 @@
 package com.pisicilesalbatice.ams.Model;
 
 import javax.persistence.*;
+import java.util.HashSet;
+import java.util.List;
+import java.util.Objects;
 import java.util.Set;
+import java.util.stream.Collectors;
 
 @Entity
 @Inheritance(strategy = InheritanceType.JOINED)
 @Table(name = "course")
 public class Course {
+    @Column(columnDefinition = "bit default 0")
+    protected boolean isOptional = false;
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int courseId;
     private String courseName;
-
-    @Column(columnDefinition = "bit default 0")
-    protected boolean isOptional = false;
-
     @ManyToOne
     @JoinColumn(name = "t_id", nullable = false)
     private Teacher teacher;
@@ -29,10 +31,11 @@ public class Course {
     public Course() {
     }
 
-    public Course(String courseName, Teacher teacherId, YearSpeciality year) {
+    public Course(String courseName, Teacher teacher, YearSpeciality year) {
         this.courseName = courseName;
-        this.teacher = teacherId;
+        this.teacher = teacher;
         this.year = year;
+        enrollments = new HashSet<>();
     }
 
     public int getCourseId() {
@@ -51,30 +54,40 @@ public class Course {
         this.courseName = courseName;
     }
 
-    public Teacher getTeacherId() {
+    public Teacher getTeacher() {
         return teacher;
     }
 
-    public void setTeacherId(Teacher teacherId) {
-        this.teacher = teacherId;
+    public void setTeacher(Teacher teacher) {
+        this.teacher = teacher;
     }
 
-    public YearSpeciality getYId() {
+    public YearSpeciality getYear() {
         return year;
     }
 
-    public void setYId(YearSpeciality year) {
+    public void setYear(YearSpeciality year) {
         this.year = year;
     }
 
-    public boolean isOptional()
-    {
+    public boolean isOptional() {
         return isOptional;
     }
 
-    public void setOptional(boolean optional)
-    {
+    public void setOptional(boolean optional) {
         isOptional = optional;
+    }
+
+    public Float computeGradesMean() {
+        List<Integer> grades = enrollments.stream()
+                .map(Enrollment::getGrade)
+                .filter(Objects::nonNull)
+                .collect(Collectors.toList());
+        int numberOfGrades = grades.size();
+        if (numberOfGrades == 0) return (float) numberOfGrades;
+        int sumOfGrades = grades.stream()
+                .reduce(0, Integer::sum);
+        return (float) sumOfGrades / numberOfGrades;
     }
 
     @Override
