@@ -24,7 +24,7 @@ public class BasicGrading
     {
         studentName = "Student " + enrollment.getStudent().getsId();
         courseName = enrollment.getCourse().getCourseName();
-        yearSpeciality = String.valueOf(enrollment.getCourse().getYId().getYear()) + " " + enrollment.getCourse().getYId().getSpeciality();
+        yearSpeciality = String.valueOf(enrollment.getCourse().getYear().getYear()) + " " + enrollment.getCourse().getYear().getSpeciality();
         grade = enrollment.getGrade();
         studentID = enrollment.getStudent().getsId();
         courseID = enrollment.getCourse().getCourseId();

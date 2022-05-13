@@ -35,6 +35,10 @@ public class Teacher {
         return courses;
     }
 
+    public Set<ProposedOptional> getOptionals() {
+        return optionals;
+    }
+
     public int gettId() {
         return tId;
     }

@@ -1,10 +1,10 @@
 package com.pisicilesalbatice.ams.Controller;
 
-import com.pisicilesalbatice.ams.Model.AcceptedOptional;
 import com.pisicilesalbatice.ams.Model.Course;
+import com.pisicilesalbatice.ams.Model.DTO.BasicAcceptedOptional;
 import com.pisicilesalbatice.ams.Model.DTO.BasicDiscipline;
+import com.pisicilesalbatice.ams.Model.DTO.BasicProposedOptional;
 import com.pisicilesalbatice.ams.Model.DTO.BasicTeacherWithCourseResults;
-import com.pisicilesalbatice.ams.Model.ProposedOptional;
 import com.pisicilesalbatice.ams.Model.Teacher;
 import com.pisicilesalbatice.ams.Service.ChiefOptionalService;
 import com.pisicilesalbatice.ams.Service.ChiefTeacherService;
@@ -28,19 +28,19 @@ public class ChiefTeacherController {
     }
 
     @GetMapping("/chief/optionals")
-    public List<ProposedOptional> getProposedOptionals() {
-        return chiefOptionalService.getProposedOptionals();
+    public List<BasicProposedOptional> getProposedOptionals() {
+        return chiefOptionalService.getProposedOptionals().stream().map(BasicProposedOptional::new).collect(Collectors.toList());
     }
 
     @PostMapping("/chief/optionals")
-    public AcceptedOptional acceptedOptional(@RequestParam("optionalId") Integer optionalId) {
-        return chiefOptionalService.acceptOptional(optionalId);
+    public BasicAcceptedOptional acceptedOptional(@RequestParam("optionalId") Integer optionalId) {
+        return new BasicAcceptedOptional(chiefOptionalService.acceptOptional(optionalId));
     }
 
     @PutMapping("/chief/optionals")
-    public AcceptedOptional setMaximumStudents(@RequestParam("courseId") Integer courseId,
-                                               @RequestParam("maximumStudents") Integer maximumStudents) {
-        return chiefOptionalService.setMaximumStudents(courseId, maximumStudents);
+    public BasicAcceptedOptional setMaximumStudents(@RequestParam("courseId") Integer courseId,
+                                                    @RequestParam("maximumStudents") Integer maximumStudents) {
+        return new BasicAcceptedOptional(chiefOptionalService.setMaximumStudents(courseId, maximumStudents));
     }
 
     @GetMapping("/chief/teachers")

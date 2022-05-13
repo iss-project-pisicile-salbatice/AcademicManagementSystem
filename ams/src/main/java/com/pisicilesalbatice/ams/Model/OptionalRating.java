@@ -1,6 +1,7 @@
 package com.pisicilesalbatice.ams.Model;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 
 import javax.persistence.*;
 import java.util.Objects;
@@ -18,6 +19,7 @@ public class OptionalRating
     @JoinColumn(name = "s_id")
     private Student student;
 
+    @JsonManagedReference
     @ManyToOne
     @MapsId("optionalId")
     @JoinColumn(name = "optional_id")

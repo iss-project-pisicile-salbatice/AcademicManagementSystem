@@ -4,10 +4,10 @@ import javax.persistence.*;
 import java.util.Set;
 
 @Entity
-@Table(name="proposed_optional")
+@Table(name = "proposed_optional")
 public class ProposedOptional {
     @Id
-    @GeneratedValue(strategy=GenerationType.IDENTITY)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int optionalId;
 
     private String optionalName;
@@ -17,17 +17,19 @@ public class ProposedOptional {
     private YearSpeciality yearSpeciality;
 
     @ManyToOne
-    @JoinColumn(name = "t_id",nullable = false)
+    @JoinColumn(name = "t_id", nullable = false)
     private Teacher teacher;
 
     @OneToMany(mappedBy = "proposedOptional")
     private Set<OptionalRating> optionalRatings;
 
-    public ProposedOptional(){}
+    public ProposedOptional() {
+    }
 
-    public ProposedOptional(int optionalId, String optionalName) {
-        this.optionalId = optionalId;
+    public ProposedOptional(String optionalName, YearSpeciality yearSpeciality, Teacher teacher) {
+        this.yearSpeciality = yearSpeciality;
         this.optionalName = optionalName;
+        this.teacher = teacher;
     }
 
     public int getOptionalId() {
@@ -38,29 +40,24 @@ public class ProposedOptional {
         this.optionalId = optionalId;
     }
 
-    public String getOptionalName()
-    {
+    public String getOptionalName() {
         return optionalName;
     }
 
-    public Set<OptionalRating> getOptionalRatings()
-    {
+    public Set<OptionalRating> getOptionalRatings() {
         return optionalRatings;
     }
 
-    public YearSpeciality getYearSpeciality()
-    {
+    public void setOptionalRatings(Set<OptionalRating> optionalRatings) {
+        this.optionalRatings = optionalRatings;
+    }
+
+    public YearSpeciality getYearSpeciality() {
         return yearSpeciality;
     }
 
-    public Teacher getTeacher()
-    {
+    public Teacher getTeacher() {
         return teacher;
-    }
-
-    public void setOptionalRatings(Set<OptionalRating> optionalRatings)
-    {
-        this.optionalRatings = optionalRatings;
     }
 
     @Override

@@ -1,5 +1,7 @@
 package com.pisicilesalbatice.ams.Model;
 
+import com.fasterxml.jackson.annotation.JsonManagedReference;
+
 import javax.persistence.*;
 import java.util.HashSet;
 import java.util.List;
@@ -76,6 +78,10 @@ public class Course {
 
     public void setOptional(boolean optional) {
         isOptional = optional;
+    }
+
+    public Set<Enrollment> getEnrollments() {
+        return enrollments;
     }
 
     public Float computeGradesMean() {
