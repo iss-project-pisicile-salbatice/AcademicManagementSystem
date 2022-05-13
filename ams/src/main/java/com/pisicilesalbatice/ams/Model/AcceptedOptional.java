@@ -12,9 +12,9 @@ public class AcceptedOptional extends Course
         this.setOptional(true);
     }
 
-    public AcceptedOptional(String courseName, Teacher teacherId, YearSpeciality year, Integer maximumStudents)
+    public AcceptedOptional(String courseName, Teacher teacher, YearSpeciality year, Integer maximumStudents)
     {
-        super(courseName, teacherId, year);
+        super(courseName, teacher, year);
         this.setOptional(true);
         this.maximumStudents = maximumStudents;
     }
