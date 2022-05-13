@@ -1,6 +1,7 @@
 package com.pisicilesalbatice.ams.Model;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import org.springframework.data.util.Pair;
 
 import javax.persistence.*;
@@ -17,6 +18,8 @@ public class Teacher {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int tId;
     private String degree;
+
+    @JsonManagedReference
     @OneToMany(mappedBy = "teacher")
     private Set<ProposedOptional> optionals;
     @OneToMany(mappedBy = "teacher")

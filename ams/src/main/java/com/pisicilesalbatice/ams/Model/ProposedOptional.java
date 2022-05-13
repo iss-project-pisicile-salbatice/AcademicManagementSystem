@@ -1,5 +1,7 @@
 package com.pisicilesalbatice.ams.Model;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
+
 import javax.persistence.*;
 import java.util.Set;
 
@@ -16,6 +18,7 @@ public class ProposedOptional {
     @JoinColumn(name = "ys_id")
     private YearSpeciality yearSpeciality;
 
+    @JsonBackReference
     @ManyToOne
     @JoinColumn(name = "t_id", nullable = false)
     private Teacher teacher;

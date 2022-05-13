@@ -22,6 +22,7 @@ public class Student {
     @OneToMany(mappedBy = "student")
     Set<Enrollment> enrollments;
 
+    @JsonManagedReference
     @OneToMany(mappedBy = "student")
     Set<OptionalRating> optionalRatings;
 
