@@ -16,12 +16,12 @@ import java.util.function.Function;
 import java.util.stream.Collectors;
 
 @Service
-public class TeacherService {
+public class ChiefTeacherService {
     private final TeacherRepository teacherRepository;
     private final YearSpecialityRepository yearSpecialityRepository;
 
     @Autowired
-    public TeacherService(TeacherRepository teacherRepository, YearSpecialityRepository yearSpecialityRepository) {
+    public ChiefTeacherService(TeacherRepository teacherRepository, YearSpecialityRepository yearSpecialityRepository) {
         this.teacherRepository = teacherRepository;
         this.yearSpecialityRepository = yearSpecialityRepository;
     }

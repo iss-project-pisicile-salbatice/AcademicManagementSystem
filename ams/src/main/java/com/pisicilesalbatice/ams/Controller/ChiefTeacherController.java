@@ -7,7 +7,7 @@ import com.pisicilesalbatice.ams.Model.DTO.BasicTeacherWithCourseResults;
 import com.pisicilesalbatice.ams.Model.ProposedOptional;
 import com.pisicilesalbatice.ams.Model.Teacher;
 import com.pisicilesalbatice.ams.Service.ChiefOptionalService;
-import com.pisicilesalbatice.ams.Service.TeacherService;
+import com.pisicilesalbatice.ams.Service.ChiefTeacherService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.util.Pair;
 import org.springframework.web.bind.annotation.*;
@@ -19,12 +19,12 @@ import java.util.stream.Collectors;
 @RestController
 public class ChiefTeacherController {
     private ChiefOptionalService chiefOptionalService;
-    private TeacherService teacherService;
+    private ChiefTeacherService chiefTeacherService;
 
     @Autowired
-    public ChiefTeacherController(ChiefOptionalService chiefOptionalService, TeacherService teacherService) {
+    public ChiefTeacherController(ChiefOptionalService chiefOptionalService, ChiefTeacherService chiefTeacherService) {
         this.chiefOptionalService = chiefOptionalService;
-        this.teacherService = teacherService;
+        this.chiefTeacherService = chiefTeacherService;
     }
 
     @GetMapping("/chief/optionals")
@@ -45,7 +45,7 @@ public class ChiefTeacherController {
 
     @GetMapping("/chief/teachers")
     public List<BasicTeacherWithCourseResults> getTeachersWithCourseResults() {
-        Map<Teacher, Pair<Float, Map<Course, Float>>> teacherResults = teacherService.getTeachersWithCourseResults();
+        Map<Teacher, Pair<Float, Map<Course, Float>>> teacherResults = chiefTeacherService.getTeachersWithCourseResults();
         return teacherResults.entrySet().stream()
                 .map((entry) -> new BasicTeacherWithCourseResults(entry.getKey(),
                         entry.getValue().getSecond(),
@@ -55,7 +55,7 @@ public class ChiefTeacherController {
 
     @GetMapping("/chief/teachers/{teacherId}")
     public List<BasicDiscipline> getCoursesOfTeacher(@PathVariable(value = "teacherId") Integer teacherId) {
-        return teacherService.getCoursesTaughtByATeacher(teacherId).stream()
+        return chiefTeacherService.getCoursesTaughtByATeacher(teacherId).stream()
                 .map(BasicDiscipline::new)
                 .collect(Collectors.toList());
     }
@@ -63,7 +63,7 @@ public class ChiefTeacherController {
     @GetMapping("/chief/teachers/{teacherId}/{yearId}")
     public List<BasicDiscipline> getCoursesOfTeacherInAYear(@PathVariable(value = "teacherId") Integer teacherId,
                                                             @PathVariable(value = "yearId") Integer yearId) {
-        return teacherService.getCoursesTaughtByATeacherInAGivenYear(teacherId, yearId).stream()
+        return chiefTeacherService.getCoursesTaughtByATeacherInAGivenYear(teacherId, yearId).stream()
                 .map(BasicDiscipline::new)
                 .collect(Collectors.toList());
     }
