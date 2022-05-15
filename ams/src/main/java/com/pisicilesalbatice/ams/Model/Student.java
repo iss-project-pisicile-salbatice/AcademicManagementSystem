@@ -8,7 +8,7 @@ import java.util.Set;
 
 @Entity
 @Table(name = "student")
-public class Student {
+public class Student extends User {
     @JsonManagedReference
     @OneToMany(mappedBy = "student")
     Set<Grade> grades;
