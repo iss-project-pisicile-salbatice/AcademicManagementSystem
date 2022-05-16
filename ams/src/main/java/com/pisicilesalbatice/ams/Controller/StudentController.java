@@ -70,6 +70,11 @@ public class StudentController {
         return enrollmentService.getAllYears();
     }
 
+    @GetMapping("/students/enroll/{id}")
+    public List<YearSpeciality> getStudentEnrollmentYears(@PathVariable Integer id) {
+        return studentService.getYearSpecialities(id);
+    }
+
     @RequestMapping(
             value = "/students/enroll",
             method = RequestMethod.POST)
@@ -81,8 +86,8 @@ public class StudentController {
     }
 
     @GetMapping("/students/courses/{sId}")
-    public Set<BasicDiscipline> getStudentCourses(@PathVariable Integer sId){
-        return studentService.getStudentCourses(sId).stream().map(BasicDiscipline::new).collect(Collectors.toSet());
+    public List<BasicDiscipline> getStudentCourses(@PathVariable Integer sId){
+        return studentService.getStudentCourses(sId).stream().map(BasicDiscipline::new).collect(Collectors.toList());
     }
 
     @GetMapping("/students/proposed_optionals/{year_id}")

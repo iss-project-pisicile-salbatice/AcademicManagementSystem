@@ -10,6 +10,7 @@ public class BasicDiscipline
     private String courseName;
     private String teacherName;
     protected String yearSpeciality;
+    private boolean isOptional;
 
     public BasicDiscipline(Course course)
     {
@@ -22,6 +23,7 @@ public class BasicDiscipline
         courseName = course.getCourseName();
         teacherName = "Prof. " + course.getTeacher().getDegree();
         yearSpeciality = String.valueOf(course.getYear().getYear()) + " " + course.getYear().getSpeciality();
+        isOptional = course.isOptional();
     }
 
     public String getCourseName()
@@ -37,5 +39,10 @@ public class BasicDiscipline
     public String getYearSpeciality()
     {
         return yearSpeciality;
+    }
+
+    public boolean isOptional()
+    {
+        return isOptional;
     }
 }
