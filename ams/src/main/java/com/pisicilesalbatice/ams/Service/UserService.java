@@ -1,5 +1,6 @@
 package com.pisicilesalbatice.ams.Service;
 
+import com.pisicilesalbatice.ams.Model.ROLE;
 import com.pisicilesalbatice.ams.Model.User;
 import com.pisicilesalbatice.ams.Repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
