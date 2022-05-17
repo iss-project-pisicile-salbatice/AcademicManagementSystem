@@ -1,9 +1,7 @@
 package com.pisicilesalbatice.ams.Service;
 
-import com.pisicilesalbatice.ams.Model.Course;
+import com.pisicilesalbatice.ams.Model.*;
 import com.pisicilesalbatice.ams.Model.DTO.BasicDiscipline;
-import com.pisicilesalbatice.ams.Model.Enrollment;
-import com.pisicilesalbatice.ams.Model.Student;
 import com.pisicilesalbatice.ams.Repository.StudentRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -62,7 +60,14 @@ public class StudentService {
         }
     }
 
-    public Set<Course> getStudentCourses(int studentID) {
-        return this.getStudentEnrollments(studentID).stream().map(Enrollment::getCourse).collect(Collectors.toSet());
+    public List<Course> getStudentCourses(int studentID) {
+        return this.getStudentEnrollments(studentID).stream().map(Enrollment::getCourse).collect(Collectors.toList());
+    }
+
+    public List<YearSpeciality> getYearSpecialities(Integer id)
+    {
+        // todo: validate if the id is valid
+        Student student = studentRepository.findById(id).get();
+        return student.getGroups().stream().map(Group::getyId).collect(Collectors.toList());
     }
 }
