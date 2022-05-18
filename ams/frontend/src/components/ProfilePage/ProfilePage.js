@@ -1,10 +1,31 @@
-import React from "react";
+import React, {useEffect, useState} from "react";
 import "./ProfilePage.css";
 import Divider from '@mui/material/Divider';
 import Button from '@mui/material/Button';
 
 
 const ProfilePage = () => {
+    const [data, setData] = useState([]);
+
+    useEffect(() => {
+        const getData = async () => {
+            const dataFromServer = await fetchData(1);
+            setData(dataFromServer);
+            console.log(dataFromServer);
+        }
+
+        getData();
+    }, []);
+
+
+    const fetchData = async (id) => {
+        const res = await fetch("https://localhost:8080/students/${id}");
+        const data = await res.json();
+
+        return data;
+    }
+
+
     return (
         <div>
             <aside>
