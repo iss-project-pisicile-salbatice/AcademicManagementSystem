@@ -1,23 +1,22 @@
 package com.pisicilesalbatice.ams.Service;
 
-import com.pisicilesalbatice.ams.Model.Grade;
-import com.pisicilesalbatice.ams.Model.Student;
+import com.pisicilesalbatice.ams.Model.*;
+import com.pisicilesalbatice.ams.Model.DTO.BasicDiscipline;
 import com.pisicilesalbatice.ams.Repository.StudentRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.sql.Date;
 import java.util.List;
-import java.util.Optional;
 import java.util.Set;
+import java.util.stream.Collectors;
 
 @Service
-public class StudentService
-{
+public class StudentService {
     private final StudentRepository studentRepository;
 
     @Autowired
-    public StudentService(StudentRepository repository)
-    {
+    public StudentService(StudentRepository repository) {
         this.studentRepository = repository;
     }
 
@@ -25,7 +24,8 @@ public class StudentService
         return studentRepository.findAll();
     }
 
-    public Student addStudent(Student student){
+    public Student addStudent(String contract, Date date) {
+        Student student = new Student(date, contract);
         return studentRepository.save(student);
     }
 
@@ -51,22 +51,23 @@ public class StudentService
                 });
     }
 
-    public Set<Grade> findGradesById(int id) {
-        var optional = studentRepository.findById(id);
-        if(optional.isPresent()){
-            return optional.get().getGrades();
-        }
-        else {
-            throw new RuntimeException(String.valueOf(id));
+    public Set<Enrollment> getStudentEnrollments(int studentID) {
+        var optional = studentRepository.findById(studentID);
+        if (optional.isPresent()) {
+            return optional.get().getEnrollments();
+        } else {
+            throw new RuntimeException("No student with id " + studentID);
         }
     }
 
-//    public Optional<Set<Grade>> findGradesById(int id) {
-//        return Optional.ofNullable(studentRepository.findById(id).get().getGrades());
-////        return studentRepository.findById(id).get().getGrades();
-////
-////        return studentRepository.findById(id)
-////                .map(Student::getGrades)
-////                .orElseThrow(() -> new RuntimeException(String.valueOf(id)));
-//    }
+    public List<Course> getStudentCourses(int studentID) {
+        return this.getStudentEnrollments(studentID).stream().map(Enrollment::getCourse).collect(Collectors.toList());
+    }
+
+    public List<YearSpeciality> getYearSpecialities(Integer id)
+    {
+        // todo: validate if the id is valid
+        Student student = studentRepository.findById(id).get();
+        return student.getGroups().stream().map(Group::getyId).collect(Collectors.toList());
+    }
 }

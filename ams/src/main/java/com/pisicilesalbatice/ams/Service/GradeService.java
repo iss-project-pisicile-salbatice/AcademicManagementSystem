@@ -1,29 +1,59 @@
 package com.pisicilesalbatice.ams.Service;
 
-import com.pisicilesalbatice.ams.Model.Grade;
-import com.pisicilesalbatice.ams.Model.Student;
-import com.pisicilesalbatice.ams.Repository.GradeRepository;
+import com.pisicilesalbatice.ams.Model.Enrollment;
+import com.pisicilesalbatice.ams.Model.EnrollmentKey;
+import com.pisicilesalbatice.ams.Repository.EnrollmentRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
+import org.springframework.web.server.ResponseStatusException;
 
 import java.util.List;
 
 @Service
 public class GradeService
 {
-    private final GradeRepository gradeRepository;
+    private final EnrollmentRepository gradeRepository;
 
     @Autowired
-    public GradeService(GradeRepository repository)
+    public GradeService(EnrollmentRepository repository)
     {
         this.gradeRepository = repository;
     }
 
-    public List<Grade> getGrades() {
+    public List<Enrollment> getGrades() {
         return gradeRepository.findAll();
     }
 
-    public void addGrade(Grade grade){
-        gradeRepository.save(grade);
+    public void addGrade(Enrollment enrollment){
+        gradeRepository.save(enrollment);
+    }
+
+    private void checkExistsGradeID(Integer studentID, Integer courseID)
+    {
+        EnrollmentKey enrollmentKey = new EnrollmentKey(studentID, courseID);
+        if(gradeRepository.findById(enrollmentKey).isEmpty())
+        {
+            throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Enrollment with studentID " + studentID + " and courseID " + courseID + " not found");
+        }
+    }
+
+    public void gradeStudent(Integer studentID, Integer courseID, Integer gradeValue)
+    {
+        this.checkExistsGradeID(studentID, courseID);
+        Enrollment enrollment =  gradeRepository.getById(new EnrollmentKey(studentID, courseID));
+        this.gradeStudent(enrollment, gradeValue);
+    }
+
+    public void gradeStudent(Enrollment enrollment, Integer gradeValue)
+    {
+        // Validate the grade value
+        if(gradeValue < 1 || gradeValue > 10)
+        {
+            throw new ResponseStatusException(HttpStatus.CONFLICT, "Grades can only be between 1 and 10!");
+        }
+
+        enrollment.setGrade(gradeValue);
+        gradeRepository.save(enrollment);
     }
 }

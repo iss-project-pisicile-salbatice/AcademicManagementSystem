@@ -5,10 +5,10 @@ import com.fasterxml.jackson.annotation.JsonBackReference;
 import javax.persistence.*;
 
 @Entity
-@Table(name = "grade")
-public class Grade {
+@Table(name = "enrollment")
+public class Enrollment {
     @EmbeddedId
-    private GradeKey id;
+    private EnrollmentKey id;
 
     @JsonBackReference
     @ManyToOne
@@ -21,24 +21,38 @@ public class Grade {
     @JoinColumn(name = "course_id")
     private Course course;
 
-    private int grade;
+    private Integer grade = null;
 
-    public Grade(){
+    public Enrollment() {
     }
 
-    public Grade(GradeKey id, Student student, Course course, int grade) {
+    public Enrollment(EnrollmentKey id, Student student, Course course, Integer grade) {
         this.id = id;
         this.student = student;
         this.course = course;
         this.grade = grade;
     }
 
+    public Enrollment(EnrollmentKey id, Student student, Course course) {
+        this.id = id;
+        this.student = student;
+        this.course = course;
+        this.grade = null;
+    }
 
-    public GradeKey getId() {
+    public Enrollment(Student student, Course course)
+    {
+        this.id = new EnrollmentKey(student.getsId(), course.getCourseId());
+        this.student = student;
+        this.course = course;
+        this.grade = null;
+    }
+
+    public EnrollmentKey getId() {
         return id;
     }
 
-    public void setId(GradeKey id) {
+    public void setId(EnrollmentKey id) {
         this.id = id;
     }
 
@@ -58,7 +72,7 @@ public class Grade {
         this.course = course;
     }
 
-    public int getGrade() {
+    public Integer getGrade() {
         return grade;
     }
 
