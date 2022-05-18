@@ -2,8 +2,11 @@ import React from "react";
 import "./LoginForm.css";
 import "./LoginFormAnimation";
 import { Link } from "react-router";
+import { useNavigate } from "react-router";
 
-const LoginForm = () => {
+import auth from "../../usefullComponents/auth";
+const LoginForm = ()  => {
+  const navigate = useNavigate();
   return (
     <div id="login-form-wrap">
       <h2 align="center">Sign In</h2>
@@ -35,9 +38,15 @@ const LoginForm = () => {
           </i>
         </p>
         <p>
-          {/* <Link to={"/ProfilePage"}> */}
-            <input type="submit" id="login" value="Sign In" formAction="" />
-          {/* </Link> */}
+            <input type="submit" id="login" value="Sign In" formAction="" onClick={
+              ()=>{
+                console.log("I'VE CLICKED IT");
+                auth.login(()=>{
+                  navigate("/");
+                })
+              }
+              
+            } />
         </p>
       </form>
       <div id="create-account-wrap">
