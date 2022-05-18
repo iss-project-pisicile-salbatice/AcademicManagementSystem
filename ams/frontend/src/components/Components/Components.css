@@ -4,8 +4,8 @@
   display: flex;
   color:white
 }
-.d1 {
-  text-align: center;
+.studentName {
+  text-align: right;
   margin: auto 3px;
 }
 .avatar {
@@ -16,7 +16,8 @@
   border-width: 3px;
   border-color: white;
   border-style: outset;
-  background-image: url("./pics/profilePicture.jpg");
+  background-color: red;
+  /*background-image: url("./pics/profilePicture.jpg");*/
 }
 
 .components {

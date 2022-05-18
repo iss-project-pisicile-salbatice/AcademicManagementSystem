@@ -6,7 +6,7 @@ import Navbar from "../Navbar";
 export default function Menu() {
   return (
     <div>
-      <Navbar />
+      <Navbar studentName={'Ianis Teja'} />
       <div className="components">
         <a href="/enroll">
           <div className="box1">

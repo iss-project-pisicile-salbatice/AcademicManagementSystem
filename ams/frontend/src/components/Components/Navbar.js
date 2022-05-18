@@ -7,11 +7,11 @@ export default function Navbar() {
   const [isOpen, setIsOpen] = useState(false)
   return (
     <div className="Nav1">
-      <div className="d1">
-        <button onClick={()=> setIsOpen(true)} className="avatar" style={{backgroundImage:"https://s3.amazonaws.com/cms-assets.tutsplus.com/uploads/users/810/profiles/19338/profileImage/profile-square-extra-small.png"}}/>
+      <div className="studentName">
+        <button onClick={()=> setIsOpen(true)} className="avatar" style={{backgroundImage:`url(https://images.pexels.com/photos/34153/pexels-photo.jpg?auto=compress&cs=tinysrgb&h=350)`}}/>
         {/* <OptionsModal open={isOpen}/> */}
       </div>
-      <div className="d1">Student: Ianis Teja</div>
+      <div className="studentName">Student: Ianis Teja</div>
     </div>
 
   );

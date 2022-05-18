@@ -20,20 +20,30 @@ const ProfilePage = () => {
 
             </aside>
             <main>
-                <div class="content">
-                    <Button variant="contained"  style={{float: 'right', marginRight:"5%"}}>Edit Profile</Button>
+                <div class="content" style={{height: '100vh'}}>
+                    {/*<Button variant="contained"  style={{float: 'right', marginRight:"5%"}}>Edit Profile</Button>*/}
                     <h2 align="left">About</h2>
                     <Divider/>
-                    <p>LAALLALALLA</p>
-                    <br/>
-                    <p>LAALLALALLA</p>
-                    <br/>
-                    <p>LAALLALALLA</p>
-                    <br/>
-                    <p>LAALLALALLA</p>
-                    <br/>
-                    <p>LAALLALALLA</p>
-                    <br/>
+                    <div class="userProfileInfoFields">
+                        <p><b>Email</b></p>
+                        <br/>
+                        <p><b>Unique personal code</b></p>
+                        <br/>
+                        <p><b>Faculty</b></p>
+                        <br/>
+                        <p><b>Form of study</b></p>
+                        <br/>
+                    </div>
+                    <div class="userProfileInfoFieldsData">
+                        <p><b>asdf</b></p>
+                        <br/>
+                        <p><b>asdf</b></p>
+                        <br/>
+                        <p><b>asdf</b></p>
+                        <br/>
+                        <p><b>asdf</b></p>
+                        <br/>
+                    </div>
                 </div>
             </main>
 
