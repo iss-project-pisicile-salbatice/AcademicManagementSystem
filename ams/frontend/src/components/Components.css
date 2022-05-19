@@ -32,14 +32,13 @@
 }
 
 .avatar {
-    /* vertical-align: middle; */
+    
     width: 40px;
     height: 40px;
     border-radius: 50%;
     border-width: 3px;
     border-color: white;
     border-style: outset;
-    /*background-image: url("./pics/profilePicture.jpg");*/
     display: block;
 }
 
@@ -123,10 +122,13 @@ a:-webkit-any-link {
 .optionsElems {
 
 
-    background-color: #f9f9f9;
-    min-width: 120px;
-    box-shadow: 0px 8px 16px 0px rgba(0, 0, 0, 0.2);
-    padding: 3px 4px;
+    background-color: rgb(255, 255, 255);
+    color: white;
+    font-size: 15px;
+    padding: 10px 40px;
+    border-radius: 5px;
+    /* margin: 10px 0px; */
+    cursor: pointer;
 }
 
 .optionsElems:hover {
@@ -167,3 +169,4 @@ tr {
     width: 40%;
     float: right;
 }
+

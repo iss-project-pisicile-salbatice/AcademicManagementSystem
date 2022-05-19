@@ -1,0 +1,30 @@
+.enrollmentItem {
+  background: #f4f4f4;
+  margin: 5px;
+  padding: 10px 20px;
+  cursor: pointer;
+  display: flex;
+  justify-content: space-between;
+}
+
+.enrollmentItem input {
+  margin: 5px;
+  padding: 3px 7px;
+  align-items: center;
+  justify-content: space-between;
+  font-size: 10px;
+}
+
+.enrollmentContainer {
+  text-align: center;
+  width: 50%;
+  align-items: center;
+  margin: 0 auto;
+}
+
+.enrollmentCheckbox{
+    margin-top: auto;
+    margin-bottom: auto;
+}
+
+

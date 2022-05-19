@@ -7,13 +7,13 @@ export default function Grades(props) {
     const [nrGrades, setNrGrades] = useState(5);
     const [values, setValues] = useState([]);
 
-    const getStudentGrades = () => {
+    const getStudentGrades = async () => {
         var requestOptions = {
             method: 'GET',
             redirect: 'follow'
         };
 
-        fetch("http://localhost:8080/students/grades/1", requestOptions)
+      await  fetch("http://localhost:8080/students/grades/1", requestOptions)
             .then(response => response.json())
             .then(result => {
                 setValues(result);
@@ -32,7 +32,7 @@ export default function Grades(props) {
             <Navbar/>
             <h2 className="pageTitle">Grades</h2>
             <div>
-                <table>
+                {/* <table>
                     <tbody>
                     {values.map((value) => (
                         <tr>
@@ -41,7 +41,7 @@ export default function Grades(props) {
                         </tr>
                     ))}
                     </tbody>
-                </table>
+                </table> */}
             </div>
         </div>
     );

@@ -3,18 +3,20 @@ import React from "react";
 import { useRef } from "react";
 import "../Components.css";
 import Navbar from "../Navbar";
+import MenuBox from "./MenuBox";
+import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
+
 export default function Menu() {
   return (
     <div>
-      <Navbar studentName={'Ianis Teja'} />
+      <Navbar userName={'Ianis Teja'} role={'Student'} imgUser={'userMockUp.png'} />
       <div className="components">
-        <a href="/enroll">
-          <div className="box1">
-            <img src={require("../../resources/enroll.jpg")} className="logos"/>
-            Enroll
-          </div>
-        </a>
-        <a href="/syllabus">
+         <MenuBox link={'/enroll'} imgUrl={'enroll.jpg'} title={'Enroll'}/> 
+         <MenuBox link={'/syllabus'} imgUrl={'syllabus.jpg'} title={'Syllabus'} />
+         <MenuBox link={'/optionals'} imgUrl={'optionals.png'} title={'Optionals'}/>
+         <MenuBox link={'/contract'} imgUrl={'contract.jpg'} title={'Contract'}/>
+         <MenuBox link={'/grades'} imgUrl={'grades.jpg'} title={'Grades'}/>
+        {/* <a href="/syllabus">
           <div className="box1">
           <img src={require("../../resources/syllabus.jpg")} className="logos"/>
             Syllabus</div>
@@ -33,7 +35,7 @@ export default function Menu() {
           <div className="box1">
           <img src={require("../../resources/grades.jpg")} className="logos"/>
             Grades</div>
-        </a>
+        </a> */}
       </div>
     </div>
   );
