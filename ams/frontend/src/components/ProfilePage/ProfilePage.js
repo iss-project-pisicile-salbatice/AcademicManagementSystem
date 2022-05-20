@@ -17,7 +17,7 @@ const ProfilePage = () => {
   }, []);
 
   const fetchData = async (id) => {
-    const res = await fetch("https://localhost:8080/students/${id}");
+    const res = await fetch(`https://localhost:8080/students/${id}`);
     const data = await res.json();
     console.log(data);
     return data;
@@ -38,7 +38,17 @@ const ProfilePage = () => {
       </aside>
       <main>
         <div class="content" style={{ height: "100vh" }}>
-          {/*<Button variant="contained"  style={{float: 'right', marginRight:"5%"}}>Edit Profile</Button>*/}
+          <Button
+            variant="contained"
+            style={{
+              float: "right",
+              marginRight: "5%",
+              transform: "scale(1.2)",
+            }}
+            onClick={() => fetchData(1)}
+          >
+            Edit Profile
+          </Button>
           <h2 align="left">About</h2>
           <Divider />
           <div class="userProfileInfoFields">
@@ -58,8 +68,16 @@ const ProfilePage = () => {
               <b>Form of study</b>
             </p>
             <br />
+            <p>
+              <b>Phone </b>
+            </p>
+            <br />
           </div>
           <div class="userProfileInfoFieldsData">
+            <p>
+              <b>asdf</b>
+            </p>
+            <br />
             <p>
               <b>asdf</b>
             </p>

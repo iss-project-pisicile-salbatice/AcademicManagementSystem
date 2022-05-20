@@ -1,18 +1,18 @@
 import React from "react";
-import "./Enrollment.css";
 import { useState, useEffect } from "react";
+import "./Syllabus.css";
 
-const EnrollmentItem = ({ enrollment }) => {
+const SyllabusItem = ({ syllabusItem }) => {
   const [onToggle, setOnToggle] = useState("false");
-  console.log(onToggle);
+
   return (
-    <div className="enrollmentItem">
-      <div className="enrollmentData">
-        <h4>{enrollment.speciality}</h4>
-        <p>Year: {enrollment.year}</p>
+    <div className="syllabusItem">
+      <div className="syllabusData">
+        <h4>{syllabusItem.speciality}</h4>
+        <p>Year: {syllabusItem.year}</p>
       </div>
 
-      <div class="enrollmentCheckbox">
+      <div class="syllabusCheckbox">
         <label>Enroll</label>
         <input
           type="checkbox"
@@ -27,4 +27,4 @@ const EnrollmentItem = ({ enrollment }) => {
   );
 };
 
-export default EnrollmentItem;
+export default SyllabusItem;
