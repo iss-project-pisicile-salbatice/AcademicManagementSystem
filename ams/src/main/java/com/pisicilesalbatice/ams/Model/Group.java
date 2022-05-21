@@ -1,10 +1,12 @@
 package com.pisicilesalbatice.ams.Model;
-
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import javax.persistence.*;
+import java.util.List;
 import java.util.Set;
+import java.util.stream.Collectors;
 
+import org.springframework.data.util.Pair;
 @Entity
 @Table(name = "groups")
 public class Group {
@@ -63,6 +65,12 @@ public class Group {
     public YearSpeciality getyId()
     {
         return yId;
+    }
+
+    public List<Pair<Student,Float>> computeStudentResults(){
+        return students.stream()
+                .map((student) -> Pair.of(student,student.computeAverageGrade()))
+                .collect(Collectors.toList());
     }
 
     @Override
