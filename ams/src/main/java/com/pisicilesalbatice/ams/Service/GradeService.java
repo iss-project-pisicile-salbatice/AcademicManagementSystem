@@ -1,5 +1,7 @@
 package com.pisicilesalbatice.ams.Service;
 
+import com.pisicilesalbatice.ams.Exceptions.Exceptions.GradeNotFoundException;
+import com.pisicilesalbatice.ams.Exceptions.Exceptions.GradeServiceException;
 import com.pisicilesalbatice.ams.Model.Enrollment;
 import com.pisicilesalbatice.ams.Model.EnrollmentKey;
 import com.pisicilesalbatice.ams.Repository.EnrollmentRepository;
@@ -34,7 +36,7 @@ public class GradeService
         EnrollmentKey enrollmentKey = new EnrollmentKey(studentID, courseID);
         if(gradeRepository.findById(enrollmentKey).isEmpty())
         {
-            throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Enrollment with studentID " + studentID + " and courseID " + courseID + " not found");
+            throw new GradeNotFoundException("Enrollment with studentID " + studentID + " and courseID " + courseID + " not found");
         }
     }
 
@@ -50,7 +52,7 @@ public class GradeService
         // Validate the grade value
         if(gradeValue < 1 || gradeValue > 10)
         {
-            throw new ResponseStatusException(HttpStatus.CONFLICT, "Grades can only be between 1 and 10!");
+            throw new GradeServiceException("Grades can only be between 1 and 10!");
         }
 
         enrollment.setGrade(gradeValue);

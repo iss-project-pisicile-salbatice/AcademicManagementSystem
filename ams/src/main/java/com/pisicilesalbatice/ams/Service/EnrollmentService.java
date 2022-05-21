@@ -1,5 +1,8 @@
 package com.pisicilesalbatice.ams.Service;
 
+import com.pisicilesalbatice.ams.Exceptions.Exceptions.EnrollmentServiceException;
+import com.pisicilesalbatice.ams.Exceptions.Exceptions.StudentNotFoundException;
+import com.pisicilesalbatice.ams.Exceptions.Exceptions.YearSpecialityNotFoundException;
 import com.pisicilesalbatice.ams.Model.*;
 import com.pisicilesalbatice.ams.Repository.EnrollmentRepository;
 import com.pisicilesalbatice.ams.Repository.StudentGroupRepository;
@@ -36,17 +39,6 @@ public class EnrollmentService
         return this.yearSpecialityRepository.findAll();
     }
 
-    private void validateStudentEnrollment(Student student, YearSpeciality yearSpeciality) {
-        // Check if the students is enrolled in less than 2 groups
-        if(student.getGroups().size() >= 2) {
-            throw new ResponseStatusException(HttpStatus.CONFLICT, "Student with id: " + student.getsId() + " is already enrolled in 2 years!");
-        }
-        // Check if the student is enrolled in the current speciality
-        if(student.getGroups().stream().map(Group::getyId).anyMatch(group_year -> group_year.equals(yearSpeciality))) {
-            throw new ResponseStatusException(HttpStatus.CONFLICT, "Student with id: " + student.getsId() + " is already enrolled in the selected speciality (id = " + yearSpeciality.getyId() +  ")!");
-        }
-    }
-
     private Group createNewYearGroup(YearSpeciality yearSpeciality) {
         Set<Group> yearGroups = yearSpeciality.getStudentGroup();
         // Create a new group and add the student to it
@@ -60,9 +52,9 @@ public class EnrollmentService
 
     public void enrollStudent(Integer studentID, Integer yearSpecialityID, Date enrollDate)
     {
-        // todo: error handling for missing year id or student id
-        Student student = this.studentRepository.findById(studentID).get();
-        YearSpeciality year = this.yearSpecialityRepository.findById(yearSpecialityID).get();
+        // Get the student and year speciality based on IDs
+        Student student = getStudent(studentID);
+        YearSpeciality year = getYearSpeciality(yearSpecialityID);
 
         // Validate the student enrollment try
         validateStudentEnrollment(student, year);
@@ -87,9 +79,9 @@ public class EnrollmentService
     }
 
     public void addMandatoryCourses(Integer studentID, Integer yearSpecialityID) {
-        // todo: error handling for missing year id or student id
-        Student student = this.studentRepository.getById(studentID);
-        YearSpeciality year = this.yearSpecialityRepository.getById(yearSpecialityID);
+        // Get the student and year speciality based on IDs
+        Student student = getStudent(studentID);
+        YearSpeciality year = getYearSpeciality(yearSpecialityID);
 
         // Get all the courses for the year speciality
         Set<Course> courses = year.getCourses();
@@ -97,5 +89,34 @@ public class EnrollmentService
         courses.stream()
                 .filter(course -> !course.isOptional())
                 .forEach(course -> enrollmentRepository.save(new Enrollment(student, course)));
+    }
+
+    private YearSpeciality getYearSpeciality(Integer yearSpecialityID)
+    {
+        Optional<YearSpeciality> yearSpecialityOptional = this.yearSpecialityRepository.findById(yearSpecialityID);
+        if(yearSpecialityOptional.isEmpty()) {
+            throw new YearSpecialityNotFoundException("No year speciality with id " + yearSpecialityID + " was found");
+        }
+        return yearSpecialityOptional.get();
+    }
+
+    private Student getStudent(Integer studentID)
+    {
+        Optional<Student> studentOptional = this.studentRepository.findById(studentID);
+        if(studentOptional.isEmpty()) {
+            throw new StudentNotFoundException("No student with id " + studentID + " was found");
+        }
+        return studentOptional.get();
+    }
+
+    private void validateStudentEnrollment(Student student, YearSpeciality yearSpeciality) {
+        // Check if the students is enrolled in less than 2 groups
+        if(student.getGroups().size() >= 2) {
+            throw new EnrollmentServiceException("Student with id: " + student.getsId() + " is already enrolled in 2 years!");
+        }
+        // Check if the student is enrolled in the current speciality
+        if(student.getGroups().stream().map(Group::getyId).anyMatch(group_year -> group_year.equals(yearSpeciality))) {
+            throw new EnrollmentServiceException("Student with id: " + student.getsId() + " is already enrolled in the selected speciality (id = " + yearSpeciality.getyId() +  ")!");
+        }
     }
 }
