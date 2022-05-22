@@ -4,6 +4,7 @@ import com.pisicilesalbatice.ams.Exceptions.Exceptions.EnrollmentServiceExceptio
 import com.pisicilesalbatice.ams.Exceptions.Exceptions.StudentNotFoundException;
 import com.pisicilesalbatice.ams.Exceptions.Exceptions.YearSpecialityNotFoundException;
 import com.pisicilesalbatice.ams.Model.*;
+import com.pisicilesalbatice.ams.Model.DTO.BasicDiscipline;
 import com.pisicilesalbatice.ams.Repository.EnrollmentRepository;
 import com.pisicilesalbatice.ams.Repository.StudentGroupRepository;
 import com.pisicilesalbatice.ams.Repository.StudentRepository;
@@ -89,6 +90,12 @@ public class EnrollmentService
         courses.stream()
                 .filter(course -> !course.isOptional())
                 .forEach(course -> enrollmentRepository.save(new Enrollment(student, course)));
+    }
+
+    public List<Course> getYearCourses(Integer year_id)
+    {
+        YearSpeciality yearSpeciality = getYearSpeciality(year_id);
+        return yearSpeciality.getCourses().stream().toList();
     }
 
     private YearSpeciality getYearSpeciality(Integer yearSpecialityID)
