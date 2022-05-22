@@ -20,7 +20,7 @@ function App() {
         <Route exact path="/grades" element={<Grades />} />
         <Route exact path="/optionals" element={<Optionals />} />
         <Route exact path="/contract" element={<Contract />} />
-        <Route exact path="/syllabus" element={<Sylabus />} />
+        <Route exact path="/syllabus" element={<Sylabus id={2} />} />
         <Route exact path="ProfilePage" element={<ProfilePage />} />
       </Routes>
     </div>

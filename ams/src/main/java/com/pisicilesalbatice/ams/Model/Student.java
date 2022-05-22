@@ -5,27 +5,24 @@ import com.fasterxml.jackson.annotation.JsonManagedReference;
 
 import javax.persistence.*;
 import java.sql.Date;
+import java.util.Objects;
 import java.util.Set;
+import java.util.stream.Collectors;
 
 @Entity
 @Table(name = "student")
 public class Student {
-    @Id
-    @GeneratedValue(strategy=GenerationType.IDENTITY)
-    private int sId;
-
-    private Date enrollmentDate;
-
-    private String contract; //???
-
     @JsonManagedReference
     @OneToMany(mappedBy = "student")
     Set<Enrollment> enrollments;
-
     @JsonManagedReference
     @OneToMany(mappedBy = "student")
     Set<OptionalRating> optionalRatings;
-
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private int sId;
+    private Date enrollmentDate;
+    private String contract; //???
     @ManyToMany
     @JoinTable(
             name = "student_group",
@@ -36,7 +33,7 @@ public class Student {
     public Student() {
     }
 
-    public Student(Date enrollmentDate,  String contract) {
+    public Student(Date enrollmentDate, String contract) {
         this.enrollmentDate = enrollmentDate;
         this.contract = contract;
     }
@@ -74,19 +71,29 @@ public class Student {
         this.enrollments = enrollments;
     }
 
-    public Set<OptionalRating> getOptionalRatings()
-    {
+    public Set<OptionalRating> getOptionalRatings() {
         return optionalRatings;
     }
 
-    public void setOptionalRatings(Set<OptionalRating> optionalRatings)
-    {
+    public void setOptionalRatings(Set<OptionalRating> optionalRatings) {
         this.optionalRatings = optionalRatings;
     }
 
+    public Float computeAverageGrade() {
+        var grades = enrollments.stream()
+                .map(Enrollment::getGrade)
+                .filter(Objects::nonNull)
+                .collect(Collectors.toList());
+        int noGrades = grades.size();
+        if (noGrades != 0) {
+            int sumOfGrades = grades.stream().reduce(0, (partialSum, grade) -> partialSum += grade);
+            return (float) sumOfGrades / noGrades;
+        }
+        return 0f;
+    }
+
     @JsonIgnore
-    public Set<Group> getGroups()
-    {
+    public Set<Group> getGroups() {
         return groups;
     }
 }

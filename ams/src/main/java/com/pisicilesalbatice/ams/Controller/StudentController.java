@@ -58,6 +58,13 @@ public class StudentController {
         studentService.deleteById(id);
     }
 
+//    @GetMapping("/students/grades/{id}")
+//    public List<AdvancedGradeDTO> getGrades(@PathVariable Integer id) {
+//        var gradeList = studentService.getStudentEnrollments(id).stream().map(BasicGrade::new).collect(Collectors.toSet());
+//
+//        return gradeList.stream().collect(Collectors.groupingBy(BasicDiscipline::getYearSpeciality));
+//    }
+
     @GetMapping("/students/grades/{id}")
     public Map<String, List<BasicGrade>> getGrades(@PathVariable Integer id) {
         var gradeList = studentService.getStudentEnrollments(id).stream().map(BasicGrade::new).collect(Collectors.toSet());
@@ -83,6 +90,11 @@ public class StudentController {
                              @RequestParam("enrollmentDate") String enrollmentDate) {
         Date enrollDate = Date.valueOf(enrollmentDate);
         enrollmentService.enrollStudent(studentID, yearSpecialityID, enrollDate);
+    }
+
+    @GetMapping("/students/courses_year/{year_id}")
+    public List<BasicDiscipline> getYearSpecialitiesCourses(@PathVariable Integer year_id) {
+        return enrollmentService.getYearCourses(year_id).stream().map(BasicDiscipline::new).collect(Collectors.toList());
     }
 
     @GetMapping("/students/courses/{sId}")
