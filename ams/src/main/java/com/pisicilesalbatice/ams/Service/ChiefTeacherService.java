@@ -1,6 +1,10 @@
 package com.pisicilesalbatice.ams.Service;
 
+import com.pisicilesalbatice.ams.Exceptions.Exceptions.StudentNotFoundException;
+import com.pisicilesalbatice.ams.Exceptions.Exceptions.TeacherNotFoundException;
+import com.pisicilesalbatice.ams.Exceptions.Exceptions.YearSpecialityNotFoundException;
 import com.pisicilesalbatice.ams.Model.Course;
+import com.pisicilesalbatice.ams.Model.Student;
 import com.pisicilesalbatice.ams.Model.Teacher;
 import com.pisicilesalbatice.ams.Model.YearSpeciality;
 import com.pisicilesalbatice.ams.Repository.TeacherRepository;
@@ -9,6 +13,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.util.Pair;
 import org.springframework.stereotype.Service;
 
+import java.time.Year;
 import java.util.List;
 import java.util.Map;
 import java.util.Optional;
@@ -26,7 +31,6 @@ public class ChiefTeacherService {
         this.yearSpecialityRepository = yearSpecialityRepository;
     }
 
-
     public Map<Teacher, Pair<Float, Map<Course, Float>>> getTeachersWithCourseResults() {
         List<Teacher> teachers = teacherRepository.findAll();
         return teachers.stream()
@@ -35,21 +39,31 @@ public class ChiefTeacherService {
     }
 
     public List<Course> getCoursesTaughtByATeacherInAGivenYear(Integer tId, Integer ysId) {
-        Optional<Teacher> teacher = teacherRepository.findById(tId);
-        Optional<YearSpeciality> yearSpeciality = yearSpecialityRepository.findById(ysId);
-        if (teacher.isPresent() && yearSpeciality.isPresent()) {
-            return teacher.get().getCoursesFromGivenYear(yearSpeciality.get());
-        } else {
-            throw new RuntimeException("teacherId or yearSpecialityId not found!");
-        }
+        Teacher teacher = getTeacher(tId);
+        YearSpeciality yearSpeciality = getYearSpeciality(ysId);
+        return teacher.getCoursesFromGivenYear(yearSpeciality);
     }
 
     public List<Course> getCoursesTaughtByATeacher(Integer tId) {
-        Optional<Teacher> teacher = teacherRepository.findById(tId);
-        if (teacher.isPresent()) {
-            return teacher.get().getCourses().stream().toList();
-        } else {
-            throw new RuntimeException("teacherId not found!");
+        Teacher teacher = getTeacher(tId);
+        return teacher.getCourses().stream().toList();
+    }
+
+    private YearSpeciality getYearSpeciality(Integer yearSpecialityID)
+    {
+        Optional<YearSpeciality> yearSpecialityOptional = this.yearSpecialityRepository.findById(yearSpecialityID);
+        if(yearSpecialityOptional.isEmpty()) {
+            throw new YearSpecialityNotFoundException("No year speciality with id " + yearSpecialityID + " was found");
         }
+        return yearSpecialityOptional.get();
+    }
+
+    private Teacher getTeacher(Integer teacherID)
+    {
+        Optional<Teacher> teacherOptional = this.teacherRepository.findById(teacherID);
+        if(teacherOptional.isEmpty()) {
+            throw new TeacherNotFoundException("No teacher with id " + teacherID + " was found");
+        }
+        return teacherOptional.get();
     }
 }

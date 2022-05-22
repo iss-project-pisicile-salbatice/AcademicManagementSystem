@@ -1,5 +1,8 @@
 package com.pisicilesalbatice.ams.Service;
 
+import com.pisicilesalbatice.ams.Exceptions.Exceptions.OptionalServiceException;
+import com.pisicilesalbatice.ams.Exceptions.Exceptions.StudentNotFoundException;
+import com.pisicilesalbatice.ams.Exceptions.Exceptions.YearSpecialityNotFoundException;
 import com.pisicilesalbatice.ams.Model.*;
 import com.pisicilesalbatice.ams.Repository.OptionalRatingRepository;
 import com.pisicilesalbatice.ams.Repository.ProposedOptionalRepository;
@@ -10,6 +13,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.web.server.ResponseStatusException;
 
 import java.util.List;
+import java.util.Optional;
 import java.util.Set;
 import java.util.stream.Collectors;
 import java.util.stream.IntStream;
@@ -32,9 +36,9 @@ public class OptionalService
 
     public List<ProposedOptional> getProposedOptionals(Integer year_id)
     {
-        // todo: error handling for missing year id or student id
-        YearSpeciality year = this.yearSpecialityRepository.findById(year_id).get();
+        YearSpeciality year = getYearSpeciality(year_id);
 
+        // Get the proposed optionals of the year speciality with the given id
         return year.getProposedOptionals().stream().toList();
     }
 
@@ -45,22 +49,22 @@ public class OptionalService
         // param yearSpecialityID: ID of the speciality (used for validation)
         // param list: list of <ProposedOptionalID, Rating> which will be used in the insertion
 
-        // todo: check if the ids are valid
-        Student student = studentRepository.findById(studentID).get();
-        YearSpeciality yearSpeciality = yearSpecialityRepository.findById(yearSpecialityID).get();
+        Student student = getStudent(studentID);
+        YearSpeciality yearSpeciality = getYearSpeciality(yearSpecialityID);
         Set<Integer> optionalIDs = yearSpeciality.getProposedOptionals().stream().map(ProposedOptional::getOptionalId).collect(Collectors.toSet());
 
         // check if the optionals belong to the year speciality
         ratings.forEach(pair -> {
             if(!optionalIDs.contains(pair.getLeft())) {
-                throw new ResponseStatusException(HttpStatus.CONFLICT, "Rating with ID " + pair.getLeft() + " does not belong to the year speciality with ID " + yearSpecialityID);
+                throw new OptionalServiceException("Rating with ID " + pair.getLeft() + " does not belong to the year speciality with ID " + yearSpecialityID);
             }
         });
 
         // check if the user send the ratings to all the optionals for that year speciality
         Set<Integer> ratingOptionalIDs = ratings.stream().map(Pair::getLeft).collect(Collectors.toSet());
-        if(!optionalIDs.containsAll(ratingOptionalIDs) || ratingOptionalIDs.containsAll(optionalIDs)) {
-            throw new ResponseStatusException(HttpStatus.CONFLICT, "Ratings from student " + studentID + " are incomplete!");
+        System.out.println(ratingOptionalIDs);
+        if(!optionalIDs.containsAll(ratingOptionalIDs) || !ratingOptionalIDs.containsAll(optionalIDs)) {
+            throw new OptionalServiceException("Ratings from student " + studentID + " are incomplete!");
         }
 
         // Check if the ordering is correct (it is a set consisting of 1...len_ordering)
@@ -69,7 +73,7 @@ public class OptionalService
         System.out.println(initialOrder);
         System.out.println(receivedOrder);
         if(!initialOrder.containsAll(receivedOrder) || !receivedOrder.containsAll(initialOrder)) {
-            throw new ResponseStatusException(HttpStatus.CONFLICT, "Ratings are incorrect");
+            throw new OptionalServiceException("Ratings are incorrect");
         }
 
         // add the ratings to the database
@@ -80,5 +84,23 @@ public class OptionalService
             OptionalRating optionalRating = new OptionalRating(student, proposedOptional, position);
             optionalRatingRepository.save(optionalRating);
         });
+    }
+
+    private YearSpeciality getYearSpeciality(Integer yearSpecialityID)
+    {
+        Optional<YearSpeciality> yearSpecialityOptional = this.yearSpecialityRepository.findById(yearSpecialityID);
+        if(yearSpecialityOptional.isEmpty()) {
+            throw new YearSpecialityNotFoundException("No year speciality with id " + yearSpecialityID + " was found");
+        }
+        return yearSpecialityOptional.get();
+    }
+
+    private Student getStudent(Integer studentID)
+    {
+        Optional<Student> studentOptional = this.studentRepository.findById(studentID);
+        if(studentOptional.isEmpty()) {
+            throw new StudentNotFoundException("No student with id " + studentID + " was found");
+        }
+        return studentOptional.get();
     }
 }
