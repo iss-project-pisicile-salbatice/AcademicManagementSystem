@@ -18,15 +18,13 @@ public class OptionalService
 {
     private final StudentRepository studentRepository;
     private final YearSpecialityRepository yearSpecialityRepository;
-    private final ProposedOptionalRepository proposedOptionalRepository;
     private final OptionalRatingRepository optionalRatingRepository;
     private final AcceptedOptionalRepository acceptedOptionalRepository;
 
-    public OptionalService(StudentRepository studentRepository, YearSpecialityRepository yearSpecialityRepository, ProposedOptionalRepository proposedOptionalRepository, OptionalRatingRepository optionalRatingRepository, AcceptedOptionalRepository acceptedOptionalRepository)
+    public OptionalService(StudentRepository studentRepository, YearSpecialityRepository yearSpecialityRepository, OptionalRatingRepository optionalRatingRepository, AcceptedOptionalRepository acceptedOptionalRepository)
     {
         this.studentRepository = studentRepository;
         this.yearSpecialityRepository = yearSpecialityRepository;
-        this.proposedOptionalRepository = proposedOptionalRepository;
         this.optionalRatingRepository = optionalRatingRepository;
         this.acceptedOptionalRepository = acceptedOptionalRepository;
     }
@@ -48,7 +46,7 @@ public class OptionalService
 
         Student student = getStudent(studentID);
         YearSpeciality yearSpeciality = getYearSpeciality(yearSpecialityID);
-        Set<Integer> optionalIDs = yearSpeciality.getProposedOptionals().stream().map(ProposedOptional::getOptionalId).collect(Collectors.toSet());
+        Set<Integer> optionalIDs = yearSpeciality.getCourses().stream().filter(Course::isOptional).map(Course::getCourseId).collect(Collectors.toSet());
 
         // check if the optionals belong to the year speciality
         ratings.forEach(pair -> {
@@ -111,40 +109,40 @@ public class OptionalService
         return acceptedOptional.get();
     }
 
-    public void DELETE_THIS()
-    {
-        // 1
-        // 2
-        // 2002
-        // 2003
-
-        // 1
-        // 2
-        // 4
-        // 5
-        // 6
-        // 7
-        // 8
-        // 10
-        List<Integer> numbers = List.of(1, 2, 4, 5, 6, 7, 8, 10);
-        List<Integer> optionals = List.of(1, 2, 2002, 2003);
-        List<Integer> choices = new java.util.ArrayList<>(List.of(1, 2, 3, 4));
-        for(Integer studentId : numbers)
-        {
-            List<Pair<Integer, Integer>> ratings = new ArrayList<>();
-            for(int i = 0; i < 4; ++i)
-            {
-                ratings.add(new Pair<>(optionals.get(i), choices.get(i)));
-            }
-            this.setOptionalRatings(studentId, 1, new java.sql.Date(System.currentTimeMillis()), java.sql.Time.valueOf(LocalTime.now()), ratings);
-            Collections.shuffle(choices);
-            try
-            {
-                Thread.sleep(1005);
-            } catch (InterruptedException e)
-            {
-                e.printStackTrace();
-            }
-        }
-    }
+//    public void DELETE_THIS()
+//    {
+//        // 1
+//        // 2
+//        // 2002
+//        // 2003
+//
+//        // 1
+//        // 2
+//        // 4
+//        // 5
+//        // 6
+//        // 7
+//        // 8
+//        // 10
+//        List<Integer> numbers = List.of(1, 2, 4, 5, 6, 7, 8, 10);
+//        List<Integer> optionals = List.of(9, 10);
+//        List<Integer> choices = new java.util.ArrayList<>(List.of(1, 2));
+//        for(int studentId = 11; studentId <= 60; ++studentId)
+//        {
+//            List<Pair<Integer, Integer>> ratings = new ArrayList<>();
+//            for(int i = 0; i < 2; ++i)
+//            {
+//                ratings.add(new Pair<>(optionals.get(i), choices.get(i)));
+//            }
+//            this.setOptionalRatings(studentId, 1, new java.sql.Date(System.currentTimeMillis()), java.sql.Time.valueOf(LocalTime.now()), ratings);
+//            Collections.shuffle(choices);
+//            try
+//            {
+//                Thread.sleep(1005);
+//            } catch (InterruptedException e)
+//            {
+//                e.printStackTrace();
+//            }
+//        }
+//    }
 }

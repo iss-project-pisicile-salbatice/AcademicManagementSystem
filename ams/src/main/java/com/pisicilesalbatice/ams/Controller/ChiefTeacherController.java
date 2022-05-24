@@ -52,6 +52,11 @@ public class ChiefTeacherController {
         return new BasicAcceptedOptional(chiefOptionalService.setMaximumStudents(courseId, maximumStudents));
     }
 
+    @GetMapping("/chief/optionals/assign/{year_id}")
+    public void assignOptionals(@PathVariable Integer year_id) {
+        this.chiefOptionalService.assignOptionals(year_id);
+    }
+
     @GetMapping("/chief/teachers")
     public List<BasicTeacherWithCourseResults> getTeachersWithCourseResults() {
         Map<Teacher, Pair<Float, Map<Course, Float>>> teacherResults = chiefTeacherService.getTeachersWithCourseResults();
