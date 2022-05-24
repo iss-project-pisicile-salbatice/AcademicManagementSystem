@@ -1,9 +1,9 @@
 package com.pisicilesalbatice.ams.Controller;
 
 import com.pisicilesalbatice.ams.Model.DTO.BasicDiscipline;
-import com.pisicilesalbatice.ams.Model.DTO.BasicGrade;
 import com.pisicilesalbatice.ams.Model.DTO.BasicGrading;
 import com.pisicilesalbatice.ams.Model.DTO.BasicProposedOptional;
+import com.pisicilesalbatice.ams.Model.DTO.StudentAcceptedOptional;
 import com.pisicilesalbatice.ams.Service.TeacherService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;

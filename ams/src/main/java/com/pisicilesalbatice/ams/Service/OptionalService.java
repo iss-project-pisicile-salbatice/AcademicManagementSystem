@@ -1,20 +1,15 @@
 package com.pisicilesalbatice.ams.Service;
 
+import com.pisicilesalbatice.ams.Exceptions.Exceptions.OptionalNotFoundException;
 import com.pisicilesalbatice.ams.Exceptions.Exceptions.OptionalServiceException;
 import com.pisicilesalbatice.ams.Exceptions.Exceptions.StudentNotFoundException;
 import com.pisicilesalbatice.ams.Exceptions.Exceptions.YearSpecialityNotFoundException;
 import com.pisicilesalbatice.ams.Model.*;
-import com.pisicilesalbatice.ams.Repository.OptionalRatingRepository;
-import com.pisicilesalbatice.ams.Repository.ProposedOptionalRepository;
-import com.pisicilesalbatice.ams.Repository.StudentRepository;
-import com.pisicilesalbatice.ams.Repository.YearSpecialityRepository;
-import org.springframework.http.HttpStatus;
+import com.pisicilesalbatice.ams.Repository.*;
 import org.springframework.stereotype.Service;
-import org.springframework.web.server.ResponseStatusException;
 
-import java.util.List;
-import java.util.Optional;
-import java.util.Set;
+import java.time.LocalTime;
+import java.util.*;
 import java.util.stream.Collectors;
 import java.util.stream.IntStream;
 
@@ -25,24 +20,26 @@ public class OptionalService
     private final YearSpecialityRepository yearSpecialityRepository;
     private final ProposedOptionalRepository proposedOptionalRepository;
     private final OptionalRatingRepository optionalRatingRepository;
+    private final AcceptedOptionalRepository acceptedOptionalRepository;
 
-    public OptionalService(StudentRepository studentRepository, YearSpecialityRepository yearSpecialityRepository, ProposedOptionalRepository proposedOptionalRepository, OptionalRatingRepository optionalRatingRepository)
+    public OptionalService(StudentRepository studentRepository, YearSpecialityRepository yearSpecialityRepository, ProposedOptionalRepository proposedOptionalRepository, OptionalRatingRepository optionalRatingRepository, AcceptedOptionalRepository acceptedOptionalRepository)
     {
         this.studentRepository = studentRepository;
         this.yearSpecialityRepository = yearSpecialityRepository;
         this.proposedOptionalRepository = proposedOptionalRepository;
         this.optionalRatingRepository = optionalRatingRepository;
+        this.acceptedOptionalRepository = acceptedOptionalRepository;
     }
 
-    public List<ProposedOptional> getProposedOptionals(Integer year_id)
+    public List<Course> getAcceptedOptionals(Integer year_id)
     {
         YearSpeciality year = getYearSpeciality(year_id);
 
-        // Get the proposed optionals of the year speciality with the given id
-        return year.getProposedOptionals().stream().toList();
+        // Get the accepted optionals of the year speciality with the given id
+        return year.getCourses().stream().filter(Course::isOptional).collect(Collectors.toList());
     }
 
-    public void setOptionalRatings(Integer studentID, Integer yearSpecialityID, List<Pair<Integer, Integer>> ratings)
+    public void setOptionalRatings(Integer studentID, Integer yearSpecialityID, java.sql.Date receivedDate, java.sql.Time receivedTime, List<Pair<Integer, Integer>> ratings)
     {
         // Insert the given optional courses ratings into the optional rating table
         // param studentID: ID of student
@@ -78,10 +75,10 @@ public class OptionalService
 
         // add the ratings to the database
         ratings.forEach(pair -> {
-            Integer proposedOptionalID = pair.getLeft();
+            Integer acceptedOptionalId = pair.getLeft();
             Integer position = pair.getRight();
-            ProposedOptional proposedOptional = proposedOptionalRepository.getById(proposedOptionalID);
-            OptionalRating optionalRating = new OptionalRating(student, proposedOptional, position);
+            AcceptedOptional acceptedOptional = getAcceptedOptional(acceptedOptionalId);
+            OptionalRating optionalRating = new OptionalRating(student, acceptedOptional, position, receivedDate, receivedTime);
             optionalRatingRepository.save(optionalRating);
         });
     }
@@ -102,5 +99,52 @@ public class OptionalService
             throw new StudentNotFoundException("No student with id " + studentID + " was found");
         }
         return studentOptional.get();
+    }
+
+    private AcceptedOptional getAcceptedOptional(Integer optionalId)
+    {
+        Optional<AcceptedOptional> acceptedOptional = this.acceptedOptionalRepository.findById(optionalId);
+        if(acceptedOptional.isEmpty())
+        {
+            throw new OptionalNotFoundException("No accepted optional with id " + optionalId + " was found");
+        }
+        return acceptedOptional.get();
+    }
+
+    public void DELETE_THIS()
+    {
+        // 1
+        // 2
+        // 2002
+        // 2003
+
+        // 1
+        // 2
+        // 4
+        // 5
+        // 6
+        // 7
+        // 8
+        // 10
+        List<Integer> numbers = List.of(1, 2, 4, 5, 6, 7, 8, 10);
+        List<Integer> optionals = List.of(1, 2, 2002, 2003);
+        List<Integer> choices = new java.util.ArrayList<>(List.of(1, 2, 3, 4));
+        for(Integer studentId : numbers)
+        {
+            List<Pair<Integer, Integer>> ratings = new ArrayList<>();
+            for(int i = 0; i < 4; ++i)
+            {
+                ratings.add(new Pair<>(optionals.get(i), choices.get(i)));
+            }
+            this.setOptionalRatings(studentId, 1, new java.sql.Date(System.currentTimeMillis()), java.sql.Time.valueOf(LocalTime.now()), ratings);
+            Collections.shuffle(choices);
+            try
+            {
+                Thread.sleep(1005);
+            } catch (InterruptedException e)
+            {
+                e.printStackTrace();
+            }
+        }
     }
 }
