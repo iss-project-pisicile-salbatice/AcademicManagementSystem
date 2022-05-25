@@ -4,9 +4,7 @@ import com.pisicilesalbatice.ams.Model.Group;
 import com.pisicilesalbatice.ams.Model.Student;
 import org.springframework.data.util.Pair;
 
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 import java.util.stream.Collectors;
 
 public class GroupWithResultsDTO {
@@ -14,7 +12,7 @@ public class GroupWithResultsDTO {
     private final List<Pair<Student, Float>> results;
 
     private String groupName;
-    private List<Map<String, String>> studentsWithResults;
+    private List<StudentWithResultsDTO> studentsWithResults;
 
     public GroupWithResultsDTO(Group group, List<Pair<Student, Float>> results) {
         this.group = group;
@@ -25,14 +23,7 @@ public class GroupWithResultsDTO {
     private void generateFields() {
         groupName = group.getGroupName();
         studentsWithResults = results.stream()
-                .map((entry) -> {
-                    int studentName = entry.getFirst().getsId(); // change this when we have the actual name
-                    Float studentResult = entry.getSecond();
-                    Map<String, String> studentWithResult = new HashMap<>();
-                    studentWithResult.put("studentName", Integer.toString(studentName));
-                    studentWithResult.put("result", Float.toString(studentResult));
-                    return studentWithResult;
-                })
+                .map(entry -> new StudentWithResultsDTO(entry.getFirst(), entry.getSecond()))
                 .collect(Collectors.toList());
     }
 
@@ -40,7 +31,7 @@ public class GroupWithResultsDTO {
         return groupName;
     }
 
-    public List<Map<String, String>> getStudentsWithResults() {
+    public List<StudentWithResultsDTO> getStudentsWithResults() {
         return studentsWithResults;
     }
 }

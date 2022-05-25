@@ -40,7 +40,7 @@ public class ChiefTeacherService {
         if (teacher.isPresent() && yearSpeciality.isPresent()) {
             return teacher.get().getCoursesFromGivenYear(yearSpeciality.get());
         } else {
-            throw new RuntimeException("teacherId or yearSpecialityId not found!");
+            throw new RuntimeException("Teacher or year speciality not found!");
         }
     }
 
@@ -49,7 +49,7 @@ public class ChiefTeacherService {
         if (teacher.isPresent()) {
             return teacher.get().getCourses().stream().toList();
         } else {
-            throw new RuntimeException("teacherId not found!");
+            throw new RuntimeException("teacher not found!");
         }
     }
 }
