@@ -1,6 +1,6 @@
 import React from "react";
-import "../Components.css";
-import Navbar from "../Navbar";
+import "../../Components.css";
+import Navbar from "../../Navbar";
 import { useState, useEffect } from "react";
 
 export default function Grades(props) {

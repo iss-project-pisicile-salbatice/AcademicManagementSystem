@@ -12,7 +12,6 @@ export default function Menu() {
       <Navbar userName={'Ianis Teja'} role={'Student'} imgUser={'userMockUp.png'} />
       <div className="components">
          <MenuBox link={'/enroll'} imgUrl={'enroll.jpg'} title={'Enroll'}/> 
-         <MenuBox link={'/syllabus'} imgUrl={'syllabus.jpg'} title={'Syllabus'} />
          <MenuBox link={'/optionals'} imgUrl={'optionals.png'} title={'Optionals'}/>
          <MenuBox link={'/contract'} imgUrl={'contract.jpg'} title={'Contract'}/>
          <MenuBox link={'/grades'} imgUrl={'grades.jpg'} title={'Grades'}/>
