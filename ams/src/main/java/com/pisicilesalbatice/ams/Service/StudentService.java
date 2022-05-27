@@ -1,5 +1,7 @@
 package com.pisicilesalbatice.ams.Service;
 
+import com.pisicilesalbatice.ams.Exceptions.Exceptions.StudentNotFoundException;
+import com.pisicilesalbatice.ams.Exceptions.Exceptions.YearSpecialityNotFoundException;
 import com.pisicilesalbatice.ams.Model.*;
 import com.pisicilesalbatice.ams.Model.DTO.BasicDiscipline;
 import com.pisicilesalbatice.ams.Repository.StudentRepository;
@@ -8,6 +10,7 @@ import org.springframework.stereotype.Service;
 
 import java.sql.Date;
 import java.util.List;
+import java.util.Optional;
 import java.util.Set;
 import java.util.stream.Collectors;
 
@@ -52,12 +55,8 @@ public class StudentService {
     }
 
     public Set<Enrollment> getStudentEnrollments(int studentID) {
-        var optional = studentRepository.findById(studentID);
-        if (optional.isPresent()) {
-            return optional.get().getEnrollments();
-        } else {
-            throw new RuntimeException("No student with id " + studentID);
-        }
+        Student student = getStudent(studentID);
+        return student.getEnrollments();
     }
 
     public List<Course> getStudentCourses(int studentID) {
@@ -66,8 +65,17 @@ public class StudentService {
 
     public List<YearSpeciality> getYearSpecialities(Integer id)
     {
-        // todo: validate if the id is valid
-        Student student = studentRepository.findById(id).get();
+        Student student = getStudent(id);
+        // Return the year specialities of the groups in which the current student is present
         return student.getGroups().stream().map(Group::getyId).collect(Collectors.toList());
+    }
+
+    private Student getStudent(Integer studentID)
+    {
+        Optional<Student> studentOptional = this.studentRepository.findById(studentID);
+        if(studentOptional.isEmpty()) {
+            throw new StudentNotFoundException("No student with id " + studentID + " was found");
+        }
+        return studentOptional.get();
     }
 }
