@@ -1,9 +1,6 @@
 package com.pisicilesalbatice.ams.Controller;
 
-import com.pisicilesalbatice.ams.Model.DTO.BasicDiscipline;
-import com.pisicilesalbatice.ams.Model.DTO.BasicGrading;
-import com.pisicilesalbatice.ams.Model.DTO.BasicProposedOptional;
-import com.pisicilesalbatice.ams.Model.DTO.StudentAcceptedOptional;
+import com.pisicilesalbatice.ams.Model.DTO.*;
 import com.pisicilesalbatice.ams.Service.TeacherService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
@@ -41,9 +38,10 @@ public class TeacherController
     }
 
     @GetMapping("/teachers/grades/{teacher_id}")
-    Map<String, List<BasicGrading>> getGrades(@PathVariable Integer teacher_id) {
+    public List<AdvancedGradeTeacherDTO> getGrades(@PathVariable Integer teacher_id) {
         var gradesList = this.teacherService.getCourseGrades(teacher_id).stream().map(BasicGrading::new).collect(Collectors.toList());
-        return gradesList.stream().collect(Collectors.groupingBy(BasicGrading::getYearSpeciality));
+        return gradesList.stream().collect(Collectors.groupingBy(BasicGrading::getYearSpeciality))
+                .entrySet().stream().map(entry -> new AdvancedGradeTeacherDTO(entry.getKey(), entry.getValue())).collect(Collectors.toList());
     }
 
     @PostMapping("/teachers/grade_student")
