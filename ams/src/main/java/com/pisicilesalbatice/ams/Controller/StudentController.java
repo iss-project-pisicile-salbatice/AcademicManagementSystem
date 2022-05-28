@@ -57,18 +57,12 @@ public class StudentController {
         studentService.deleteById(id);
     }
 
-//    @GetMapping("/students/grades/{id}")
-//    public List<AdvancedGradeDTO> getGrades(@PathVariable Integer id) {
-//        var gradeList = studentService.getStudentEnrollments(id).stream().map(BasicGrade::new).collect(Collectors.toSet());
-//
-//        return gradeList.stream().collect(Collectors.groupingBy(BasicDiscipline::getYearSpeciality));
-//    }
-
     @GetMapping("/students/grades/{id}")
-    public Map<String, List<BasicGrade>> getGrades(@PathVariable Integer id) {
+    public List<AdvancedGradeDTO> getGrades(@PathVariable Integer id) {
         var gradeList = studentService.getStudentEnrollments(id).stream().map(BasicGrade::new).collect(Collectors.toSet());
 
-        return gradeList.stream().collect(Collectors.groupingBy(BasicDiscipline::getYearSpeciality));
+        return gradeList.stream().collect(Collectors.groupingBy(BasicDiscipline::getYearSpeciality))
+                .entrySet().stream().map(entry -> new AdvancedGradeDTO(entry.getKey(), entry.getValue())).collect(Collectors.toList());
     }
 
     @GetMapping("/students/enroll")
