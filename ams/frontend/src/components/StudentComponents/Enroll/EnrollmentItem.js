@@ -3,7 +3,7 @@ import "./Enrollment.css";
 import { useState, useEffect } from "react";
 import SyllabusList from "./SyllabusList";
 
-const EnrollmentItem = ({ enrollment }) => {
+const EnrollmentItem = ({ enrollment, toggleEnroll }) => {
   const [onToggle, setOnToggle] = useState(false);
   const [isActive, setIsActive] = useState(false);
   const [syllabusList, setSyllabusList] = useState([]);
@@ -28,7 +28,7 @@ const EnrollmentItem = ({ enrollment }) => {
   }, []);
 
   console.log(onToggle);
-  console.log(isActive)
+  console.log(isActive);
   return (
     <div className="enrollmentItem">
       <div className="enrollmentData" onClick={() => setIsActive(!isActive)}>
@@ -42,7 +42,10 @@ const EnrollmentItem = ({ enrollment }) => {
           type="checkbox"
           checked={onToggle}
           value={onToggle}
-          onChange={() => {setOnToggle(!onToggle);}}
+          onChange={() => {
+            setOnToggle(!onToggle);
+            toggleEnroll(enrollment.yId);
+          }}
 
           // onClick={setOnToggle(!onToggle)}
         />

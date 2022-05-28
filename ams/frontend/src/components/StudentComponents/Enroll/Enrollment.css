@@ -25,7 +25,7 @@
 
 .enrollmentContainer {
   text-align: center;
-  width: 50%;
+  width: 40%;
   align-items: center;
   margin: 0 auto;
 }
@@ -38,4 +38,13 @@
 .enrollmentData {
   text-align: left;
   padding-left: 20px;
+}
+
+.buttonContainer{
+  text-align: center;
+  width: 40%;
+  align-items: center;
+  margin: 0 auto;
+  padding-top: 15px;
+  padding-bottom: 30px
 }

@@ -1,7 +1,7 @@
 package com.pisicilesalbatice.ams.Controller;
 
 import com.pisicilesalbatice.ams.Model.Course;
-import com.pisicilesalbatice.ams.Model.DTO.*;;
+import com.pisicilesalbatice.ams.Model.DTO.*;
 import com.pisicilesalbatice.ams.Model.Teacher;
 import com.pisicilesalbatice.ams.Service.ChiefOptionalService;
 import com.pisicilesalbatice.ams.Service.ChiefTeacherService;
