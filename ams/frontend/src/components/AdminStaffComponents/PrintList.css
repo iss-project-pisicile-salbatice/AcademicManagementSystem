@@ -1,0 +1,32 @@
+.printList {
+  text-align: center;
+  width: 40%;
+  align-items: center;
+  margin: 10px auto;
+  display: flex;
+  flex-direction: column;
+  flex-wrap: wrap;
+  background-color: white;
+}
+
+.printListInput {
+  padding: 10 15;
+}
+
+.printListInput input {
+  width: 100%;
+}
+
+.button {
+  background-color: #0a086c; /* Green */
+  border: none;
+  color: white;
+  padding: 20px 32px;
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+  font-size: 16px;
+  margin: 15px 2px;
+  cursor: pointer;
+  width: 100%;
+}

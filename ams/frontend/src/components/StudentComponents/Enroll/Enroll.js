@@ -39,11 +39,39 @@ export default function Enroll() {
     console.log("enrollment List: " + chosenEnrollments);
   };
 
-
-  const saveSelection = () =>{
+  const saveSelection = () => {
     console.log("Save enrollment List: " + chosenEnrollments);
+    var today = new Date();
 
-  }
+    var date =
+      today.getFullYear() +
+      "-" +
+      (today.getMonth() + 1) +
+      "-" +
+      today.getDate();
+
+    chosenEnrollments.forEach((enrollment) => {
+      var myHeaders = new Headers();
+      myHeaders.append("Content-Type", "text/plain");
+
+      var raw = `{"yearSpecialityID":${enrollment},\r\n"studentID":1,\r\n"enrollmentDate":"${date}"\r\n}`;
+
+      var requestOptions = {
+        method: "POST",
+        headers: myHeaders,
+        body: raw,
+        redirect: "follow",
+      };
+
+      fetch(
+        `http://localhost:8080/students/enroll?yearSpecialityID=${enrollment}&studentID=1&enrollmentDate=${date}`,
+        requestOptions
+      )
+        .then((response) => response.text())
+        .then((result) => console.log(result))
+        .catch((error) => console.log("error", error));
+    });
+  };
 
   return (
     <div>
@@ -67,7 +95,7 @@ export default function Enroll() {
             variant="contained"
             onClick={() => {
               saveSelection();
-              alert("Items saved!");
+              alert("Items:" + chosenEnrollments);
             }}
             style={{ transform: "scale(1.5)" }}
           >

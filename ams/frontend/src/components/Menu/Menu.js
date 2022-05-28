@@ -5,6 +5,7 @@ import "../Components.css";
 import Navbar from "../Navbar";
 import MenuBox from "./MenuBox";
 import {BrowserRouter as Router, Route, Routes} from "react-router-dom";
+import PrintList from "../AdminStaffComponents/PrintList"
 
 export default function Menu({userName, role}) {
     if (role === 'Student') {
@@ -18,15 +19,10 @@ export default function Menu({userName, role}) {
                     <MenuBox link={'/grades'} imgUrl={'grades.jpg'} title={'Grades'}/>
                 </div>
             </div>)
-    } else {
+    } else if (role==="Administrator")  {
         return (<div>
             <Navbar userName={userName} role={role} imgUser={'userMockUp.png'}/>
-            <div className="components">
-                <MenuBox link={'/enroll'} imgUrl={'enroll.jpg'} title={'Enroll'}/>
-                <MenuBox link={'/optionals'} imgUrl={'optionals.png'} title={'Optionals'}/>
-                <MenuBox link={'/contract'} imgUrl={'contract.jpg'} title={'Contract'}/>
-                <MenuBox link={'/grades'} imgUrl={'grades.jpg'} title={'Grades'}/>
-            </div>
+            <PrintList/>
         </div>)
     }
 }
