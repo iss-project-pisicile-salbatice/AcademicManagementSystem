@@ -1,11 +1,17 @@
 package com.pisicilesalbatice.ams.Model;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Entity;
+import javax.persistence.OneToMany;
+import java.util.Set;
 
 @Entity
 public class AcceptedOptional extends Course
 {
     private Integer maximumStudents;
+
+    @OneToMany(mappedBy = "acceptedOptional", cascade = CascadeType.ALL)
+    private Set<OptionalRating> optionalRatings;
 
     public AcceptedOptional()
     {

@@ -1,28 +1,29 @@
 package com.pisicilesalbatice.ams.Model.DTO;
 
+import com.pisicilesalbatice.ams.Model.Course;
 import com.pisicilesalbatice.ams.Model.ProposedOptional;
 
-public class BasicProposedOptional
+public class StudentAcceptedOptional
 {
-    private final ProposedOptional proposedOptional;
+    private final Course acceptedOptional;
 
     private Integer optionalID;
     private String courseName;
     private String teacherName;
     private String yearSpeciality;
 
-    public BasicProposedOptional(ProposedOptional proposedOptional)
+    public StudentAcceptedOptional(Course acceptedOptional)
     {
-        this.proposedOptional = proposedOptional;
+        this.acceptedOptional = acceptedOptional;
         this.generateFields();
     }
 
     private void generateFields()
     {
-        optionalID = proposedOptional.getOptionalId();
-        courseName = proposedOptional.getOptionalName();
-        teacherName = "Prof. " + proposedOptional.getTeacher().getDegree();
-        yearSpeciality = String.valueOf(proposedOptional.getYearSpeciality().getYear()) + " " + proposedOptional.getYearSpeciality().getSpeciality();
+        optionalID = acceptedOptional.getCourseId();
+        courseName = acceptedOptional.getCourseName();
+        teacherName = "Prof. " + acceptedOptional.getTeacher().getDegree();
+        yearSpeciality = String.valueOf(acceptedOptional.getYear().getYear()) + " " + acceptedOptional.getYear().getSpeciality();
     }
 
     public Integer getOptionalID()

@@ -4,6 +4,9 @@ import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 
 import javax.persistence.*;
+import java.sql.Date;
+import java.sql.Time;
+import java.time.LocalDateTime;
 import java.util.Objects;
 
 @Entity
@@ -23,27 +26,32 @@ public class OptionalRating
     @ManyToOne
     @MapsId("optionalId")
     @JoinColumn(name = "optional_id")
-    private ProposedOptional proposedOptional;
+    private AcceptedOptional acceptedOptional;
 
     private Integer rating;
+
+    private Date receivedDate;
+    private Time receivedTime;
 
     public OptionalRating()
     {}
 
-    public OptionalRating(Student student, ProposedOptional proposedOptional, Integer rating)
-    {
-        this.id = new OptionalRatingKey(student.getsId(), proposedOptional.getOptionalId());
-        this.student = student;
-        this.proposedOptional = proposedOptional;
-        this.rating = rating;
-    }
-
-    public OptionalRating(OptionalRatingKey id, Student student, ProposedOptional proposedOptional, Integer rating)
+    public OptionalRating(OptionalRatingKey id, Student student, AcceptedOptional acceptedOptional, Integer rating)
     {
         this.id = id;
         this.student = student;
-        this.proposedOptional = proposedOptional;
+        this.acceptedOptional = acceptedOptional;
         this.rating = rating;
+    }
+
+    public OptionalRating(Student student, AcceptedOptional acceptedOptional, Integer rating, Date receivedDate, Time receivedTime)
+    {
+        this.id = new OptionalRatingKey(student.getsId(), acceptedOptional.getCourseId());
+        this.student = student;
+        this.acceptedOptional = acceptedOptional;
+        this.rating = rating;
+        this.receivedDate = receivedDate;
+        this.receivedTime = receivedTime;
     }
 
     public OptionalRatingKey getId()
@@ -66,16 +74,6 @@ public class OptionalRating
         this.student = student;
     }
 
-    public ProposedOptional getProposedOptional()
-    {
-        return proposedOptional;
-    }
-
-    public void setProposedOptional(ProposedOptional proposedOptional)
-    {
-        this.proposedOptional = proposedOptional;
-    }
-
     public Integer getRating()
     {
         return rating;
@@ -86,19 +84,49 @@ public class OptionalRating
         this.rating = rating;
     }
 
+    public Date getReceivedDate()
+    {
+        return receivedDate;
+    }
+
+    public void setReceivedDate(Date receivedDate)
+    {
+        this.receivedDate = receivedDate;
+    }
+
+    public Time getReceivedTime()
+    {
+        return receivedTime;
+    }
+
+    public void setReceivedTime(Time receivedTime)
+    {
+        this.receivedTime = receivedTime;
+    }
+
+    public AcceptedOptional getAcceptedOptional()
+    {
+        return acceptedOptional;
+    }
+
+    public void setAcceptedOptional(AcceptedOptional acceptedOptional)
+    {
+        this.acceptedOptional = acceptedOptional;
+    }
+
     @Override
     public boolean equals(Object o)
     {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         OptionalRating that = (OptionalRating) o;
-        return Objects.equals(id, that.id) && Objects.equals(student, that.student) && Objects.equals(proposedOptional, that.proposedOptional) && Objects.equals(rating, that.rating);
+        return Objects.equals(id, that.id) && Objects.equals(student, that.student) && Objects.equals(acceptedOptional, that.acceptedOptional) && Objects.equals(rating, that.rating) && Objects.equals(receivedDate, that.receivedDate) && Objects.equals(receivedTime, that.receivedTime);
     }
 
     @Override
     public int hashCode()
     {
-        return Objects.hash(id, student, proposedOptional, rating);
+        return Objects.hash(id, student, acceptedOptional, rating, receivedDate, receivedTime);
     }
 
     @Override
@@ -107,8 +135,10 @@ public class OptionalRating
         return "OptionalRating{" +
                 "id=" + id +
                 ", student=" + student +
-                ", proposedOptional=" + proposedOptional +
+                ", acceptedOptional=" + acceptedOptional +
                 ", rating=" + rating +
+                ", receivedDate=" + receivedDate +
+                ", receivedTime=" + receivedTime +
                 '}';
     }
 }

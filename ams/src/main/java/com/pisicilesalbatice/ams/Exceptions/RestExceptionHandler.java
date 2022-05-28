@@ -51,4 +51,11 @@ public class RestExceptionHandler extends ResponseEntityExceptionHandler
     {
         return ResponseEntity.status(HttpStatus.NOT_FOUND).body(new ErrorResponse(HttpStatus.NOT_FOUND.value(), ex.getMessage()));
     }
+
+    // OptionalNotFoundException
+    @ExceptionHandler(OptionalNotFoundException.class)
+    protected ResponseEntity<Object> handleOptionalNotFound(OptionalNotFoundException ex)
+    {
+        return ResponseEntity.status(HttpStatus.NOT_FOUND).body(new ErrorResponse(HttpStatus.NOT_FOUND.value(), ex.getMessage()));
+    }
 }

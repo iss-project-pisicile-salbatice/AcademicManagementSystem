@@ -2,18 +2,18 @@ package com.pisicilesalbatice.ams.Model.DTO;
 
 public class OptionalRatingDTO
 {
-    private final Integer proposedOptionalID;
+    private final Integer acceptedOptionalId;
     private final Integer position;
 
-    public OptionalRatingDTO(Integer proposedOptionalID, Integer position)
+    public OptionalRatingDTO(Integer acceptedOptionalId, Integer position)
     {
-        this.proposedOptionalID = proposedOptionalID;
+        this.acceptedOptionalId = acceptedOptionalId;
         this.position = position;
     }
 
-    public Integer getProposedOptionalID()
+    public Integer getAcceptedOptionalId()
     {
-        return proposedOptionalID;
+        return acceptedOptionalId;
     }
 
     public Integer getPosition()

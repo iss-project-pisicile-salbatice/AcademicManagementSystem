@@ -23,9 +23,6 @@ public class ProposedOptional {
     @JoinColumn(name = "t_id", nullable = false)
     private Teacher teacher;
 
-    @OneToMany(mappedBy = "proposedOptional")
-    private Set<OptionalRating> optionalRatings;
-
     public ProposedOptional() {
     }
 
@@ -47,13 +44,6 @@ public class ProposedOptional {
         return optionalName;
     }
 
-    public Set<OptionalRating> getOptionalRatings() {
-        return optionalRatings;
-    }
-
-    public void setOptionalRatings(Set<OptionalRating> optionalRatings) {
-        this.optionalRatings = optionalRatings;
-    }
 
     public YearSpeciality getYearSpeciality() {
         return yearSpeciality;
