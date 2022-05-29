@@ -38,12 +38,16 @@ public class AuthController
 {
     @Autowired
     AuthenticationManager authenticationManager;
+
     @Autowired
     UserRepository userRepository;
+
     @Autowired
     RoleRepository roleRepository;
+
     @Autowired
     PasswordEncoder encoder;
+
     @Autowired
     JwtUtils jwtUtils;
 
@@ -63,6 +67,9 @@ public class AuthController
                 userDetails.getId(),
                 userDetails.getUsername(),
                 userDetails.getEmail(),
+                userDetails.getFaculty(),
+                userDetails.getPhone(),
+                userDetails.getEntityId(),
                 roles));
     }
 
@@ -98,15 +105,25 @@ public class AuthController
             {
                 switch (role)
                 {
+                    case "student" -> {
+                        Role adminRole = roleRepository.findByName(ERole.ROLE_STUDENT)
+                                .orElseThrow(() -> new RuntimeException("Error: Role is not found."));
+                        roles.add(adminRole);
+                    }
+                    case "teacher" -> {
+                        Role adminRole = roleRepository.findByName(ERole.ROLE_TEACHER)
+                                .orElseThrow(() -> new RuntimeException("Error: Role is not found."));
+                        roles.add(adminRole);
+                    }
+                    case "chief_teacher" -> {
+                        Role adminRole = roleRepository.findByName(ERole.ROLE_CHIEF_TEACHER)
+                                .orElseThrow(() -> new RuntimeException("Error: Role is not found."));
+                        roles.add(adminRole);
+                    }
                     case "admin" -> {
                         Role adminRole = roleRepository.findByName(ERole.ROLE_ADMIN)
                                 .orElseThrow(() -> new RuntimeException("Error: Role is not found."));
                         roles.add(adminRole);
-                    }
-                    case "mod" -> {
-                        Role modRole = roleRepository.findByName(ERole.ROLE_MODERATOR)
-                                .orElseThrow(() -> new RuntimeException("Error: Role is not found."));
-                        roles.add(modRole);
                     }
                     default -> {
                         Role userRole = roleRepository.findByName(ERole.ROLE_USER)

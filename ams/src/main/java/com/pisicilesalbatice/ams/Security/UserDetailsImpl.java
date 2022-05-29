@@ -17,21 +17,27 @@ public class UserDetailsImpl implements UserDetails
     private Long id;
     private String username;
     private String email;
+    private String faculty;
+    private String phone;
+    private Integer entityId;
     @JsonIgnore
     private String password;
     private Collection<? extends GrantedAuthority> authorities;
 
-    public UserDetailsImpl(Long id, String username, String email, String password,
-                           Collection<? extends GrantedAuthority> authorities)
+    public UserDetailsImpl(Long id, String username, String email, String faculty, String phone, Integer entityId,
+                           String password, Collection<? extends GrantedAuthority> authorities)
     {
         this.id = id;
         this.username = username;
         this.email = email;
+        this.faculty = faculty;
+        this.phone = phone;
+        this.entityId = entityId;
         this.password = password;
         this.authorities = authorities;
     }
 
-    public static UserDetailsImpl build(User user)
+    public static UserDetailsImpl build(User user, Integer entityId)
     {
         List<GrantedAuthority> authorities = user.getRoles().stream()
                 .map(role -> new SimpleGrantedAuthority(role.getName().name()))
@@ -40,6 +46,9 @@ public class UserDetailsImpl implements UserDetails
                 user.getId(),
                 user.getUsername(),
                 user.getEmail(),
+                user.getFaculty(),
+                user.getPhone(),
+                entityId,
                 user.getPassword(),
                 authorities);
     }
@@ -70,6 +79,21 @@ public class UserDetailsImpl implements UserDetails
     public String getUsername()
     {
         return username;
+    }
+
+    public String getFaculty()
+    {
+        return faculty;
+    }
+
+    public String getPhone()
+    {
+        return phone;
+    }
+
+    public Integer getEntityId()
+    {
+        return entityId;
     }
 
     @Override

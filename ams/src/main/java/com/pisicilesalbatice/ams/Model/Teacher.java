@@ -25,6 +25,10 @@ public class Teacher {
     @OneToMany(mappedBy = "teacher")
     private Set<Course> courses;
 
+    // User part
+    @OneToOne
+    @JoinColumn(name="user_id")
+    private User mainUser;
 
     public Teacher() {
     }

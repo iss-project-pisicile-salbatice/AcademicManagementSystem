@@ -29,35 +29,7 @@ public class StudentController {
         this.enrollmentService = enrollmentService;
         this.optionalService = optionalService;
     }
-
-    @GetMapping("/students")
-    public List<Student> getStudents() {
-        return studentService.getStudents();
-    }
-
-    @PostMapping("/students")
-    Student newStudent(@RequestParam("contract") String contract,
-                       @RequestParam("enrollmentDate") String enrollmentDate) {
-        Date enrollDate = Date.valueOf(enrollmentDate);
-        return studentService.addStudent(contract, enrollDate);
-    }
-
-    // Single item
-    @GetMapping("/students/{id}")
-    Student one(@PathVariable Integer id) {
-        return studentService.findById(id);
-    }
-
-    @PutMapping("/students/{id}")
-    Student replaceStudent(@RequestBody Student newStudent, @PathVariable Integer id) {
-        return studentService.replaceStudent(newStudent, id);
-    }
-
-    @DeleteMapping("/students/{id}")
-    void deleteStudent(@PathVariable Integer id) {
-        studentService.deleteById(id);
-    }
-
+    
     @GetMapping("/students/grades/{id}")
     public List<AdvancedGradeDTO> getGrades(@PathVariable Integer id) {
         var gradeList = studentService.getStudentEnrollments(id).stream().map(BasicGrade::new).collect(Collectors.toSet());

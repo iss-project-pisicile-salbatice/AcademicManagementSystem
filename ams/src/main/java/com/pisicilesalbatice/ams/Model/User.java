@@ -25,6 +25,10 @@ public class User
     @Email
     private String email;
 
+    private String faculty;
+
+    private String phone;
+
     @NotBlank
     @Size(max = 120)
     private String password;
@@ -43,6 +47,15 @@ public class User
     {
         this.username = username;
         this.email = email;
+        this.password = password;
+    }
+
+    public User(String username, String email, String faculty, String phone, String password)
+    {
+        this.username = username;
+        this.email = email;
+        this.faculty = faculty;
+        this.phone = phone;
         this.password = password;
     }
 
@@ -94,5 +107,25 @@ public class User
     public void setRoles(Set<Role> roles)
     {
         this.roles = roles;
+    }
+
+    public String getFaculty()
+    {
+        return faculty;
+    }
+
+    public void setFaculty(String faculty)
+    {
+        this.faculty = faculty;
+    }
+
+    public String getPhone()
+    {
+        return phone;
+    }
+
+    public void setPhone(String phone)
+    {
+        this.phone = phone;
     }
 }

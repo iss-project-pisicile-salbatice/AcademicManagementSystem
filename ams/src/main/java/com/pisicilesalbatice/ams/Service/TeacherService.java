@@ -111,4 +111,14 @@ public class TeacherService {
         }
         return teacherOptional.get();
     }
+
+    public Integer findTeacherByUser(User user)
+    {
+        Optional<Teacher> optionalTeacher = this.teacherRepository.findByMainUser(user);
+        if(optionalTeacher.isEmpty())
+        {
+            return null;
+        }
+        return optionalTeacher.get().gettId();
+    }
 }
