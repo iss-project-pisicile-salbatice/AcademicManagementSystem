@@ -62,6 +62,11 @@ public class Teacher {
         this.degree = degree;
     }
 
+    public User getMainUser()
+    {
+        return mainUser;
+    }
+
     public Pair<Float, Map<Course, Float>> computeResults() {
         Map<Course, Float> courseResults = courses.stream().collect(Collectors.toMap(Function.identity(), Course::computeGradesMean));
         int numberOfCourseResults = courseResults.entrySet().size();

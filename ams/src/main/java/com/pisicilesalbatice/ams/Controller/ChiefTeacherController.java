@@ -81,4 +81,10 @@ public class ChiefTeacherController {
                 .map(BasicDiscipline::new)
                 .collect(Collectors.toList());
     }
+
+    @GetMapping("/chief/teachers/all")
+    public List<TeacherDTO> getTeachers()
+    {
+        return chiefTeacherService.getAllTeachers().stream().map(TeacherDTO::new).collect(Collectors.toList());
+    }
 }

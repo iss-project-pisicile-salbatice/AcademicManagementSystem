@@ -66,4 +66,9 @@ public class ChiefTeacherService {
         }
         return teacherOptional.get();
     }
+
+    public List<Teacher> getAllTeachers()
+    {
+        return this.teacherRepository.findAll();
+    }
 }

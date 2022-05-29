@@ -24,5 +24,16 @@ export default function Menu({userName, role}) {
             <Navbar userName={userName} role={role} imgUser={'userMockUp.png'}/>
             <PrintList/>
         </div>)
+    } else if (role==="Chief Teacher") {
+        return (
+            <div>
+                <Navbar userName={userName} role={role} imgUser={'userMockUp.png'}/>
+                <div className="components">
+                    <MenuBox link={'/chief_optionals'} imgUrl={'optionals.png'} title={'Manage optionals'}/>
+                    <MenuBox link={'/chief_disciplines'} imgUrl={'teacher.png'} title={'Disciplines'}/>
+                    <MenuBox link={'/chief_teachers'} imgUrl={'grades.jpg'} title={'Teacher grades'}/>
+                </div>
+            </div>
+        );
     }
 }
