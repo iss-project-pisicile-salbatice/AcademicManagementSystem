@@ -29,7 +29,7 @@ public class StudentController {
         this.enrollmentService = enrollmentService;
         this.optionalService = optionalService;
     }
-    
+
     @GetMapping("/students/grades/{id}")
     public List<AdvancedGradeDTO> getGrades(@PathVariable Integer id) {
         var gradeList = studentService.getStudentEnrollments(id).stream().map(BasicGrade::new).collect(Collectors.toSet());
