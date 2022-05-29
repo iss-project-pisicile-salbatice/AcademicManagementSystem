@@ -15,6 +15,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.stream.Collectors;
 
+@CrossOrigin(origins = "*", maxAge = 3600)
 @RestController
 public class StudentController {
     private final StudentService studentService;
@@ -27,34 +28,6 @@ public class StudentController {
         this.studentService = studentService;
         this.enrollmentService = enrollmentService;
         this.optionalService = optionalService;
-    }
-
-    @GetMapping("/students")
-    public List<Student> getStudents() {
-        return studentService.getStudents();
-    }
-
-    @PostMapping("/students")
-    Student newStudent(@RequestParam("contract") String contract,
-                       @RequestParam("enrollmentDate") String enrollmentDate) {
-        Date enrollDate = Date.valueOf(enrollmentDate);
-        return studentService.addStudent(contract, enrollDate);
-    }
-
-    // Single item
-    @GetMapping("/students/{id}")
-    Student one(@PathVariable Integer id) {
-        return studentService.findById(id);
-    }
-
-    @PutMapping("/students/{id}")
-    Student replaceStudent(@RequestBody Student newStudent, @PathVariable Integer id) {
-        return studentService.replaceStudent(newStudent, id);
-    }
-
-    @DeleteMapping("/students/{id}")
-    void deleteStudent(@PathVariable Integer id) {
-        studentService.deleteById(id);
     }
 
     @GetMapping("/students/grades/{id}")

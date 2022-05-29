@@ -78,4 +78,14 @@ public class StudentService {
         }
         return studentOptional.get();
     }
+
+    public Integer findStudentByUser(User user)
+    {
+        Optional<Student> optionalStudent = this.studentRepository.findByMainUser(user);
+        if(optionalStudent.isEmpty())
+        {
+            return null;
+        }
+        return optionalStudent.get().getsId();
+    }
 }
