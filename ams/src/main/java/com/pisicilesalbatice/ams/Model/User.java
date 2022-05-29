@@ -1,97 +1,98 @@
 package com.pisicilesalbatice.ams.Model;
 
 import javax.persistence.*;
+import javax.validation.constraints.Email;
+import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.Size;
+import java.util.HashSet;
+import java.util.Set;
 
 @Entity
-@Table(name="my_user")
-public class User {
+@Table(name = "users",
+        uniqueConstraints = {
+                @UniqueConstraint(columnNames = "username"),
+                @UniqueConstraint(columnNames = "email")
+        })
+public class User
+{
     @Id
-    @GeneratedValue(strategy=GenerationType.IDENTITY)
-    private int uId;
-    private String userName;
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long id;
+    @NotBlank
+    private String username;
+
+    @NotBlank
+    @Email
+    private String email;
+
+    @NotBlank
+    @Size(max = 120)
     private String password;
-    private int category;
-    private String fullName;
-    private String about;
 
-    public User() {
+    @ManyToMany(fetch = FetchType.LAZY)
+    @JoinTable(name = "user_roles",
+            joinColumns = @JoinColumn(name = "user_id"),
+            inverseJoinColumns = @JoinColumn(name = "role_id"))
+    private Set<Role> roles = new HashSet<>();
+
+    public User()
+    {
     }
 
-    public User(int uId, String userName, String password, int category, String fullName, String about) {
-        this.uId = uId;
-        this.userName = userName;
+    public User(String username, String email, String password)
+    {
+        this.username = username;
+        this.email = email;
         this.password = password;
-        this.category = category;
-        this.fullName = fullName;
-        this.about = about;
     }
 
-    public User(String userName, String password, int category, String fullName, String about) {
-        this.userName = userName;
-        this.password = password;
-        this.category = category;
-        this.fullName = fullName;
-        this.about = about;
+    public Long getId()
+    {
+        return id;
     }
 
-    public int getuId() {
-        return uId;
+    public void setId(Long id)
+    {
+        this.id = id;
     }
 
-    public void setuId(int uId) {
-        this.uId = uId;
+    public String getUsername()
+    {
+        return username;
     }
 
-    public String getUserName() {
-        return userName;
+    public void setUsername(String username)
+    {
+        this.username = username;
     }
 
-    public void setUserName(String userName) {
-        this.userName = userName;
+    public String getEmail()
+    {
+        return email;
     }
 
-    public String getPassword() {
+    public void setEmail(String email)
+    {
+        this.email = email;
+    }
+
+    public String getPassword()
+    {
         return password;
     }
 
-    public void setPassword(String password) {
+    public void setPassword(String password)
+    {
         this.password = password;
     }
 
-    public int getCategory() {
-        return category;
+    public Set<Role> getRoles()
+    {
+        return roles;
     }
 
-    public void setCategory(int category) {
-        this.category = category;
+    public void setRoles(Set<Role> roles)
+    {
+        this.roles = roles;
     }
-
-    public String getFullName() {
-        return fullName;
-    }
-
-    public void setFullName(String fullName) {
-        this.fullName = fullName;
-    }
-
-    public String getAbout() {
-        return about;
-    }
-
-    public void setAbout(String about) {
-        this.about = about;
-    }
-
-    @Override
-    public String toString() {
-        return "User{" +
-                "uId=" + uId +
-                ", userName='" + userName + '\'' +
-                ", password='" + password + '\'' +
-                ", category=" + category +
-                ", fullName='" + fullName + '\'' +
-                ", about='" + about + '\'' +
-                '}';
-    }
-
 }
