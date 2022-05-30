@@ -13,7 +13,7 @@ export default function Grades(props) {
       redirect: "follow",
     };
 
-    await fetch("http://localhost:8080/students/grades/1", requestOptions)
+    await fetch("http://localhost:8080/students/grades/61", requestOptions)
       .then((response) => response.json())
       .then((result) => {
         setValues(result);

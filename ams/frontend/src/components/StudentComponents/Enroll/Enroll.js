@@ -64,7 +64,7 @@ export default function Enroll() {
       };
 
       fetch(
-        `http://localhost:8080/students/enroll?yearSpecialityID=${enrollment}&studentID=1&enrollmentDate=${date}`,
+        `http://localhost:8080/students/enroll?yearSpecialityID=${enrollment}&studentID=61&enrollmentDate=${date}`,
         requestOptions
       )
         .then((response) => response.text())

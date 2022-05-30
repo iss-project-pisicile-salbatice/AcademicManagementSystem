@@ -1,9 +1,9 @@
 import React from "react";
 
-const ChiefOptionals = () => {
+const ChiefOptionalsAssign = () => {
     return (
         <p>Hello there</p>
     );
 };
 
-export default ChiefOptionals;
+export default ChiefOptionalsAssign;

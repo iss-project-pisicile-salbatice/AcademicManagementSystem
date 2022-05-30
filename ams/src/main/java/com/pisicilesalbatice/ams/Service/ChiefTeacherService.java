@@ -71,4 +71,9 @@ public class ChiefTeacherService {
     {
         return this.teacherRepository.findAll();
     }
+
+    public List<YearSpeciality> getAllYears()
+    {
+        return this.yearSpecialityRepository.findAll();
+    }
 }

@@ -29,7 +29,8 @@ export default function Menu({userName, role}) {
             <div>
                 <Navbar userName={userName} role={role} imgUser={'userMockUp.png'}/>
                 <div className="components">
-                    <MenuBox link={'/chief_optionals'} imgUrl={'optionals.png'} title={'Manage optionals'}/>
+                    <MenuBox link={'/chief_optionals_accept'} imgUrl={'contract.jpg'} title={'Accept optionals'}/>
+                    <MenuBox link={'/chief_optionals_assign'} imgUrl={'optionals.png'} title={'Assign optionals'}/>
                     <MenuBox link={'/chief_disciplines'} imgUrl={'teacher.png'} title={'Disciplines'}/>
                     <MenuBox link={'/chief_teachers'} imgUrl={'grades.jpg'} title={'Teacher grades'}/>
                 </div>

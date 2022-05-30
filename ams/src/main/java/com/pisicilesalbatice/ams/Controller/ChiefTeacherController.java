@@ -13,6 +13,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.stream.Collectors;
 
+@CrossOrigin(origins = "*", maxAge = 3600)
 @RestController
 public class ChiefTeacherController {
     private ChiefOptionalService chiefOptionalService;
@@ -32,6 +33,11 @@ public class ChiefTeacherController {
     @GetMapping("/chief/optionals/{year_id}")
     public List<BasicProposedOptional> getProposedOptionalsOfYear(@PathVariable Integer year_id) {
         return chiefOptionalService.getProposedOptionalsOfYear(year_id).stream().map(BasicProposedOptional::new).collect(Collectors.toList());
+    }
+
+    @GetMapping("/chief/accepted_optionals/{year_id}")
+    public List<BasicAcceptedOptional> getAcceptedOptionals(@PathVariable Integer year_id) {
+        return chiefOptionalService.getAcceptedOptionals(year_id).stream().map(BasicAcceptedOptional::new).collect(Collectors.toList());
     }
 
     @PostMapping("/chief/optionals")
@@ -86,5 +92,11 @@ public class ChiefTeacherController {
     public List<TeacherDTO> getTeachers()
     {
         return chiefTeacherService.getAllTeachers().stream().map(TeacherDTO::new).collect(Collectors.toList());
+    }
+
+    @GetMapping("/chief/year_specialities")
+    public List<YearDTO> getYear()
+    {
+        return chiefTeacherService.getAllYears().stream().map(YearDTO::new).collect(Collectors.toList());
     }
 }

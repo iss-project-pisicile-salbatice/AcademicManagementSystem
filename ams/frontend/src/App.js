@@ -11,7 +11,9 @@ import { Link } from "react-router-dom";
 import { Routes, Route } from "react-router-dom";
 import ChiefDisciplines from "./components/ChiefTeacherComponents/ChiefDisciplines/ChiefDisciplines";
 import ChiefTeacherGrades from "./components/ChiefTeacherComponents/ChiefTeacherGrades/ChiefTeacherGrades";
-import ChiefOptionals from "./components/ChiefTeacherComponents/ChiefOptionals/ChiefOptionals";
+import ChiefOptionalsAssign from "./components/ChiefTeacherComponents/ChiefOptionalsAssign/ChiefOptionalsAssign";
+import ChiefOptionalsAccept from "./components/ChiefTeacherComponents/ChiefOptionals/ChiefOptionalsAccept";
+
 function App() {
   return (
     <div>
@@ -25,7 +27,8 @@ function App() {
         <Route exact path="/contract" element={<Contract />} />
         <Route exact path="/chief_disciplines" element={<ChiefDisciplines />} />
         <Route exact path="/chief_teachers" element={<ChiefTeacherGrades />} />
-        <Route exact path="/chief_optionals" element={<ChiefOptionals />} />
+        <Route exact path="/chief_optionals_accept" element={<ChiefOptionalsAccept />} />
+        <Route exact path="/chief_optionals_assign" element={<ChiefOptionalsAssign />} /> 
         {/*<Route exact path="/syllabus" element={<Sylabus id={2} />} />*/}
         <Route exact path="ProfilePage" element={<ProfilePage />} />
       </Routes>
