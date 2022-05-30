@@ -10,9 +10,10 @@
 
 .optionalsContainer {
     text-align: center;
-    width: 70%;
+    width: 45%;
     align-items: center;
     margin: 0 auto;
+    color:#130C7D;
 }
 
 .proposedOptionalData{
@@ -20,12 +21,15 @@
     padding-left: 20px;
 }
 
-.proposedOptionalCheckbox{
-
-}
 
 .specialitiesComboBox{
-    margin:0 auto;
-    background: white;
-    width: 13rem;
+    text-align: center;
+    width: 43%;
+    align-items: center;
+    margin: 10px auto;
+    display: flex;
+    flex-direction: column;
+    flex-wrap: wrap;
+    background-color: white;
+    padding: 10px 20px
 }
