@@ -1,18 +1,13 @@
 package com.pisicilesalbatice.ams.Controller;
 
-import com.pisicilesalbatice.ams.Model.User;
+import com.pisicilesalbatice.ams.Model.DTO.UserDTO;
 import com.pisicilesalbatice.ams.Service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
-import java.util.List;
-
+@CrossOrigin(origins = "*", maxAge = 3600)
 @RestController
-@RequestMapping(path = "api/v1/user")
 public class UserController {
-
     private final UserService userService;
 
     @Autowired
@@ -20,8 +15,8 @@ public class UserController {
         this.userService = userService;
     }
 
-    @GetMapping
-    public List<User> getUsers() {
-        return userService.getUsers();
+    @PutMapping(value = "/users")
+    public void updateUser(@RequestBody UserDTO userDto) {
+        userService.updateUser(userDto.getUserId(), userDto.getEmail(), userDto.getPhoneNumber());
     }
 }

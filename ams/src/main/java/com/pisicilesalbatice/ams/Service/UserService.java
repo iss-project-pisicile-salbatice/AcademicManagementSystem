@@ -23,4 +23,11 @@ public class UserService {
     public void addUser(User user){
         userRepository.save(user);
     }
+
+    public void updateUser(Long uId, String email, String phoneNumber){
+        User user = userRepository.getById(uId);
+        user.setEmail(email);
+        user.setPhone(phoneNumber);
+        userRepository.save(user);
+    }
 }
