@@ -1,0 +1,50 @@
+.enrollmentItem {
+  background: #f4f4f4;
+  margin: 5px;
+  padding: 10px 20px;
+  cursor: pointer;
+  display: flex;
+  justify-content: space-between;
+  flex-wrap: wrap;
+}
+
+.enrollmentItem > div:nth-child(3) {
+  flex: 100%; /* or - flex: 0 50% - or - flex-basis: 50% - */
+  /*demo*/
+  box-shadow: 0 0 0 1px black;
+  margin-bottom: 10px;
+}
+.enrollmentItem input {
+  margin: 5px;
+  padding: 3px 7px;
+  align-items: center;
+  justify-content: space-between;
+  font-size: 10px;
+  transform: scale(0.7);
+}
+
+.enrollmentContainer {
+  text-align: center;
+  width: 40%;
+  align-items: center;
+  margin: 0 auto;
+}
+
+.enrollmentCheckbox {
+  margin-top: auto;
+  margin-bottom: auto;
+}
+
+.enrollmentData {
+  text-align: left;
+  padding-left: 20px;
+}
+
+.buttonContainer{
+  text-align: center;
+  width: 40%;
+  align-items: center;
+  margin: 0 auto;
+  padding-top: 15px;
+  padding-bottom: 30px
+}

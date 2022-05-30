@@ -4,6 +4,7 @@ import com.pisicilesalbatice.ams.Exceptions.Exceptions.ChiefServiceException;
 import com.pisicilesalbatice.ams.Exceptions.Exceptions.OptionalNotFoundException;
 import com.pisicilesalbatice.ams.Exceptions.Exceptions.YearSpecialityNotFoundException;
 import com.pisicilesalbatice.ams.Model.*;
+import com.pisicilesalbatice.ams.Model.DTO.BasicAcceptedOptional;
 import com.pisicilesalbatice.ams.Repository.*;
 import org.springframework.stereotype.Service;
 
@@ -174,6 +175,12 @@ public class ChiefOptionalService
                 optionalRatings.removeIf(optionalRating -> optionalRating.getStudent().equals(currentStudent));
             }
         }
+    }
+
+    public List<AcceptedOptional> getAcceptedOptionals(Integer year_id)
+    {
+        YearSpeciality yearSpeciality = getYearSpeciality(year_id);
+        return this.acceptedOptionalRepository.findAllByYear(yearSpeciality);
     }
 
     private ProposedOptional getProposedOptional(Integer optionalId)

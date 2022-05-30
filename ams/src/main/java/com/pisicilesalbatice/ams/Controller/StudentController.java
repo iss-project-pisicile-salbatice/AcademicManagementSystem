@@ -56,7 +56,12 @@ public class StudentController {
                              @RequestParam("studentID") Integer studentID,
                              @RequestParam("enrollmentDate") String enrollmentDate) {
         Date enrollDate = Date.valueOf(enrollmentDate);
+        System.out.println(enrollDate);
         enrollmentService.enrollStudent(studentID, yearSpecialityID, enrollDate);
+//        System.out.println(yearSpecialityID);
+//        System.out.println(studentID);
+//        System.out.println(enrollmentDate);
+
     }
 
     @GetMapping("/students/courses_year/{year_id}")

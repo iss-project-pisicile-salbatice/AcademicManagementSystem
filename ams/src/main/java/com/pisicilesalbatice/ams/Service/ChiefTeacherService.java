@@ -66,4 +66,14 @@ public class ChiefTeacherService {
         }
         return teacherOptional.get();
     }
+
+    public List<Teacher> getAllTeachers()
+    {
+        return this.teacherRepository.findAll();
+    }
+
+    public List<YearSpeciality> getAllYears()
+    {
+        return this.yearSpecialityRepository.findAll();
+    }
 }
