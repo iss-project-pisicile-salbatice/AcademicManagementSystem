@@ -1,0 +1,31 @@
+.proposedOptionalItem{
+    background: #f4f4f4;
+    margin: 5px;
+    padding: 10px 20px;
+    cursor: pointer;
+    display: flex;
+    justify-content: space-between;
+    flex-wrap: wrap;
+}
+
+.optionalsContainer {
+    text-align: center;
+    width: 70%;
+    align-items: center;
+    margin: 0 auto;
+}
+
+.proposedOptionalData{
+    text-align: left;
+    padding-left: 20px;
+}
+
+.proposedOptionalCheckbox{
+
+}
+
+.specialitiesComboBox{
+    margin:0 auto;
+    background: white;
+    width: 13rem;
+}

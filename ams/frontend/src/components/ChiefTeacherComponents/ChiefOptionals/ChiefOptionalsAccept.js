@@ -1,8 +1,9 @@
 import React from "react";
-import { useState, useEffect } from "react";
-import { MenuItem, Box, Select, InputLabel } from "@mui/material";
+import {useState, useEffect} from "react";
+import {MenuItem, Box, Select, InputLabel} from "@mui/material";
 import Navbar from "../../Navbar";
 import ChiefYearAccept from "./ChiefYearAccept";
+import './ChiefOptionals.css'
 
 const ChiefOptionalsAccept = () => {
     // State part for the year specialities
@@ -41,22 +42,26 @@ const ChiefOptionalsAccept = () => {
                 imgUser={"userMockUp.png"}
             />
             <div>
-                <Box sx={{ minWidth: 120 }}>
-                    <InputLabel id="demo-simple-select-label">Specialities</InputLabel>
-                    <Select
-                        labelId="spec-label"
-                        id="spec-label-id"
-                        value={selectedYear}
-                        label="YearSpeciality"
-                        onChange={handleChange}
-                    >
-                        {yearSpecialities.map((yearSpeciality) => (
-                        <MenuItem value={yearSpeciality.yearId} key={yearSpeciality.yearId}>{yearSpeciality.year} {yearSpeciality.speciality}</MenuItem>))}
-                    </Select>
-                </Box>
+                <div className={"specialitiesComboBox"}>
+                    <Box sx={{minWidth: 120}}>
+                        <InputLabel id="demo-simple-select-label">Specialities</InputLabel>
+                        <Select
+                            labelId="spec-label"
+                            id="spec-label-id"
+                            value={selectedYear}
+                            label="YearSpeciality"
+                            onChange={handleChange}
+                        >
+                            {yearSpecialities.map((yearSpeciality) => (
+                                <MenuItem value={yearSpeciality.yearId}
+                                          key={yearSpeciality.yearId}>{yearSpeciality.year} {yearSpeciality.speciality}</MenuItem>))}
+                        </Select>
+                    </Box>
+                </div>
                 <div>
                     {yearSpecialities.map((yearSpeciality) =>
-                    (yearSpeciality.yearId === selectedYear && <ChiefYearAccept key={selectedYear} yearId={selectedYear}/>))}
+                        (yearSpeciality.yearId === selectedYear &&
+                            <ChiefYearAccept key={selectedYear} yearId={selectedYear}/>))}
                 </div>
             </div>
         </div>
