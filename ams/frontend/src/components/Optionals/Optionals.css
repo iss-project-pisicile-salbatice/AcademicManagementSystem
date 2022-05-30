@@ -1,0 +1,51 @@
+.enrollmentItem {
+    background: #f4f4f4;
+    margin: 5px;
+    padding: 10px 20px;
+    cursor: pointer;
+    width: 100%;
+  }
+  .enrollmentItem:hover {
+    border: 5px;
+  }
+  
+  
+  .enrollmentContainer {
+    text-align: center;
+    width: 50%;
+    align-items: center;
+    margin: 0 auto;
+    display: flex;
+    flex-direction: column;
+  }
+  
+  .enrollmentCheckbox {
+    margin-top: auto;
+    margin-bottom: auto;
+  }
+  
+  .enrollmentData {
+    margin: auto 0;
+    text-align: left;
+    padding-left: 20px;
+    font-size: 20px;
+    width: 100%;
+  }
+  
+  .optionalItem{
+    margin: 20px;
+    padding: 0 15px;
+    border-style: solid;
+    border-radius: 7px;
+    border-width: 1px;
+    background-color:#cfcfcf;
+    width: 300px;
+
+  }
+  .optionalItem:hover{
+    background-color: #dddbdb;
+  }
+
+  .optionalData{
+    text-align: left;
+  }
