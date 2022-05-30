@@ -1,5 +1,6 @@
 package com.pisicilesalbatice.ams.Service;
 
+import com.pisicilesalbatice.ams.Model.DTO.YearDTO;
 import com.pisicilesalbatice.ams.Model.Group;
 import com.pisicilesalbatice.ams.Model.Student;
 import com.pisicilesalbatice.ams.Model.YearSpeciality;
@@ -44,5 +45,10 @@ public class AdminService {
         else {
             throw new RuntimeException("Year speciality not found!");
         }
+    }
+
+    public List<YearSpeciality> getAllYears()
+    {
+        return this.yearSpecialityRepository.findAll();
     }
 }

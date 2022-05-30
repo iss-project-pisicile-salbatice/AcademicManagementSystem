@@ -2,6 +2,7 @@ package com.pisicilesalbatice.ams.Controller;
 
 import com.pisicilesalbatice.ams.Model.DTO.GroupWithResultsDTO;
 import com.pisicilesalbatice.ams.Model.DTO.StudentWithResultsDTO;
+import com.pisicilesalbatice.ams.Model.DTO.YearDTO;
 import com.pisicilesalbatice.ams.Model.Group;
 import com.pisicilesalbatice.ams.Model.Student;
 import com.pisicilesalbatice.ams.Service.AdminService;
@@ -38,5 +39,11 @@ public class AdminController {
         return studentsWithResults.stream()
                 .map(studentFloatPair -> new StudentWithResultsDTO(studentFloatPair.getFirst(), studentFloatPair.getSecond()))
                 .collect(Collectors.toList());
+    }
+
+    @GetMapping("admin/years")
+    public List<YearDTO> getYears()
+    {
+        return adminService.getAllYears().stream().map(YearDTO::new).collect(Collectors.toList());
     }
 }
