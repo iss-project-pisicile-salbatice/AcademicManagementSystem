@@ -37,4 +37,15 @@ export default function Menu({userName, role}) {
             </div>
         );
     }
+    else if (role==="Teacher") {
+        return (
+            <div>
+                <Navbar userName={userName} role={role} imgUser={'userMockUp.png'}/>
+                <div className="components">
+                    <MenuBox link={'/teacher_propose_optionals'} imgUrl={'optionals.png'} title={'Propose Optionals'}/>
+                   
+                </div>
+            </div>
+        );
+    }
 }
