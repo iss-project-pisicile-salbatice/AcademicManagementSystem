@@ -13,6 +13,7 @@ import ChiefDisciplines from "./components/ChiefTeacherComponents/ChiefDisciplin
 import ChiefTeacherGrades from "./components/ChiefTeacherComponents/ChiefTeacherGrades/ChiefTeacherGrades";
 import ChiefOptionalsAssign from "./components/ChiefTeacherComponents/ChiefOptionalsAssign/ChiefOptionalsAssign";
 import ChiefOptionalsAccept from "./components/ChiefTeacherComponents/ChiefOptionals/ChiefOptionalsAccept";
+import TeacherOptional from "./components/TeacherComponents/TeacherOptionals/TeacherOptional";
 
 function App() {
   return (
@@ -20,7 +21,7 @@ function App() {
       {" "}
       <Routes>
         <Route exact path="/login" element={<LoginForm />} />
-        <Route exact path="/" element={<Menu userName={'Ianis Teja'} role={'Chief Teacher'} />} />
+        <Route exact path="/" element={<Menu userName={'Ianis Teja'} role={'Teacher'} />} />
         <Route exact path="/enroll" element={<Enroll />} />
         <Route exact path="/grades" element={<Grades />} />
         <Route exact path="/optionals" element={<Optionals />} />
@@ -29,7 +30,7 @@ function App() {
         <Route exact path="/chief_teachers" element={<ChiefTeacherGrades />} />
         <Route exact path="/chief_optionals_accept" element={<ChiefOptionalsAccept />} />
         <Route exact path="/chief_optionals_assign" element={<ChiefOptionalsAssign />} /> 
-        {/*<Route exact path="/syllabus" element={<Sylabus id={2} />} />*/}
+        <Route exact path="/teacher_propose_optionals" element={<TeacherOptional/>} />
         <Route exact path="ProfilePage" element={<ProfilePage />} />
       </Routes>
     </div>
