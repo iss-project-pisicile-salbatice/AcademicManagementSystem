@@ -5,16 +5,37 @@ import "../Grades/Grades.css";
 
 export default function TeacherTableGrades({ open, yearSpeciality }) {
   const [grades, setGrades] = useState([]);
+  const [gradeValue, setGradeValue] = useState({
+    teacherID: "1",
+    studentID: "1",
+    courseID: "2",
+    gradeValue: "",
+  });
 
-    var formdata = new FormData();
-    formdata.append("teacherID", "1");
-    formdata.append("studentID", "1");
-    formdata.append("courseID", "2");
-    formdata.append("gradeValue", "");
+  const set = (name) => {
+    return ({ target: { value } }) => {
+      setGradeValue((oldValues) => ({ ...oldValues, [name]: value }));
+    };
+  };
 
+  const setresponse = (name,value) =>{
+    setGradeValue(oldValues => ({ ...oldValues, [name]: value}))
+  };
 
+  console.log(gradeValue);
+  var formdata = new FormData();
+  formdata.append("teacherID", "1");
+  formdata.append("studentID", "");
+  formdata.append("courseID", "");
+  formdata.append("gradeValue", "");
 
-
+  const onSubmit = (event) => {
+    formdata.set("studentID", gradeValue.studentID);
+    formdata.set("courseID", gradeValue.courseID);
+    formdata.set("gradeValue", gradeValue.gradeValue);
+    console.log(formdata.get(gradeValue));
+    postStudentGrades(event);
+  };
 
   const getTeacherGrades = async () => {
     var requestOptions = {
@@ -25,6 +46,8 @@ export default function TeacherTableGrades({ open, yearSpeciality }) {
     await fetch("http://localhost:8080/teachers/grades/1", requestOptions)
       .then((response) => response.json())
       .then((result) => {
+        console.log(result[0].grades);
+        setresponse('gradeValue',result[0].grades[1].grade);
         setGrades(result[0].grades);
       })
       .catch((error) => console.log("error", error));
@@ -70,41 +93,23 @@ export default function TeacherTableGrades({ open, yearSpeciality }) {
   }
   return (
     <div className="studentsList">
-      <table>
-        <tbody>
-          <tr>
-            <th>Year</th>
-            <th>Name</th>
-            <th>Course</th>
-            <th>Grade</th>
-          </tr>
-          {filteredGrades.map((grade, index) => (
-            <tr className="teacherTableRow">
-              <td className="teacherTableSquare">{grade.yearSpeciality[0]}</td>
-              <td className="teacherTableSquare">{grade.studentName}</td>
-              <td className="teacherTableSquare">{grade.courseName}</td>
-              <td className="teacherTableSquare">
-                <input
-                  type="int"
-                  value={grade.grade}
-                  onChange={(event) => {
-                    const auxArr = new Array();
-                    auxArr = filteredGrades;
-                    auxArr[index].grade = event.target.value;
-                    console.log(auxArr);
-                    setGrades(auxArr);
-                    formdata.set("gradeValue", event.target.value);
-                    formdata.set("studentID", "1");
-                    formdata.set("courseID", "2");
-                    console.log(JSON.stringify(formdata));
-                  }}
+          <form onSubmit={onSubmit}>
+            {filteredGrades.map((grade, index) => (
+              <div className="studentToGrade">
+               {/* <input type="text" value = {grade.studentName} readOnly/> */}
+                <p className="gradeElem">{grade.studentName}</p>
+                <input className = "gradeElem" id = "giveGrade"
+                  type="number"
+                  value={gradeValue.gradeValue}
+                  onChange={
+                    set('gradeValue')
+                    // setresponse('studentID',grade.studentID);
+                  }
                 ></input>
-              </td>
-            </tr>
-          ))}
-        </tbody>
-      </table>
-      <button onClick={postStudentGrades}>Save</button>
+              </div>
+            ))}
+            <input type="submit"></input>
+          </form>
     </div>
   );
 }

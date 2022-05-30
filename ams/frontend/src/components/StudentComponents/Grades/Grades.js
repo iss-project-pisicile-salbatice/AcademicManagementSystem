@@ -19,6 +19,7 @@ export default function Grades(props) {
     await fetch("http://localhost:8080/teachers/courses/1", requestOptions)
       .then((response) => response.json())
       .then((result) => {
+        console.log(result);
         setSubjects(result);
       })
       .catch((error) => console.log("error", error));
@@ -43,6 +44,7 @@ export default function Grades(props) {
     getStudentGrades();
   }, []);
 
+
   return (
     <div>
       <Navbar
@@ -53,15 +55,13 @@ export default function Grades(props) {
       <h2 className="pageTitle">Grades</h2>
       <div>
         <div>
-          <table className="teacherTable">
+          {/* <table className="teacherTable">
             <tbody className="teacherSubjects">
               {subjects.map((subject) => (
                 <div>
                   <tr onClick={() => setIsOpen((isOpen) => !isOpen)}>
                     <td className="teacherTableSquare">
-                      {subject.yearSpeciality}
-                    </td>
-                    <td className="teacherTableSquare">{subject.courseName}</td>
+                      {subject.yearSpeciality}-{subject.courseName}</td>
                   </tr>
                   <TeacherTableGrades
                     open={isOpen}
@@ -70,7 +70,7 @@ export default function Grades(props) {
                 </div>
               ))}
             </tbody>
-          </table>
+          </table> */}
 
           {/* <table className="teacherTable">
             <tbody>
@@ -95,7 +95,7 @@ export default function Grades(props) {
             </tbody>
           </table> */}
         </div>
-        {/* <table>
+        <table>
           <tbody>
             {values.map((value) => (
               <tr>
@@ -104,7 +104,7 @@ export default function Grades(props) {
               </tr>
             ))}
           </tbody>
-        </table> */}
+        </table>
       </div>
     </div>
   );
