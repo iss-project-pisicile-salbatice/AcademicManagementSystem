@@ -13,9 +13,9 @@ import org.springframework.web.bind.annotation.*;
 import java.sql.Date;
 import java.util.List;
 import java.util.Map;
-import java.util.Set;
 import java.util.stream.Collectors;
 
+@CrossOrigin(origins = "*", maxAge = 3600)
 @RestController
 public class StudentController {
     private final StudentService studentService;
@@ -30,34 +30,6 @@ public class StudentController {
         this.optionalService = optionalService;
     }
 
-    @GetMapping("/students")
-    public List<Student> getStudents() {
-        return studentService.getStudents();
-    }
-
-    @PostMapping("/students")
-    Student newStudent(@RequestParam("contract") String contract,
-                       @RequestParam("enrollmentDate") String enrollmentDate) {
-        Date enrollDate = Date.valueOf(enrollmentDate);
-        return studentService.addStudent(contract, enrollDate);
-    }
-
-    // Single item
-    @GetMapping("/students/{id}")
-    Student one(@PathVariable Integer id) {
-        return studentService.findById(id);
-    }
-
-    @PutMapping("/students/{id}")
-    Student replaceStudent(@RequestBody Student newStudent, @PathVariable Integer id) {
-        return studentService.replaceStudent(newStudent, id);
-    }
-
-    @DeleteMapping("/students/{id}")
-    void deleteStudent(@PathVariable Integer id) {
-        studentService.deleteById(id);
-    }
-
     @GetMapping("/students/grades/{id}")
     public List<AdvancedGradeDTO> getGrades(@PathVariable Integer id) {
         var gradeList = studentService.getStudentEnrollments(id).stream().map(BasicGrade::new).collect(Collectors.toSet());
@@ -68,6 +40,7 @@ public class StudentController {
 
     @GetMapping("/students/enroll")
     public List<YearSpeciality> getEnrollmentYears() {
+        // this.optionalService.DELETE_THIS();
         return enrollmentService.getAllYears();
     }
 
@@ -97,8 +70,8 @@ public class StudentController {
     }
 
     @GetMapping("/students/proposed_optionals/{year_id}")
-    public List<BasicProposedOptional> getProposedOptionals(@PathVariable Integer year_id){
-        return optionalService.getProposedOptionals(year_id).stream().map(BasicProposedOptional::new).collect(Collectors.toList());
+    public List<StudentAcceptedOptional> getAcceptedOptionals(@PathVariable Integer year_id){
+        return optionalService.getAcceptedOptionals(year_id).stream().map(StudentAcceptedOptional::new).collect(Collectors.toList());
     }
 
     @PostMapping("/students/rate_optionals")
@@ -106,7 +79,9 @@ public class StudentController {
         this.optionalService.setOptionalRatings(
                 ratings.getStudentID(),
                 ratings.getYearSpecialityID(),
-                ratings.getRatings().stream().map(dto -> new Pair<>(dto.getProposedOptionalID(), dto.getPosition())).collect(Collectors.toList())
+                ratings.getReceivedDate(),
+                ratings.getReceivedTime(),
+                ratings.getRatings().stream().map(dto -> new Pair<>(dto.getAcceptedOptionalId(), dto.getPosition())).collect(Collectors.toList())
                 );
     }
 }
