@@ -1,74 +1,73 @@
 import React from "react";
-import { useFormControl } from "@mui/material/FormControl";
 import "./PrintList.css";
-import { useState, useEffect } from "react";
+import {useState, useEffect} from "react";
 import TextField from "@mui/material/TextField";
 import FormControl from "@mui/material/FormControl";
 import Button from "@mui/material/Button";
 import ResultList from "./ResultList";
 import ResultItem from "./ResultItem";
-import { MenuItem, Box, Select, InputLabel, Divider } from "@mui/material";
+import {MenuItem, Box, Select, InputLabel, Divider} from "@mui/material";
 
 const PrintList = () => {
-  const [resultList, setResultList] = useState([]);
-  const [specialityID, setSpecialityID] = useState("");
-  const [yearSpecialities, setYearSpecialities] = useState([]);
+    const [resultList, setResultList] = useState([]);
+    const [specialityID, setSpecialityID] = useState("");
+    const [yearSpecialities, setYearSpecialities] = useState([]);
 
-  const fetchOptions = async () => {
-    const res = await fetch("http://localhost:8080/admin/years");
-    const data = await res.json();
-    console.log("optionsData:" + data);
-    return data;
-  };
-
-  useEffect(() => {
-    const getYearSpecialities = async () => {
-      const resultsFromAPI = await fetchOptions();
-      setYearSpecialities(resultsFromAPI);
-      console.log("specialitiesList:" + yearSpecialities);
+    const fetchOptions = async () => {
+        const res = await fetch("http://localhost:8080/admin/years");
+        const data = await res.json();
+        console.log("optionsData:" + data);
+        return data;
     };
 
-    getYearSpecialities();
-  }, []);
+    useEffect(() => {
+        const getYearSpecialities = async () => {
+            const resultsFromAPI = await fetchOptions();
+            setYearSpecialities(resultsFromAPI);
+            console.log("specialitiesList:" + yearSpecialities);
+        };
 
-  const fetchTasks = async () => {
-    console.log("groupId:" + specialityID);
-    const res = await fetch(
-      `http://localhost:8080/admin/results/?yearSpecialityId=${specialityID}`
-    );
-    const data = await res.json();
-    console.log("data:" + data);
-    return data;
-  };
+        getYearSpecialities();
+    }, []);
 
-  useEffect(() => {
-    const getResults = async () => {
-      const resultsFromAPI = await fetchTasks();
-      setResultList(resultsFromAPI);
-      console.log("resultList:" + resultList);
+    const fetchTasks = async () => {
+        console.log("groupId:" + specialityID);
+        const res = await fetch(
+            `http://localhost:8080/admin/results/?yearSpecialityId=${specialityID}`
+        );
+        const data = await res.json();
+        console.log("data:" + data);
+        return data;
     };
 
-    getResults();
-  }, []);
+    useEffect(() => {
+        const getResults = async () => {
+            const resultsFromAPI = await fetchTasks();
+            setResultList(resultsFromAPI);
+            console.log("resultList:" + resultList);
+        };
 
-  const handleChange = (event) => {
-    setSpecialityID(event.target.value);
-    console.log("value is:", event.target.value);
-  };
+        getResults();
+    }, []);
 
-  const handleClick = async (event) => {
-    event.preventDefault();
-    const resultsFromAPI = await fetchTasks();
-    setResultList(resultsFromAPI);
-    console.log("resultList:" + resultList);
-  };
+    const handleChange = (event) => {
+        setSpecialityID(event.target.value);
+        console.log("value is:", event.target.value);
+    };
 
-  return (
-    <div className="printList">
-      <h3>See student data</h3>
-      <form>
-        <div className="printListInput">
-          {/* <label for="Id"> Year ID:</label>
+    const handleClick = async (event) => {
+        event.preventDefault();
+        const resultsFromAPI = await fetchTasks();
+        setResultList(resultsFromAPI);
+        console.log("resultList:" + resultList);
+    };
+
+    return (
+        <div className="printList">
+            <h3>See student data</h3>
+            <form>
+                <div className="printListInput">
+                    {/* <label for="Id"> Year ID:</label>
           <input
             type="Text"
             id="groupId"
@@ -78,44 +77,44 @@ const PrintList = () => {
             autoComplete="off"
           /> */}
 
-          <Box sx={{ minWidth: 240 }}>
-            <FormControl>
-              {" "}
-              <InputLabel id="demo-simple-select-label" >
-                Specialities
-              </InputLabel>
-              <Select
-                labelId="demo-simple-select-label"
-                id="spec-label-id"
-                value={specialityID}
-                label="Specialities"
-                onChange={handleChange}
-              >
-                {yearSpecialities.map((yearSpeciality) => (
-                  <MenuItem
-                    value={yearSpeciality.yearId}
-                    key={yearSpeciality.yearId}
-                  >
-                    {yearSpeciality.year} {yearSpeciality.speciality}
-                  </MenuItem>
-                ))}
-              </Select>
-            </FormControl>
-          </Box>
+                    <Box sx={{minWidth: 240}}>
+                        <FormControl>
+                            {" "}
+                            <InputLabel id="demo-simple-select-label">
+                                Specialities
+                            </InputLabel>
+                            <Select
+                                labelId="demo-simple-select-label"
+                                id="spec-label-id"
+                                value={specialityID}
+                                label="Specialities"
+                                onChange={handleChange}
+                            >
+                                {yearSpecialities.map((yearSpeciality) => (
+                                    <MenuItem
+                                        value={yearSpeciality.yearId}
+                                        key={yearSpeciality.yearId}
+                                    >
+                                        {yearSpeciality.year} {yearSpeciality.speciality}
+                                    </MenuItem>
+                                ))}
+                            </Select>
+                        </FormControl>
+                    </Box>
+                </div>
+                <button type="submit" className="button" onClick={handleClick}>
+                    Submit
+                </button>
+            </form>
+            <p>
+                {resultList.length > 0 ? (
+                    <ResultList results={resultList}/>
+                ) : (
+                    <h2>Nothing to show</h2>
+                )}
+            </p>
         </div>
-        <button type="submit" className="button" onClick={handleClick}>
-          Submit
-        </button>
-      </form>
-      <p>
-        {resultList.length > 0 ? (
-          <ResultList results={resultList} />
-        ) : (
-          <h2>Nothing to show</h2>
-        )}
-      </p>
-    </div>
-  );
+    );
 };
 
 export default PrintList;
