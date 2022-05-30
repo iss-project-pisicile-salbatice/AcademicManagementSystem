@@ -54,7 +54,7 @@ const PrintList = () => {
           <input
             type="Text"
             id="groupId"
-            placeholder="Group ID..."
+            placeholder="Year ID..."
             onChange={handleChange}
             value={groupId}
             autoComplete="off"
