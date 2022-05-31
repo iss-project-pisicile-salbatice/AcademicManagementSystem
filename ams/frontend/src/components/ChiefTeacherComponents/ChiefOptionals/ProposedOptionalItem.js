@@ -1,5 +1,7 @@
 import React, { useState, useEffect } from 'react';
-import { Checkbox } from '@mui/material';
+import { Checkbox, stepClasses } from '@mui/material';
+import { MenuItem, Box, Select, InputLabel, Divider } from "@mui/material";
+
 
 const ProposedOptionalItem = ({ proposedOptional, toggleAccept }) => {
     const [onToggle, setOnToggle] = useState(false);
@@ -12,16 +14,20 @@ const ProposedOptionalItem = ({ proposedOptional, toggleAccept }) => {
     return (
         <div className="proposedOptionalItem">
             <div className="proposedOptionalData">
-                <h2>{proposedOptional.courseName}</h2>
-                <h4>Taught by: {proposedOptional.teacherName}</h4>
+                <h2>Name: {proposedOptional.courseName}</h2>
+                <h3>Teacher: {proposedOptional.teacherName}</h3>
             </div>
+            <Divider/>
 
             <div className="proposedOptionalCheckbox">
-                <label>Accept optional</label>
+                <InputLabel><b>Accept optional</b></InputLabel>
                 <Checkbox
                     checked={onToggle}
                     onChange={handleChange}
                     inputProps={{ 'aria-label': 'controlled' }}
+                    style={{
+                        transform: "scale(1.2)"
+                    }}
                 />
             </div>
         </div>
