@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import EnrItem from "./EnrItem";
+import "./Optionals.css";
 
 const Enrollments = ({ enrollments }) => {
   const arr1 = new Array();
@@ -11,7 +12,7 @@ const Enrollments = ({ enrollments }) => {
   
   const handleClick = (index) => {
     let newArr = [...isOpen];
-    newArr[index] = !newArr[index];
+    newArr[index] = true;
     setIsOpen(newArr);
   };
   return (

@@ -1,0 +1,35 @@
+.proposedOptionalItem{
+    background: #f4f4f4;
+    margin: 5px;
+    padding: 10px 20px;
+    cursor: pointer;
+    display: flex;
+    justify-content: space-between;
+    flex-wrap: wrap;
+}
+
+.optionalsContainer {
+    text-align: center;
+    width: 45%;
+    align-items: center;
+    margin: 0 auto;
+    color:#130C7D;
+}
+
+.proposedOptionalData{
+    text-align: left;
+    padding-left: 20px;
+}
+
+
+.specialitiesComboBox{
+    text-align: center;
+    width: 43%;
+    align-items: center;
+    margin: 10px auto;
+    display: flex;
+    flex-direction: column;
+    flex-wrap: wrap;
+    background-color: white;
+    padding: 10px 20px
+}

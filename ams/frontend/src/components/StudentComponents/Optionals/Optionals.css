@@ -24,11 +24,8 @@
 }
 
 .enrollmentData {
-  margin: auto 0;
   text-align: left;
-  padding-left: 20px;
   font-size: 20px;
-  width: 100%;
 }
 
 .optionalItem {
@@ -49,4 +46,19 @@
 }
 .check1 {
   display: flex;
+  justify-content: flex-start;
+  margin: 0px;
+}
+
+h1{
+  color: white;
+  text-align: center;
+}
+label{
+
+  margin-top: 18px;
+}
+#check{
+  width: 30px;
+  margin-top: 0px;
 }

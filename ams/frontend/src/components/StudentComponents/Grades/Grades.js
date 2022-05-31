@@ -2,48 +2,47 @@ import React from "react";
 import "../../Components.css";
 import "../Grades/Grades.css";
 import Navbar from "../../Navbar";
-import TeacherTableGrades from "./TeacherTableGrades";
+import TeacherTableGrades from "../../TeacherComponents/TeacherGrades/TeacherTableGrades";
 import { useState, useEffect } from "react";
 
 export default function Grades(props) {
-  const [isOpen, setIsOpen] = useState(false);
-  const [subjects, setSubjects] = useState([]);
   const [values, setValues] = useState([]);
+  const [e1, setE1] = useState([]);
+  const [e2, setE2] = useState([]);
+  const [grades, setGrades] = useState([]);
 
-  const getTeacherSubjects = async () => {
-    var requestOptions = {
-      method: "GET",
-      redirect: "follow",
-    };
-
-    await fetch("http://localhost:8080/teachers/courses/1", requestOptions)
-      .then((response) => response.json())
-      .then((result) => {
-        console.log(result);
-        setSubjects(result);
-      })
-      .catch((error) => console.log("error", error));
-  };
-
+  console.log(12);
   const getStudentGrades = async () => {
     var requestOptions = {
       method: "GET",
       redirect: "follow",
     };
 
-    await fetch("http://localhost:8080/students/courses_year/1", requestOptions)
+    await fetch("http://localhost:8080/students/grades/5", requestOptions)
       .then((response) => response.json())
       .then((result) => {
         setValues(result);
+        if(result.length >= 1){
+          setE1(result[0]);
+          setGrades(result[0].grades);
+
+        }
+        if(result.length==2)
+        {
+          setE2(result[1]);
+          console.log(e2);
+        }
       })
       .catch((error) => console.log("error", error));
   };
 
   useEffect(() => {
-    getTeacherSubjects();
     getStudentGrades();
   }, []);
-
+  console.log(e1);
+  console.log(grades);
+  console.log(e2);
+  console.log(values.length);
 
   return (
     <div>
@@ -53,59 +52,21 @@ export default function Grades(props) {
         imgUser={"userMockUp.png"}
       />{" "}
       <h2 className="pageTitle">Grades</h2>
-      <div>
+      {values.map((value) => (
         <div>
-          {/* <table className="teacherTable">
-            <tbody className="teacherSubjects">
-              {subjects.map((subject) => (
-                <div>
-                  <tr onClick={() => setIsOpen((isOpen) => !isOpen)}>
-                    <td className="teacherTableSquare">
-                      {subject.yearSpeciality}-{subject.courseName}</td>
-                  </tr>
-                  <TeacherTableGrades
-                    open={isOpen}
-                    yearSpeciality={subject.yearSpeciality}
-                  />
-                </div>
-              ))}
-            </tbody>
-          </table> */}
-
-          {/* <table className="teacherTable">
+          <h3>{value.speciality}</h3>
+          <table className="gradesTable">
             <tbody>
-              <tr>
-                <th>Year</th>
-                <th>Name</th>
-                <th>Course</th>
-                <th>Grade</th>
-              </tr>
-              {grades.map((grade) => (
-                <tr className="teacherTableRow">
-                  <td className="teacherTableSquare">
-                    {grade.yearSpeciality[0]}
-                  </td>
-                  <td className="teacherTableSquare">{grade.studentName}</td>
-                  <td className="teacherTableSquare">{grade.courseName}</td>
-                  <td className="teacherTableSquare">
-                    <input type="text" value={grade.grade}></input>
-                  </td>
-                </tr>
-              ))}
+              {grades.map((grade) => {
+                <tr>
+                  <td>{grade.courseName}</td>
+                  <td>{grade.grade}</td>
+                </tr>;
+              })}
             </tbody>
-          </table> */}
+          </table>
         </div>
-        <table>
-          <tbody>
-            {values.map((value) => (
-              <tr>
-                <td>{value.courseName}</td>
-                <td>{value.grade}</td>
-              </tr>
-            ))}
-          </tbody>
-        </table>
-      </div>
+      ))}
     </div>
   );
 }

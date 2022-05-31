@@ -4,8 +4,7 @@ import OptionalsList from "./OptionalsList.js";
 
 const EnrItem = ({ enrollment, open }) => {
   const [optionals, setOptionals] = useState([]);
-  const yId = enrollment.yId;
-
+  const yID = enrollment.yId;
   const getOptionals = async () => {
     var requestOptions = {
       method: "GET",
@@ -13,7 +12,7 @@ const EnrItem = ({ enrollment, open }) => {
     };
 
     fetch(
-      `http://localhost:8080/students/proposed_optionals/${yId}`,
+      `http://localhost:8080/students/proposed_optionals/${yID}`,
       requestOptions
     )
       .then((response) => response.json())
@@ -31,7 +30,7 @@ const EnrItem = ({ enrollment, open }) => {
     <div className="enrollmentData">
       <h4>{enrollment.speciality}</h4>
       <p>Year: {enrollment.year}</p>
-      <OptionalsList optionals={optionals} open={open} />
+      <OptionalsList optionals={optionals} yearSpeciality={yID} open={open} />
     </div>
   );
 };

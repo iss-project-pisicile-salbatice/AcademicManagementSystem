@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { useEffect } from "react";
 import "../../Components.css";
-import "../Grades/Grades.css";
+import "../../StudentComponents/Grades/Grades.css"
 
 export default function TeacherTableGrades({ open, yearSpeciality }) {
   const [grades, setGrades] = useState([]);
