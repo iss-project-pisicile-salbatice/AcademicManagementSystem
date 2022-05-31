@@ -21,7 +21,7 @@ function App() {
       {" "}
       <Routes>
         <Route exact path="/login" element={<LoginForm />} />
-        <Route exact path="/" element={<Menu userName={'Ianis Teja'} role={'Student'} />} />
+        <Route exact path="/" element={<Menu userName={JSON.parse(localStorage.getItem('userToken')).username} role={JSON.parse(localStorage.getItem('userToken')).roles[0]} />} />
         <Route exact path="/enroll" element={<Enroll />} />
         <Route exact path="/grades" element={<Grades />} />
         <Route exact path="/optionals" element={<Optionals />} />
