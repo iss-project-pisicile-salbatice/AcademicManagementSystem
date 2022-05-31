@@ -1,15 +1,15 @@
 import React from "react";
 import Navbar from "../../Navbar";
 
-const Contract = () => (
+export default function Contract() {
+  return (
     <div>
-        <Navbar
-            userName={"Ianis Teja"}
-            role={"Student"}
-            imgUser={"userMockUp.png"}
-        />
-        <h1>Contract</h1>
+      <Navbar
+        userName={"Ianis Teja"}
+        role={"Student"}
+        imgUser={"userMockUp.png"}
+      />
+      <h1>Contract</h1>
     </div>
-)
-
-export default Contract;
+  );
+}

@@ -148,18 +148,6 @@ a:-webkit-any-link {
 }
 
 
-table {
-    border-collapse: collapse;
-    width: 60%;
-    color: white;
-    margin: auto auto;
-}
-
-tr {
-    height: 40px;
-}
-
-
 .userProfileInfoFields {
     width: 20%;
     float: left;

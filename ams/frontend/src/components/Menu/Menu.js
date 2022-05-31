@@ -8,10 +8,12 @@ import {BrowserRouter as Router, Route, Routes} from "react-router-dom";
 import PrintList from "../AdminStaffComponents/PrintList"
 
 export default function Menu({userName, role}) {
-    if (role === 'Student') {
+    const userToken = JSON.parse(localStorage.getItem('userToken'));
+
+    if (role === 'ROLE_STUDENT') {
         return (
             <div>
-                <Navbar userName={userName} role={role} imgUser={'userMockUp.png'}/>
+                <Navbar userName={userName} role={'Student'} imgUser={'userMockUp.png'}/>
                 <div className="components">
                     <MenuBox link={'/enroll'} imgUrl={'enroll.jpg'} title={'Enroll'}/>
                     <MenuBox link={'/optionals'} imgUrl={'optionals.png'} title={'Optionals'}/>
