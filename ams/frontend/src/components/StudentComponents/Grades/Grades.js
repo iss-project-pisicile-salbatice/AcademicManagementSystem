@@ -21,15 +21,19 @@ export default function Grades(props) {
     await fetch("http://localhost:8080/students/grades/5", requestOptions)
       .then((response) => response.json())
       .then((result) => {
+        console.log(result);
         setValues(result);
-        if(result.length >= 1){
+        const arr = new Array();
+        if (result.length >= 1) {
           setE1(result[0]);
+          arr.push(e1.grades);
+          console.log("array",arr);
           setGrades(result[0].grades);
-
         }
-        if(result.length==2)
-        {
+        if (result.length == 2) {
           setE2(result[1]);
+          arr.push(e1.grades);
+          console.log("array",arr);
           console.log(e2);
         }
       })
@@ -39,10 +43,10 @@ export default function Grades(props) {
   useEffect(() => {
     getStudentGrades();
   }, []);
-  console.log(e1);
-  console.log(grades);
-  console.log(e2);
-  console.log(values.length);
+  console.log("e1",e1);
+  console.log("grades:", grades);
+  console.log("e2",e2);
+  console.log("values:", values);
 
   return (
     <div>
@@ -57,12 +61,14 @@ export default function Grades(props) {
           <h3>{value.speciality}</h3>
           <table className="gradesTable">
             <tbody>
-              {grades.map((grade) => {
-                <tr>
-                  <td>{grade.courseName}</td>
-                  <td>{grade.grade}</td>
-                </tr>;
-              })}
+              {grades.map((grade) => (
+                <div>
+                  <tr>
+                    <td>{grade.courseName}</td>
+                    <td>{grade.grade}</td>
+                  </tr>
+                </div>
+              ))}
             </tbody>
           </table>
         </div>

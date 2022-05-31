@@ -43,7 +43,7 @@ export default function Menu({userName, role}) {
                 <Navbar userName={userName} role={role} imgUser={'userMockUp.png'}/>
                 <div className="components">
                     <MenuBox link={'/teacher_propose_optionals'} imgUrl={'optionals.png'} title={'Propose Optionals'}/>
-                   
+                    <MenuBox link={'/teacher_grades'} imgUrl={'grades.jpg'} title={'Grades'}/>
                 </div>
             </div>
         );

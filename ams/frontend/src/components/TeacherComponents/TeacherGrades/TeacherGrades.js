@@ -5,7 +5,7 @@ import Navbar from "../../Navbar";
 import TeacherTableGrades from "../../TeacherComponents/TeacherGrades/TeacherTableGrades";
 import { useState, useEffect } from "react";
 
-export default function Grades(props) {
+export default function TeacherGrades(props) {
   const [isOpen, setIsOpen] = useState(false);
   const [subjects, setSubjects] = useState([]);
 

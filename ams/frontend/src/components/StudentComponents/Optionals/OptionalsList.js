@@ -9,8 +9,7 @@ const OptionalsList = ({ optionals, yearSpeciality, open }) => {
     recievedDate: "2022-10-10",
     receivedTime: "23:12:25",
   });
-  
-  
+
   const setresponse = (name, value) => {
     setBody((oldValues) => ({ ...oldValues, [name]: value }));
   };
@@ -18,12 +17,13 @@ const OptionalsList = ({ optionals, yearSpeciality, open }) => {
   const handleChange = (event, i) => {
     const arr1 = new Array();
     arr1.push(i);
+    console.log("the cID: ", i);
     arr1.push(event.target.value);
     setresponse("ratings", arr1);
-    console.log('the body:',body.ratings);
+    console.log("the body:", body);
     var ok = 0;
     for (var j = 0; j < allPreferfences.length; j++) {
-      console.log(allPreferfences[j].ratings[0]);
+      console.log("234", allPreferfences[j].ratings[0]);
       if (allPreferfences[j].ratings[0] == i) {
         var ok = 1;
         var arr2 = new Array();
@@ -33,7 +33,7 @@ const OptionalsList = ({ optionals, yearSpeciality, open }) => {
       }
     }
     if (ok === 0) {
-      console.log('new');
+      console.log("new");
       var arr2 = new Array();
       arr2 = allPreferfences;
       arr2.push(body);
@@ -41,7 +41,7 @@ const OptionalsList = ({ optionals, yearSpeciality, open }) => {
     }
   };
 
-  const onSubmit = async () => {
+  const postStudentGrades = async () => {
     var myHeaders = new Headers();
     myHeaders.append(
       "Authorization",
@@ -56,12 +56,18 @@ const OptionalsList = ({ optionals, yearSpeciality, open }) => {
     };
     fetch("http://localhost:8080/students/rate_optionals", requestOptions)
       .then((response) => response.text())
-      .then((result) => console.log(result))
+      .then((result) => {
+        console.log("in post: ");
+        console.log(result);
+      })
       .catch((error) => console.log("error", error));
   };
+
   const [allPreferfences, setAllPreferences] = useState([]);
   console.log("sdfasdf", allPreferfences);
-
+  const onSubmit = async () => {
+    allPreferfences.map((pref) => postStudentGrades(pref));
+  };
   if (open == false) {
     return null;
   }

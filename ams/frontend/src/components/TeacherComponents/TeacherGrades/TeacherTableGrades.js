@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { useEffect } from "react";
 import "../../Components.css";
-import "../../StudentComponents/Grades/Grades.css"
+import "../../StudentComponents/Grades/Grades.css";
 
 export default function TeacherTableGrades({ open, yearSpeciality }) {
   const [grades, setGrades] = useState([]);
@@ -11,6 +11,7 @@ export default function TeacherTableGrades({ open, yearSpeciality }) {
     courseID: "2",
     gradeValue: "",
   });
+  const [gradeInputValue, setGradeInputValue] = useState("");
 
   const set = (name) => {
     return ({ target: { value } }) => {
@@ -18,11 +19,10 @@ export default function TeacherTableGrades({ open, yearSpeciality }) {
     };
   };
 
-  const setresponse = (name,value) =>{
-    setGradeValue(oldValues => ({ ...oldValues, [name]: value}))
+  const setresponse = (name, value) => {
+    setGradeValue((oldValues) => ({ ...oldValues, [name]: value }));
   };
 
-  console.log(gradeValue);
   var formdata = new FormData();
   formdata.append("teacherID", "1");
   formdata.append("studentID", "");
@@ -46,8 +46,8 @@ export default function TeacherTableGrades({ open, yearSpeciality }) {
     await fetch("http://localhost:8080/teachers/grades/1", requestOptions)
       .then((response) => response.json())
       .then((result) => {
-        console.log(result[0].grades);
-        setresponse('gradeValue',result[0].grades[1].grade);
+        // console.log(result[0].grades);
+        setresponse("gradeValue", result[0].grades[1].grade);
         setGrades(result[0].grades);
       })
       .catch((error) => console.log("error", error));
@@ -79,6 +79,15 @@ export default function TeacherTableGrades({ open, yearSpeciality }) {
     (grade) => grade.yearSpeciality == yearSpeciality
   );
 
+  const handleChangeGradeInput = (event, studentID, courseID) => {
+    setGradeInputValue(Number(event.target.value));
+    setresponse("studentID", studentID);
+    setresponse("courseID", courseID);
+    setresponse("gradeValue",(Number(event.target.value)));
+    console.log("Grade is:", event.target.value);
+    console.log("gradeInput", gradeInputValue);
+  };
+
   //   console.log(filteredGrades);
 
   if (open == false) {
@@ -93,23 +102,26 @@ export default function TeacherTableGrades({ open, yearSpeciality }) {
   }
   return (
     <div className="studentsList">
-          <form onSubmit={onSubmit}>
-            {filteredGrades.map((grade, index) => (
-              <div className="studentToGrade">
-               {/* <input type="text" value = {grade.studentName} readOnly/> */}
-                <p className="gradeElem">{grade.studentName}</p>
-                <input className = "gradeElem" id = "giveGrade"
-                  type="number"
-                  value={gradeValue.gradeValue}
-                  onChange={
-                    set('gradeValue')
-                    // setresponse('studentID',grade.studentID);
-                  }
-                ></input>
-              </div>
-            ))}
-            <input type="submit"></input>
-          </form>
+      <form onSubmit={onSubmit}>
+        {filteredGrades.map((grade, index) => (
+          <div className="studentToGrade">
+            {/* <input type="text" value = {grade.studentName} readOnly/> */}
+            <p className="gradeElem">{grade.studentName}</p>
+            <input
+              className="gradeElem"
+              id="giveGrade"
+              type="text"
+              onChange={(event) => {
+                handleChangeGradeInput(event, grade.studentID, grade.courseID); // set('gradeValue');
+                console.log(gradeInputValue);
+
+                // setresponse('studentID',grade.studentID);
+              }}
+            ></input>
+          </div>
+        ))}
+        <input type="submit"></input>
+      </form>
     </div>
   );
 }
