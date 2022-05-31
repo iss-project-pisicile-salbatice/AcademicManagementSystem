@@ -84,33 +84,24 @@ const ChiefAcceptedYearOptionals = ({ yearId }) => {
                 }
             })
             .catch((error) => alert(error.message));
-
-        // send here -> /chief/optionals/maximum
-        /*
-      console.log("Save optionals List: " + chosenOptionals);
-
-      chosenOptionals.forEach((proposedOptional) => {
-        var myHeaders = new Headers();
-        myHeaders.append("Content-Type", "text/plain");
-
-        var raw = `{"optionalId":${proposedOptional}}`;
-
-        const requestOptions = {
-          method: "POST",
-          headers: myHeaders,
-          body: raw,
-          redirect: "follow",
-        };
-
-        fetch(`http://localhost:8080/chief/optionals/?optionalId=${proposedOptional}`, requestOptions)
-            .then((response) => response.text())
-            .then((result) => console.log(result))
-            .catch((error) => console.log("error", error));
-      })*/
     };
 
     const assignOptionals = () => {
-        console.log("Assign optionals");
+        fetch(
+            `http://localhost:8080/chief/optionals/assign/${yearId}`
+        )
+            .then(response => response.text())
+            .then((result) => {
+                try {
+                    result = JSON.parse(result);
+                    if (result.status && result.status != 200) {
+                        alert(result.message);
+                    }
+                } catch (e) {
+                    alert("The assign process was successful!");
+                }
+            })
+            .catch((error) => alert(error.message));
     };
 
     return (
@@ -136,7 +127,7 @@ const ChiefAcceptedYearOptionals = ({ yearId }) => {
                 <Button
                     size="large"
                     variant="contained"
-                    onClick={saveSelection}
+                    onClick={assignOptionals}
                     style={{ transform: "scale(1.5)" }}
                 >
                     Assign the current optionals
