@@ -1,7 +1,8 @@
 import React from "react";
 import { useState, useEffect } from "react";
-import { Button, Divider } from "@mui/material";
+import {Box, Button, Divider} from "@mui/material";
 import ChiefAcceptedOptionalsList from "./ChiefAcceptedOptionalsList";
+import './ChiefOptionalsAssign.css'
 
 const ChiefAcceptedYearOptionals = ({ yearId }) => {
     // State for the accepted optionals
@@ -105,14 +106,14 @@ const ChiefAcceptedYearOptionals = ({ yearId }) => {
     };
 
     return (
-        <div>
+        <div className="acceptedOptionalsDiv">
             {acceptedOptionals.length > 0 ? (
                 <ChiefAcceptedOptionalsList
                     acceptedOptionals={acceptedOptionals}
                     changeMaximum={changeMaximum}
                 />
             ) : (
-                "No proposed optionals to show"
+                <h2>No proposed optionals to show</h2>
             )}
             <div className="buttonContainer">
                 <Button
@@ -121,9 +122,9 @@ const ChiefAcceptedYearOptionals = ({ yearId }) => {
                     onClick={saveSelection}
                     style={{ transform: "scale(1.5)" }}
                 >
-                    Accept the maximum number of students
+                    Accept maximum number
                 </Button>
-                <Divider />
+                <Box height={80}/>
                 <Button
                     size="large"
                     variant="contained"

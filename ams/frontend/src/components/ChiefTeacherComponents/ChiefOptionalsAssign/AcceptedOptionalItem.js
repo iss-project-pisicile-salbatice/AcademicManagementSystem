@@ -1,6 +1,7 @@
 import React from "react";
 import { useState, useEffect } from "react";
 import { TextField } from "@mui/material";
+import "./ChiefOptionalsAssign.css"
 
 const AcceptedOptionalItem = ({ acceptedOptionalId, acceptedOptionalName, acceptedOptionalTeacher, changeMaximum }) => {
     const [maximumValue, setMaximumValue] = useState(0);

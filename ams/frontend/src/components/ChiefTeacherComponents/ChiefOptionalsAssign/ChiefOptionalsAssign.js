@@ -40,8 +40,8 @@ const ChiefOptionalsAssign = () => {
                 role={"Chief teacher"}
                 imgUser={"userMockUp.png"}
             />
-            <div>
-                <Box sx={{ minWidth: 120 }}>
+            <div className="mainAcceptedOptionalsDiv">
+                <Box sx={{ width: 400   }}>
                     <InputLabel id="demo-simple-select-label">Specialities</InputLabel>
                     <Select
                         labelId="spec-label"
