@@ -7,6 +7,7 @@ public class BasicDiscipline
 {
     private final Course course;
 
+    private Integer courseId;
     private String courseName;
     private String teacherName;
     protected String yearSpeciality;
@@ -20,10 +21,16 @@ public class BasicDiscipline
 
     private void generateFields()
     {
+        courseId = course.getCourseId();
         courseName = course.getCourseName();
         teacherName = "Prof. " + course.getTeacher().getDegree();
         yearSpeciality = String.valueOf(course.getYear().getYear()) + " " + course.getYear().getSpeciality();
         isOptional = course.isOptional();
+    }
+
+    public Integer getCourseId()
+    {
+        return courseId;
     }
 
     public String getCourseName()

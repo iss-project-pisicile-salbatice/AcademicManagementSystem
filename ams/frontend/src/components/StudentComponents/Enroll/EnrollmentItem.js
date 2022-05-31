@@ -47,7 +47,7 @@ const EnrollmentItem = ({ enrollment, toggleEnroll }) => {
             toggleEnroll(enrollment.yId);
           }}
 
-          // onClick={setOnToggle(!onToggle)}
+        // onClick={setOnToggle(!onToggle)}
         />
       </div>
       {isActive && syllabusList.length > 0 ? (

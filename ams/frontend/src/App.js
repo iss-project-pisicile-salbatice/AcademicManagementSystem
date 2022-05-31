@@ -21,7 +21,7 @@ function App() {
       {" "}
       <Routes>
         <Route exact path="/login" element={<LoginForm />} />
-        <Route exact path="/" element={<Menu userName={'Ianis Teja'} role={'Teacher'} />} />
+        <Route exact path="/" element={<Menu userName={'Ianis Teja'} role={'Chief Teacher'} />} />
         <Route exact path="/enroll" element={<Enroll />} />
         <Route exact path="/grades" element={<Grades />} />
         <Route exact path="/optionals" element={<Optionals />} />

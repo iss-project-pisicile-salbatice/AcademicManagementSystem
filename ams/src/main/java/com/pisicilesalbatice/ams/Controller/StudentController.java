@@ -8,6 +8,7 @@ import com.pisicilesalbatice.ams.Service.EnrollmentService;
 import com.pisicilesalbatice.ams.Service.OptionalService;
 import com.pisicilesalbatice.ams.Service.StudentService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
 import java.sql.Date;
@@ -31,6 +32,7 @@ public class StudentController {
     }
 
     @GetMapping("/students/grades/{id}")
+    @PreAuthorize("hasRole('STUDENT')")
     public List<AdvancedGradeDTO> getGrades(@PathVariable Integer id) {
         var gradeList = studentService.getStudentEnrollments(id).stream().map(BasicGrade::new).collect(Collectors.toSet());
 

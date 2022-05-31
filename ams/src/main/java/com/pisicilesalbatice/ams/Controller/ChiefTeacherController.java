@@ -45,7 +45,7 @@ public class ChiefTeacherController {
         return new BasicAcceptedOptional(chiefOptionalService.acceptOptional(optionalId));
     }
 
-    @PutMapping("/chief/optionals/maximum")
+    @PostMapping("/chief/optionals/maximum")
     public void setMaximumStudentsAll(@RequestBody OptionalsMaximumList optionalsList)
     {
         chiefOptionalService.setMaximumStudentsAll(optionalsList.getYearId(), optionalsList.getOptionalMaximumList().stream()
