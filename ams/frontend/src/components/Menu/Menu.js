@@ -21,12 +21,12 @@ export default function Menu({userName, role}) {
                     <MenuBox link={'/grades'} imgUrl={'grades.jpg'} title={'Grades'}/>
                 </div>
             </div>)
-    } else if (role==="Administrator")  {
+    } else if (role==="ROLE_ADMIN")  {
         return (<div>
             <Navbar userName={userName} role={role} imgUser={'userMockUp.png'}/>
             <PrintList/>
         </div>)
-    } else if (role==="Chief Teacher") {
+    } else if (role==="ROLE_CHIEF_TEACHER") {
         return (
             <div>
                 <Navbar userName={userName} role={role} imgUser={'userMockUp.png'}/>
@@ -39,7 +39,7 @@ export default function Menu({userName, role}) {
             </div>
         );
     }
-    else if (role==="Teacher") {
+    else if (role==="ROLE_TEACHER") {
         return (
             <div>
                 <Navbar userName={userName} role={role} imgUser={'userMockUp.png'}/>

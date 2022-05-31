@@ -75,23 +75,23 @@ const ProfilePage = () => {
           </div>
           <div class="userProfileInfoFieldsData">
             <p>
-              <b>asdf</b>
+              <b>ianisteja@catuni.edu</b>
             </p>
             <br />
             <p>
-              <b>asdf</b>
+              <b>000000000000</b>
             </p>
             <br />
             <p>
-              <b>asdf</b>
+              <b>Computer Science</b>
             </p>
             <br />
             <p>
-              <b>asdf</b>
+              <b>Day form</b>
             </p>
             <br />
             <p>
-              <b>asdf</b>
+              <b>123456789</b>
             </p>
             <br />
           </div>

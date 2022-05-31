@@ -5,7 +5,7 @@ import Navbar from "../../Navbar";
 import TeacherTableGrades from "../../TeacherComponents/TeacherGrades/TeacherTableGrades";
 import { useState, useEffect } from "react";
 
-export default function Grades(props) {
+export default function Grades() {
   const [values, setValues] = useState([]);
   const [e1, setE1] = useState([]);
   const [e2, setE2] = useState([]);
@@ -13,12 +13,17 @@ export default function Grades(props) {
 
   console.log(12);
   const getStudentGrades = async () => {
+    const studentToken = JSON.parse(localStorage.getItem('userToken'));
+
+    console.log(studentToken.accessToken);
+
     var requestOptions = {
       method: "GET",
       redirect: "follow",
+      headers: {Authorization: `Bearer ${studentToken.accessToken}`}
     };
 
-    await fetch("http://localhost:8080/students/grades/5", requestOptions)
+    await fetch(`http://localhost:8080/students/grades/${studentToken.entityId}`, requestOptions)
       .then((response) => response.json())
       .then((result) => {
         setValues(result);
