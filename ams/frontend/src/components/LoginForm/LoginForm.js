@@ -34,7 +34,18 @@ const LoginForm = () => {
 
     fetch("http://localhost:8080/api/auth/signin", requestOptions)
       .then((response) => response.text())
-      .then((result) => console.log(result))
+      .then((result) => {
+        try 
+        {
+          console.log(result);
+          result = JSON.parse(result);
+          localStorage.setItem('userToken', JSON.stringify(result));
+          console.log(result);
+        } catch (e)
+        {
+          console.log("Error");
+        }
+      })
       .catch((error) => console.log("error", error));
   };
 
